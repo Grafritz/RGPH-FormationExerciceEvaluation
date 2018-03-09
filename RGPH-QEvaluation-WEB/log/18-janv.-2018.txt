@@ -1,0 +1,212 @@
+
+Chemin Erreur : 
+01/18/2018 08:48:06
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_TypeModuleListing.aspx. Message Erreur:[Admin ] : Could not find stored procedure 'SP_ListAll_TypeModule'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_TypeModule'.
+   at RGPH_QCOLLECTE_Library.Cls_TypeModule.SearchAll() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeModule.vb:line 166
+   at Frm_TypeModuleListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_TypeModuleListing.aspx.vb:line 177
+ClientConnectionId:80940c13-3598-4b94-a41e-22f916dbe2d3
+Error Number:2812,State:62,Class:16
+__________________________
+
+Chemin Erreur : 
+01/18/2018 10:28:59
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_ModuleADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9804712901629118. Message Erreur:[Admin ] : The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
+   at RGPH_QCOLLECTE_Library.Cls_Module.FoundAlreadyExist_CodeModule(String _value) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 317
+   at RGPH_QCOLLECTE_Library.Cls_Module.Validation() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 365
+   at RGPH_QCOLLECTE_Library.Cls_Module.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 252
+   at Frm_ModuleADD.SAVE_MODULE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_ModuleADD.aspx.vb:line 242
+__________________________
+
+Chemin Erreur : 
+01/18/2018 10:29:21
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_ModuleADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9804712901629118. Message Erreur:[Admin ] : The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
+   at RGPH_QCOLLECTE_Library.Cls_Module.FoundAlreadyExist_CodeModule(String _value) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 317
+   at RGPH_QCOLLECTE_Library.Cls_Module.Validation() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 365
+   at RGPH_QCOLLECTE_Library.Cls_Module.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 252
+   at Frm_ModuleADD.SAVE_MODULE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_ModuleADD.aspx.vb:line 242
+__________________________
+
+Chemin Erreur : 
+01/18/2018 10:29:31
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_ModuleADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9804712901629118. Message Erreur:[Admin ] : The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
+   at RGPH_QCOLLECTE_Library.Cls_Module.FoundAlreadyExist_CodeModule(String _value) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 317
+   at RGPH_QCOLLECTE_Library.Cls_Module.Validation() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 365
+   at RGPH_QCOLLECTE_Library.Cls_Module.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 252
+   at Frm_ModuleADD.SAVE_MODULE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_ModuleADD.aspx.vb:line 242
+__________________________
+
+Chemin Erreur : 
+01/18/2018 10:29:42
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_ModuleADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9804712901629118. Message Erreur:[Admin ] : The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
+   at RGPH_QCOLLECTE_Library.Cls_Module.FoundAlreadyExist_CodeModule(String _value) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 317
+   at RGPH_QCOLLECTE_Library.Cls_Module.Validation() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 365
+   at RGPH_QCOLLECTE_Library.Cls_Module.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 252
+   at Frm_ModuleADD.SAVE_MODULE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_ModuleADD.aspx.vb:line 242
+__________________________
+
+Chemin Erreur : 
+01/18/2018 11:20:29
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_ModuleADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.23339995329817587. Message Erreur:[Admin ] : The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_Select_Module_CodeModule' doesn't exist.
+   at System.Data.SqlClient.SqlCommand.DeriveParameters()
+   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
+   at RGPH_QCOLLECTE_Library.Cls_Module.FoundAlreadyExist_CodeModule(String _value) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 317
+   at RGPH_QCOLLECTE_Library.Cls_Module.Validation() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 365
+   at RGPH_QCOLLECTE_Library.Cls_Module.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Module.vb:line 252
+   at Frm_ModuleADD.SAVE_MODULE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_ModuleADD.aspx.vb:line 242
+__________________________
+
+Chemin Erreur : 
+01/18/2018 14:18:54
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesListing.aspx. Message Erreur:[Admin ] : Could not find stored procedure 'SP_ListAll_Questions_Reponses'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_Questions_Reponses'.
+   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAll() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 422
+   at Frm_Questions_ReponsesListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesListing.aspx.vb:line 177
+ClientConnectionId:1c4bb2b4-9783-427f-8a6a-d04fd2902a53
+Error Number:2812,State:62,Class:16
+__________________________
+
+Chemin Erreur : 
+01/18/2018 14:18:54
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesListing.aspx. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+01/18/2018 15:07:22
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Property accessor 'TypeQuestionSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.'System.Reflection.TargetInvocationException: Property accessor 'TypeQuestionSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.' ---> System.InvalidOperationException: The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.
+   at RGPH_QCOLLECTE_Library.Cls_TypeQuestion.Read(Int64 _idpass) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeQuestion.vb:line 107
+   at RGPH_QCOLLECTE_Library.Cls_TypeQuestion..ctor(Int64 _idOne) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeQuestion.vb:line 29
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_TypeQuestionOBJ() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 192
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_TypeQuestionSTR() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 213
+   --- End of inner exception stack trace ---
+   at System.ComponentModel.ReflectPropertyDescriptor.GetValue(Object component)
+   at Telerik.Web.UI.GridBoundColumn.OnDataBindColumn(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+01/18/2018 15:13:15
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Property accessor 'TypeQuestionSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.'System.Reflection.TargetInvocationException: Property accessor 'TypeQuestionSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.' ---> System.InvalidOperationException: The stored procedure 'SP_Select_TypeQuestion_ByID' doesn't exist.
+   at RGPH_QCOLLECTE_Library.Cls_TypeQuestion.Read(Int64 _idpass) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeQuestion.vb:line 107
+   at RGPH_QCOLLECTE_Library.Cls_TypeQuestion..ctor(Int64 _idOne) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeQuestion.vb:line 29
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_TypeQuestionOBJ() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 192
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_TypeQuestionSTR() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 213
+   --- End of inner exception stack trace ---
+   at System.ComponentModel.ReflectPropertyDescriptor.GetValue(Object component)
+   at Telerik.Web.UI.GridBoundColumn.OnDataBindColumn(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+01/18/2018 15:13:59
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Property accessor 'CaratereAccepteSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'Conversion from string "" to type 'Double' is not valid.'System.Reflection.TargetInvocationException: Property accessor 'CaratereAccepteSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'Conversion from string "" to type 'Double' is not valid.' ---> System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at RGPH_QCOLLECTE_Library.Cls_Contrainte.Read_Code(Int32 Code) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Contrainte.vb:line 145
+   at RGPH_QCOLLECTE_Library.Cls_Contrainte..ctor(Int32 Code) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Contrainte.vb:line 34
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_CaratereAccepteOBJ() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 237
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_CaratereAccepteSTR() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 258
+   --- End of inner exception stack trace ---
+   at System.ComponentModel.ReflectPropertyDescriptor.GetValue(Object component)
+   at Telerik.Web.UI.GridBoundColumn.OnDataBindColumn(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+01/18/2018 15:17:07
+Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Property accessor 'CaratereAccepteSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'Conversion from string "" to type 'Double' is not valid.'System.Reflection.TargetInvocationException: Property accessor 'CaratereAccepteSTR' on object 'RGPH_QCOLLECTE_Library.Cls_Questions' threw the following exception:'Conversion from string "" to type 'Double' is not valid.' ---> System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at RGPH_QCOLLECTE_Library.Cls_Contrainte.Read_Code(Int32 Code) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Contrainte.vb:line 145
+   at RGPH_QCOLLECTE_Library.Cls_Contrainte..ctor(Int32 Code) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Contrainte.vb:line 34
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_CaratereAccepteOBJ() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 237
+   at RGPH_QCOLLECTE_Library.Cls_Questions.get_CaratereAccepteSTR() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 258
+   --- End of inner exception stack trace ---
+   at System.ComponentModel.ReflectPropertyDescriptor.GetValue(Object component)
+   at Telerik.Web.UI.GridBoundColumn.OnDataBindColumn(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 180
+__________________________
