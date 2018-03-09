@@ -47,6 +47,11 @@
     <Content Include="Cls_QuestionFormulaireExercice.vb" />
     <Content Include="Cls_Questions.vb" />
     <Content Include="Cls_Reponses.vb" />
+    <Content Include="Securite\Cls_Activite_Utilisateur.vb" />
+    <Content Include="Securite\Cls_User.vb" />
+    <Content Include="Utilitaire\Cls_Enumeration.vb" />
+    <Content Include="Utilitaire\Cls_SendMail.vb" />
+    <Content Include="Utilitaire\Cls_Statut.vb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\PrincipalClassLibrary.vbproj">

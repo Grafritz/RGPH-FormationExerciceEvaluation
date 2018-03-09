@@ -9,6 +9,7 @@ Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports RGPH_QCOLLECTE_Library
+Imports RGPH_FormationExercice_Library
 
 Partial Class GestionQuestionnaire_Frm_FormulaireCollecteListing
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
@@ -175,10 +176,10 @@ Partial Class GestionQuestionnaire_Frm_FormulaireCollecteListing
 
 #Region "Load DATA"
     Private Sub BindGrid(Optional ByVal _refresh As Boolean = True)
-        Dim objs As List(Of Cls_Question_Module)
+        Dim objs As List(Of Cls_FormulaireExercices)
         Dim _ret As Long = 0
         Try
-            objs = Cls_Question_Module.SearchAll
+            objs = Cls_FormulaireExercices.SearchAll
             rdgQuestion_Module.DataSource = objs
             If _refresh Then
                 rdgQuestion_Module.DataBind()

@@ -171,8 +171,8 @@
                                     <span> App Mobile</span></asp:HyperLink>
                                     <ul class="sub-menu">
                                         <li runat="server" id="li_FormulaireCollecteListing">
-                                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_FormulaireCollecteListing.aspx">
-                                                <i class="fa fa-folder" id="i2" runat="server"></i><span>Formulaire Collecte </span>
+                                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_FormulaireExerciceListing.aspx">
+                                                <i class="fa fa-folder" id="i2" runat="server"></i><span>Formulaire Exercice </span>
                                             </asp:HyperLink>
                                         </li>
                                         <li runat="server" id="li_QuestionsListing">

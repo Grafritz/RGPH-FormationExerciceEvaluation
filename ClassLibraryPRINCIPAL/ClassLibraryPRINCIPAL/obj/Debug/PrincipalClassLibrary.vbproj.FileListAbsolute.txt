@@ -225,7 +225,6 @@ C:\_Travaux\IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibrary
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\bin\Debug\BRAINDClassLibrary.dll
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\bin\Debug\BRAINDClassLibrary.pdb
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\bin\Debug\BRAINDClassLibrary.xml
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\PrincipalClassLibrary.vbprojResolveAssemblyReference.cache
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\BRAIN_DEVLOPMENT.Resources.resources
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\PrincipalClassLibrary.vbproj.GenerateResource.Cache
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\BRAINDClassLibrary.dll
