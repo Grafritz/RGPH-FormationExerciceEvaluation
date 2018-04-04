@@ -2,52 +2,166 @@
     AutoEventWireup="false" CodeFile="Wfrm_User.aspx.vb" Inherits="Parametres_Administration_Wfrm_User" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+        <script type="text/javascript">
+
+            function ShowAddUpdateForm(strPage, tmpW, tmpH) {
+                var oWindow = window.radopen(strPage, "AddUpdateDialog");
+                //oWindow.set_autoSize(true);
+                oWindow.SetSize(tmpW, tmpH);
+                document.getElementById("txtWindowPage").value = strPage;
+                if (oWindow) {
+                    if (!oWindow.isClosed()) {
+                        oWindow.center();
+                        var bounds = oWindow.getWindowBounds();
+                        oWindow.moveTo(bounds.x + 'px', "50px");
+                    }
+                }
+                return false;
+            }
+
+            function ShowAddUpdateFormMaximized(strPage, tmpW, tmpH) {
+                var oWindow = window.radopen(strPage, "AddUpdateDialog");
+                oWindow.SetSize(tmpW, tmpH);
+                document.getElementById("txtWindowPage").value = strPage;
+                if (oWindow) {
+                    if (!oWindow.isClosed()) {
+                        oWindow.center();
+                        var bounds = oWindow.getWindowBounds();
+                        oWindow.moveTo(bounds.x + 'px', "50px");
+                    }
+                }
+                oWindow.maximize();
+                return false;
+            } // 
+
+            function ShowAddUpdateFormAutoSize(strPage, tmpW, tmpH) {
+                var oWindow = window.radopen(strPage, "AddUpdateDialog");
+                oWindow.set_autoSize(true);
+                document.getElementById("txtWindowPage").value = strPage;
+                if (oWindow) {
+                    if (!oWindow.isClosed()) {
+                        oWindow.center();
+                        var bounds = oWindow.getWindowBounds();
+                        oWindow.moveTo(bounds.x + 'px', "50px");
+                    }
+                }
+                return false;
+            }
+            function RadWindowClosing() {
+                //$find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
+            }
+
+            function RadWindowClientResizeEnd() {
+                var manager = GetRadWindowManager();
+                var window1 = manager.getActiveWindow();
+                window1.center();
+                var bounds = window1.getWindowBounds();
+                window1.moveTo(bounds.x + 'px', "50px");
+            }
+
+            function refreshMe() {
+                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
+            }
+            function refreshPlan() {
+                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("ReloadPlan");
+            }
+
+        </script>
+    </telerik:RadCodeBlock>
+
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings>
+            <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Produits" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="Panel_PlanBox" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="RadGrid_Plan">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid_Plan" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="rdgSR_PRIVILEGE_SERVICES">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="rdgSR_PRIVILEGE_SERVICES" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+
+            <%--<telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid_1" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>--%>
+            <%--<telerik:AjaxSetting AjaxControlID="CBX_IsInAnnonce">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="DDL_Utilisateur" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="DDL_Utilisateur">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid_1" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>--%>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
+
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" />
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel2" runat="server" />
+    <input type="hidden" id="radGridClickedRowIndex" name="radGridClickedRowIndex" />
+    <input id="Hidden1" type="hidden" />
     <section class="content-header">
         <h1>
+            <i class="fa fa-users"></i>
             <asp:Label ID="Label_Titre" runat="server" Text="UTILISATEURS " />
-            <small> <asp:Label ID="LabelNumeroDeReference" runat="server" /></small>
-                        <asp:LinkButton ID="LinkButton_AddNew" runat="server"  CausesValidation="false" 
-                        CssClass="btn btn-info"><i class="fa fa-plus-square"></i> Nouveau</asp:LinkButton>
+            <small>
+                <asp:Label ID="LabelNumeroDeReference" runat="server" /></small>
+            <asp:LinkButton ID="LinkButton_AddNew" runat="server" CausesValidation="false"
+                CssClass="btn btn-info"><i class="fa fa-plus-square"></i> Nouveau</asp:LinkButton>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
             <li class="active">Utilisateur</li>
         </ol>
-     </section>
+    </section>
     <section class="content" style="padding-top: 0px;">
-    <div id="Div_CorpsFille">
-        <!-- DEBUT FORMAT TEXT AREA -->
-        <script type="text/javascript" src="../../JavaScript/tiny_mce/tiny_mce.js"></script>
-        <script language="javascript" type="text/javascript">
-            // Tiny MCE Pour les textareas
-            tinyMCE.init({
-                mode: "textareas",
-                theme: "advanced",
-                //theme_advanced_buttons1: "BtnNameDest,|,bold,italic,underline,separator,strikethrough,|,forecolor,backcolor,|,justifyleft,justifycenter,justifyright, justifyfull,|,bullist,numlist,|,undo,redo,|,link,unlink",
-                theme_advanced_buttons1: "BtnNameDest,|,bold,italic,underline,strikethrough,|,forecolor,backcolor,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect|,bullist,numlist,undo,redo,link,unlink,||,emotions,iespell,media,advhr",
-                theme_advanced_buttons2: "",
-                theme_advanced_buttons3: "",
-                theme_advanced_toolbar_location: "top",
-                theme_advanced_toolbar_align: "left",
-                theme_advanced_statusbar_location: "bottom",
-                plugins: 'inlinepopups',
-                setup: function (ed) {
-                    // Add a custom button
-                    ed.addButton('BtnNameDest', {
-                        title: 'Ajouter le Nom du destinataire',
-                        image: '../Images/user_.png',
-                        onclick: function () {
-                            // Add you own code to execute something on click
-                            ed.focus();
-                            ed.selection.setContent('_NOMCOMPLET');
-                        }
-                    });
-                }
-            });
-        </script>
-        <%--<ajaxToolkit:ToolkitScriptManager runat="Server" AsyncPostBackTimeout="600" EnablePartialRendering="true"
+        <div id="Div_CorpsFille">
+            <!-- DEBUT FORMAT TEXT AREA -->
+            <script type="text/javascript" src="../JavaScript/tiny_mce/tiny_mce.js"></script>
+            <script language="javascript" type="text/javascript">
+                // Tiny MCE Pour les textareas
+                tinyMCE.init({
+                    mode: "textareas",
+                    theme: "advanced",
+                    //theme_advanced_buttons1: "BtnNameDest,|,bold,italic,underline,separator,strikethrough,|,forecolor,backcolor,|,justifyleft,justifycenter,justifyright, justifyfull,|,bullist,numlist,|,undo,redo,|,link,unlink",
+                    theme_advanced_buttons1: "BtnNameDest,|,bold,italic,underline,strikethrough,|,forecolor,backcolor,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect|,bullist,numlist,undo,redo,link,unlink,||,emotions,iespell,media,advhr",
+                    theme_advanced_buttons2: "",
+                    theme_advanced_buttons3: "",
+                    theme_advanced_toolbar_location: "top",
+                    theme_advanced_toolbar_align: "left",
+                    theme_advanced_statusbar_location: "bottom",
+                    plugins: 'inlinepopups',
+                    setup: function (ed) {
+                        // Add a custom button
+                        ed.addButton('BtnNameDest', {
+                            title: 'Ajouter le Nom du destinataire',
+                            image: '../Images/user_.png',
+                            onclick: function () {
+                                // Add you own code to execute something on click
+                                ed.focus();
+                                ed.selection.setContent('_NOMCOMPLET');
+                            }
+                        });
+                    }
+                });
+            </script>
+            <%--<ajaxToolkit:ToolkitScriptManager runat="Server" AsyncPostBackTimeout="600" EnablePartialRendering="true"
             EnableScriptGlobalization="true" EnableScriptLocalization="true" ID="ScriptManager1" />--%>
-        <%--<asp:UpdatePanel ID="UpdatePanel_First" runat="server">
+            <%--<asp:UpdatePanel ID="UpdatePanel_First" runat="server">
             <ContentTemplate>
                     <div style="display: inline; float: left; padding-right: 10px;">
                         <asp:UpdateProgress ID="updProgHeader" runat="server" AssociatedUpdatePanelID="UpdatePanel_First">
@@ -60,377 +174,703 @@
                     </div>
             </ContentTemplate>
         </asp:UpdatePanel>--%>
-                <Msg:msgBox ID="Dialogue" runat="server" />
-                <asp:Panel runat="server" ID="Panel_Msg" Visible="false">
-                    <div class="alert alert-warning">
-                        <asp:Image ID="Image_Msg" runat="server" />
-                        <asp:Label ID="Label_Msg" runat="server" Text=""></asp:Label>
-                    </div>
-                </asp:Panel>
-                <asp:Panel runat="server" ID="Panel_First2">
-                    <br style="clear: both;" />
-                    <div id="Div_First">
-                        <asp:Panel ID="Panel_First" runat="server">
-                            <div runat="server" id="TABLEAU_ADD">
-                                <fieldset class="_fieldset">                                   
-                                    <table style="width: 100%;" align="center">
-                                        <tr>
-                                            <td style="text-align: center; vertical-align: top;" rowspan="12">
-                                                <asp:Image ID="Image_participant" runat="server" ImageUrl="~/images/no-avatar.jpg"
-                                                    CssClass="img-circle" Width="100px" />
-                                                <br />
-                                            </td>
-                                            <tr runat="server" id="TR_EmailString">
-                                                <td style="white-space: nowrap;" colspan="2">
-                                                    <div class="alert alert-info alert-dismissable">
-                                                        <i class="fa fa-info"></i>
-                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                                            &times;</button>
-                                                        <table style="width: 100%;">
-                                                            <tr>
-                                                                <td style="text-align: right">
-                                                                    <asp:Label ID="Label5" runat="server" CssClass="ClassLabel" Text="Last login:" />
-                                                                </td>
-                                                                <td>
-                                                                    <asp:Label ID="LabelLastlogin" runat="server" CssClass="ClassLabel" Text="" />
-                                                                </td>
-                                                                <td style="text-align: right">
-                                                                    <asp:Label ID="Labelq7" runat="server" CssClass="ClassLabel" Text="Last IP:" />
-                                                                </td>
-                                                                <td>
-                                                                    <asp:Label ID="LabelLastip" runat="server" CssClass="ClassLabel" Text="" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="true"
-                                                        ShowSummary="true" CssClass="alert alert-warning" />
-                                                </td>
-                                            </tr>
-                                        </tr>
-                                        <tr runat="server" visible="true" id="TRtxtEmailCompte" class="alert alert-info alert-dismissable">
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label7" runat="server" CssClass="ClassLabel" Text="Email/Compte" Style="font-weight: 700"></asp:Label>
+            <Msg:msgBox ID="Dialogue" runat="server" />
+            <asp:Panel runat="server" ID="Panel_Msg" Visible="false">
+                <div id="DIV_Msg" runat="server" class="alert alert-warning alert-dismissable">
+                    <i id="Icon_Msg" runat="server" class="fa fa-warning"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <asp:Image ID="Image_Msg" runat="server" />
+                    <asp:Label ID="Label_Msg" runat="server" Text=""></asp:Label>
+                </div>
+            </asp:Panel>
+            <asp:Panel runat="server" ID="Panel_First2">
+                <br style="clear: both;" />
+                <div id="Div_First">
+                    <asp:Panel ID="Panel_First" runat="server">
+                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="true"
+                            ShowSummary="true" CssClass="alert alert-warning" />
+                        <div runat="server" id="TABLEAU_ADD">
+                            <div class="panel panel-default panel-body">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="col-sm-1">
+                                            <asp:Image ID="Image_participant" runat="server" ImageUrl="~/images/no-avatar.jpg"
+                                                CssClass="img-circle" Width="90px" />
+                                        </div>
+                                        <div class="col-sm-6" runat="server" visible="true" id="TRtxtEmailCompte">
+                                            <label>
+                                                <asp:Label ID="Label5" runat="server" CssClass="ClassLabel" Text="Email/Compte" Style="font-weight: 700"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtEmailCompte"
                                                     Display="Dynamic" ErrorMessage="Email / Compte obligatoire !" SetFocusOnError="true">*</asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="REVtxtEmail" runat="server" ControlToValidate="txtEmailCompte"
                                                     ErrorMessage="Email incorrete - le format doit etre: monemail@nomdomaine.ext"
                                                     SetFocusOnError="True" Display="Dynamic" Text="*" ValidationExpression="^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$" />
-                                            </td>
-                                            <td>
-                                                <telerik:RadTextBox ID="txtEmailCompte" runat="server" Width="95%" CssClass="form-control">
-                                                </telerik:RadTextBox>
-                                            </td>
-                                        </tr>
-                                        <tr runat="server" visible="true" id="TR_MotdePasse" class="alert alert-info alert-dismissable">
-                                            <td class="TextAlignRight" style="text-align: right; vertical-align:text-top;">
-                                                <asp:Label ID="Label2" runat="server" Text="Mot de passe" Style="font-weight: 700"></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:TextBox ID="txt_ID" runat="server" Visible="false" Width="10px" />
-                                                <telerik:RadTextBox ID="txt_MotdePasse" runat="server" TextMode="Password" CssClass="form-control"
-                                                    Width="200px" style="float:left;" > </telerik:RadTextBox>&nbsp;
-                                                <telerik:RadButton ID="Btn_Reset_MotdePasse" runat="server" 
-                                                    Icon-PrimaryIconUrl="~/images/view-refresh.png" Text="Reset">
-                                                </telerik:RadButton><br />
-                                                <asp:CheckBox ID="CBXMustChangePassword" runat="server"  Text="Forcer à changer son mot de passe" /><br />
-                                                <asp:CheckBox ID="CBXGenererLeMotDePasse" runat="server"  Text="Générer le mot de passe" />
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label8" runat="server" CssClass="ClassLabel" Text="Photo"></asp:Label>
-                                                <asp:RequiredFieldValidator ID="RFVFileUpload_Photo" runat="server" ControlToValidate="FileUpload1"
-                                                    Display="Dynamic" ErrorMessage="Téléchargez le logo à partir de votre ordinateur.&lt;br /&gt;-La taille ne doit pas dépassée &lt;b&gt;50Kb&lt;/b&gt;.&lt;br /&gt;&lt;a href='#' class='LinkSite' target='_blank'&gt;&lt;i&gt;Technique pour compresser une Image&lt;/i&gt;&lt;/a&gt;."
-                                                    SetFocusOnError="True" Style="color: #FF0000" Text="*" ValidationGroup="GPSavePH" />
-                                              
-                                            </td>
-                                            <td>
-                                                <asp:FileUpload ID="FileUpload1" runat="server" CssClass="ComboField" Style="float: left;" />
-                                                <telerik:RadButton ID="Btn_ChargerPhoto" runat="server" Icon-PrimaryHoveredIconUrl="~/images/save2.png"
-                                                    Icon-PrimaryIconUrl="~/images/photo.png" Text="..." ToolTip="Changer le photo du participant">
-                                                </telerik:RadButton>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label9" runat="server" CssClass="ClassLabel" Text="Nom" ></asp:Label>
-                                                <asp:RequiredFieldValidator ID="RFVtxtNom" runat="server" ControlToValidate="txtNom"
-                                                    Display="Dynamic" ErrorMessage="Nom obligatoire !" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-                                             
-                                            </td>
-                                            <td>
-                                                <telerik:RadTextBox ID="txtNom" runat="server" Width="95%" CssClass="form-control">
-                                                </telerik:RadTextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label11" runat="server" CssClass="ClassLabel" Text="Prénom"></asp:Label>
+                                            </label>
+                                            <telerik:RadTextBox ID="txtEmailCompte" placeholder="Compte utilisateur/Email" runat="server" Width="100%" CssClass="form-control">
+                                            </telerik:RadTextBox>
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                        <div class="col-sm-5" runat="server" visible="true" id="TR_MotdePasse">
+                                            <label>
+                                                Mot de passe</label>
+                                            <telerik:RadTextBox ID="txt_MotdePasse" runat="server" placeholder="Mot de Passe" TextMode="Password" CssClass="form-control"
+                                                Width="90%">
+                                            </telerik:RadTextBox>
+                                            <asp:LinkButton ID="Btn_Reset_MotdePasse2" runat="server" CssClass="btn btn-sm btn-warning">
+                                             <i class="fa fa-refresh" ></i> </asp:LinkButton>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <label>
+                                                <asp:Label ID="Label1" runat="server" CssClass="ClassLabel" Text="Prénom"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="RFVtxtPrenom" runat="server" ControlToValidate="txtPrenom"
                                                     ErrorMessage="Prénom obligatoire !" Display="Dynamic" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-                                              
-                                            </td>
-                                            <td>
-                                                <telerik:RadTextBox ID="RadTextBox1" runat="server" Text="0" Visible="false" Width="0px">
-                                                </telerik:RadTextBox>
-                                                <telerik:RadTextBox ID="txtPrenom" runat="server" Width="95%" CssClass="form-control">
-                                                </telerik:RadTextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label13" runat="server" CssClass="ClassLabel" Text="Téléphone"></asp:Label>
-                                                <asp:RequiredFieldValidator ID="RFVtxtTelephone" runat="server" ControlToValidate="txtTelephone"
+                                                <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender2" runat="Server" HighlightCssClass="validatorCalloutHighlight"
+                                                    TargetControlID="RFVtxtPrenom" PopupPosition="TopLeft" />
+                                            </label>
+                                            <telerik:RadTextBox ID="txt_ID" runat="server" Text="0" Visible="false" Width="0px">
+                                            </telerik:RadTextBox>
+                                            <telerik:RadTextBox ID="txtPrenom" runat="server" placeholder="Prénom" Width="100%" CssClass="form-control">
+                                            </telerik:RadTextBox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>
+                                                Nom
+                                                    <asp:RequiredFieldValidator ID="RFVtxtNom" runat="server" ControlToValidate="txtNom"
+                                                        Display="Dynamic" ErrorMessage="Nom obligatoire !" SetFocusOnError="true">*</asp:RequiredFieldValidator>
+                                                <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender3" runat="Server" HighlightCssClass="validatorCalloutHighlight"
+                                                    TargetControlID="RFVtxtNom" PopupPosition="TopLeft" />
+                                            </label>
+                                            <telerik:RadTextBox ID="txtNom" runat="server" placeholder="Nom" Width="100%" CssClass="form-control">
+                                            </telerik:RadTextBox>
+                                        </div>
+                                        <div class="col-sm-3" runat="server" visible="true" id="TR_MotdePasse2">
+                                            <asp:CheckBox ID="CBXMustChangePassword" runat="server" CssClass="text-red" Text="Forcer à changer son mot de passe" /><br />
+                                            <asp:CheckBox ID="CBXGenererLeMotDePasse" runat="server" CssClass="text-yellow" Text="Générer le mot de passe" />
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-1">
+                                            <label>
+                                                Photo
+                                                    <asp:RequiredFieldValidator ID="RFVFileUpload_Photo" runat="server" ControlToValidate="FileUpload1"
+                                                        Display="Dynamic" ErrorMessage="Téléchargez le logo à partir de votre ordinateur.&lt;br /&gt;-La taille ne doit pas dépassée &lt;b&gt;50Kb&lt;/b&gt;.&lt;br /&gt;&lt;a href='#' class='LinkSite' target='_blank'&gt;&lt;i&gt;Technique pour compresser une Image&lt;/i&gt;&lt;/a&gt;."
+                                                        SetFocusOnError="True" Style="color: #FF0000" Text="*" ValidationGroup="GPSavePH" />
+                                                <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender34" runat="server" Enabled="True"
+                                                    HighlightCssClass="validatorCalloutHighlight" TargetControlID="RFVFileUpload_Photo"
+                                                    PopupPosition="TopLeft" />
+                                            </label>
+                                            <asp:FileUpload ID="FileUpload1" Width="100%" runat="server" CssClass="form-control" />
+                                            <asp:LinkButton ID="Btn_ChargerPhoto" Visible="false" runat="server" CssClass="btn btn-sm btn-success">
+                                                    <i class="fa fa-camera-retro" ></i> </asp:LinkButton>
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>
+                                                <asp:Label ID="Label4" runat="server" CssClass="ClassLabel" Text="Téléphone"></asp:Label>
+                                                <%--<asp:RequiredFieldValidator ID="RFVtxtTelephone" runat="server" ControlToValidate="txtTelephone"
                                                     ErrorMessage="Téléphone obligatoire !" Display="Dynamic" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-                                             
-                                            </td>
-                                            <td>
-                                                <telerik:RadTextBox ID="txtTelephone" runat="server" Width="280px" CssClass="form-control">
-                                                </telerik:RadTextBox>
-                                                <asp:CheckBox ID="CBXActifyn" runat="server" Checked="true" Text="Actif Y/N" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="" colspan="2">
-                                                <hr style="margin:2px;" /> 
-                                                <asp:CheckBox ID="CBX_SendAccountAndPassword" runat="server" style="font-size:12px;display:block; color:Red;"  Text=" Envoyer par email les informations du compte à l'utilisateur et une copie a moi." />
-                                            </td>
-                                        </tr>
-                                        <tr runat="server" visible="true" id="TRGroupeUtilisateur">
-                                            <td style="text-align: right">
-                                                <asp:Label ID="Label15" runat="server" CssClass="ClassLabel" Text="Groupe"></asp:Label>
+                                                <asp:ValidatorCalloutExtender ID="ValidatorCalloutExtender4" runat="Server" HighlightCssClass="validatorCalloutHighlight"
+                                                    TargetControlID="RFVtxtTelephone" PopupPosition="TopLeft" />--%>
+                                            </label>
+                                            <telerik:RadTextBox ID="txtTelephone" runat="server" placeholder="Téléphone" Width="100%" CssClass="form-control">
+                                            </telerik:RadTextBox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Sexe :</label>
+                                            <asp:DropDownList ID="DDL_Sexe" runat="server" Width="100%" CssClass="form-control">
+                                                <asp:ListItem Text="Masculin" Value="M" />
+                                                <asp:ListItem Text="Féminin" Value="F" />
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Poste</label>
+                                            <telerik:RadComboBox ID="RCBPoste" runat="server" CssClass="form-control" EmptyMessage="Sélectionnez ou tapez le poste ici"
+                                                EnableLoadOnDemand="True" EnableVirtualScrolling="True" ShowMoreResultsBox="True"
+                                                Sort="Ascending" Skin="MetroTouch" ToolTip="Sélectionnez ou tapez le poste" Width="100%">
+                                            </telerik:RadComboBox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label>
+                                                Pays
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1DDL_Pays" runat="server" ControlToValidate="DDL_Pays"
+                                    ErrorMessage="Pays obligatoire" InitialValue="0" SetFocusOnError="true" Text="*"
+                                    ValidationGroup="GPSave" />
+                                                <ajaxToolkit:ValidatorCalloutExtender runat="Server" ID="ValidatorCalloutExtender10"
+                                                    TargetControlID="RequiredFieldValidator1DDL_Pays" HighlightCssClass="validatorCalloutHighlight" />
+                                            </label>
+                                            <asp:DropDownList ID="DDL_Pays" runat="server" CssClass="select2 form-control" Width="100%"
+                                                AutoPostBack="true">
+                                                <asp:ListItem Value="0" Text="- Selectionner votre pays -" />
+                                                <asp:ListItem Value="1" Text="HAITI" />
+                                                <asp:ListItem Value="2" Text="Autres" />
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-sm-4" runat="server" id="TR_Departement" visible="false">
+                                            <label>
+                                                Département
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorDDL_Departement6" runat="server"
+                                    ControlToValidate="DDL_Departement" ErrorMessage="Département obligatoire" InitialValue="0"
+                                    SetFocusOnError="true" Text="*" ValidationGroup="GPSave"></asp:RequiredFieldValidator>
+                                                <ajaxToolkit:ValidatorCalloutExtender runat="Server" ID="ValidatorCalloutExtender11"
+                                                    TargetControlID="RequiredFieldValidatorDDL_Departement6" HighlightCssClass="validatorCalloutHighlight" />
+                                            </label>
+                                            <asp:DropDownList ID="DDL_Departement" AutoPostBack="true" runat="server" CssClass="select2 form-control"
+                                                Width="100%">
+                                                <asp:ListItem Value="0">- Département - </asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-sm-4" id="TR_Commune" runat="server" visible="false">
+                                            <label>
+                                                Ville/Commune
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorDDL_Commune3" runat="server"
+                                    ControlToValidate="DDL_Commune" ErrorMessage="Commune obligatoire" InitialValue="0"
+                                    SetFocusOnError="true" Text="*" ValidationGroup="GPSave"></asp:RequiredFieldValidator>
+                                                <ajaxToolkit:ValidatorCalloutExtender runat="Server" ID="ValidatorCalloutExtender12"
+                                                    TargetControlID="RequiredFieldValidatorDDL_Commune3" HighlightCssClass="validatorCalloutHighlight" />
+                                            </label>
+                                            <asp:DropDownList ID="DDL_Commune" runat="server" CssClass="select2 form-control" Width="100%">
+                                                <asp:ListItem Value="0">- Ville / Commune - </asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label>Adresse</label>
+                                            <asp:TextBox ID="txt_Adresse" runat="server" Width="100%" CssClass="form-control" />
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>
+                                                Etablissement:
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddl_Ecole"
+                                                    ErrorMessage="Pays obligatoire" InitialValue="0" SetFocusOnError="true" Text="*"
+                                                    ValidationGroup="GPSave" />
+                                            </label>
+                                            <asp:DropDownList ID="ddl_Ecole" runat="server" CssClass="select2 form-control" Width="100%">
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-sm-4" runat="server" visible="true" id="TRGroupeUtilisateur">
+                                            <label>
+                                                <asp:Label ID="Label14" runat="server" CssClass="ClassLabel" Text="Groupe"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="DDLGroupeUtilisateur"
                                                     InitialValue="0" Display="Dynamic" ErrorMessage="Groupe obligatoire" Text="*" />
                                                 <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator3" runat="server"
                                                     ControlToValidate="DDLGroupeUtilisateur" ErrorMessage="Groupe obligatoire" Text="*" />
-                                            </td>
-                                            <td>
-                                                <telerik:RadComboBox ID="DDLGroupeUtilisateur" runat="server" Width="280px">
-                                                    <Items>
-                                                        <telerik:RadComboBoxItem runat="server" Text="Secretaire de réunion" Value="2" />
-                                                        <telerik:RadComboBoxItem runat="server" Selected="True" Text="Participant" Value="3" />
-                                                        <telerik:RadComboBoxItem runat="server" Text="President de réunion" Value="4" />
-                                                    </Items>
-                                                </telerik:RadComboBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left">
-                                              
-                                            </td>
-                                            <td style="text-align: left">
-                                                <telerik:RadButton ID="Btn_Save" runat="server" Icon-PrimaryHoveredIconUrl="~/images/save2.png"
-                                                    Icon-PrimaryIconUrl="~/images/save.png" Text="Enregistrer">
-                                                </telerik:RadButton>                                                
+                                            </label>
+                                            <telerik:RadComboBox ID="DDLGroupeUtilisateur" Skin="MetroTouch" runat="server" Width="100%">
+                                                <Items>
+                                                    <telerik:RadComboBoxItem runat="server" Text="Secretaire de réunion" Value="2" />
+                                                    <telerik:RadComboBoxItem runat="server" Selected="True" Text="Participant" Value="3" />
+                                                    <telerik:RadComboBoxItem runat="server" Text="President de réunion" Value="4" />
+                                                </Items>
+                                            </telerik:RadComboBox>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <asp:CheckBox ID="CBXActifyn" runat="server" Checked="true" Visible="true" Text="Actif Y/N" />
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                        <div class="col-sm-9">
+                                            <asp:CheckBox ID="CBX_SendAccountAndPassword" runat="server" CssClass="text-green" Text=" Envoyer par email les informations du compte à l'utilisateur et une copie a moi." />
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label>IdFirebaseToken:</label>
+                                            <asp:Label ID="labelIdFirebaseToken" runat="server" Width="100%" CssClass="form-control;" />
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <div class="box-footer" style="text-align: center;">
+                                    <br />
+                                    &nbsp;
+                                        <asp:LinkButton ID="Btn_Save" runat="server" CssClass="btn btn-primary">
+                                            <i class="fa fa-save" ></i> Enregistrer
+                                        </asp:LinkButton>
+                                    &nbsp;
+                                        <asp:LinkButton ID="Btn_Reset_MotdePasse" runat="server" CssClass="btn btn-warning">
+                                             <i class="fa fa-refresh" ></i> Reset Mot de Passe
+                                        </asp:LinkButton>
+                                    &nbsp;
                                         &nbsp;
-                                                <telerik:RadButton ID="Btn_Annuler" runat="server" 
-                                                    Icon-PrimaryIconUrl="~/images/cancel.png" Text="Annuler" CausesValidation="false">
-                                                </telerik:RadButton>
-                                        
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
+                                        <asp:LinkButton ID="Btn_Annuler" runat="server" CssClass="btn btn-danger" CausesValidation="false">
+                                            <i class="fa fa-reply-all" ></i> Annuler
+                                        </asp:LinkButton>
+                                    &nbsp;
+                                </div>
+                                <!-- /.box-footer-->
                             </div>
-                        </asp:Panel>
-                    </div>
-                    <!-- DEBUT Notification Send Email -->
-                    <asp:Panel ID="Panel_NotificationSendEmail" Visible="false" runat="server" Style="border: 1px solid #6699FF;
-                        background-color: #FFFFFF; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;">
-                        <div id="HeaderModalPopUp" runat="server" class="accordionHeader" style="text-align: left;">
-                            <asp:Label ID="LabelNotification_STR" runat="server" Text='Notification Utilisateur' /></b>
-                            <asp:Button ID="ButtonCancel" Style="float: right;" CssClass="BtnCancel" runat="server"
-                                Text="Fermer" />
-                        </div>
-                        <div style="background-color: #E1F0FF;">
-                            <div style="text-align: left;">
-                                <asp:Panel runat="server" ID="PanelMsg" Visible="false">
-                                    <div class="Classe_Msg">
-                                        <asp:Image ID="ImageMsg" runat="server" />
-                                        <asp:Label ID="LabelMsg" runat="server" Text="" />
+                            <div style="clear: both;"></div>
+                            <hr />
+                            <!-- Références -->
+                            <%--<asp:Panel class="box box-warning" runat="server" ID="Panel_PlanBox">
+                                <asp:Panel class="box-header" runat="server" ID="PanelHeader_Plan">
+                                    <h3 class="box-title">
+                                        <i class="fa fa-briefcase"></i>
+                                        <asp:Label ID="LabelTitrePlan" runat="server" Text="Plans" />
+                                    </h3>
+                                    <div class="box-tools pull-right">
+                                        <asp:Label ID="LabelHeader_Plan" runat="server" Text="(Cliquer pour afficher form...)"></asp:Label>&nbsp;<asp:ImageButton
+                                            ID="ImageButton_Plan" runat="server" ImageUrl="~/images/expand.jpg" AlternateText="(Cliquer pour afficher form...)" />
                                     </div>
                                 </asp:Panel>
-                                <table style="width: 100%; margin: 10px;">
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="Label10" runat="server" Style="font-weight: 700">Votre Email(From) :</asp:Label><br />
-                                            <asp:TextBox ID="Txt_VotreEmail" runat="server" CssClass="TextField" Width="95%" />
-                                            <asp:RequiredFieldValidator ID="RFVTxt_VotreEmail" runat="server" ControlToValidate="Txt_VotreEmail"
-                                                ErrorMessage="Votre Email est obligatoire" SetFocusOnError="True" Text="*" ValidationGroup="GPSendNotification"
-                                                Style="color: #FF0000"></asp:RequiredFieldValidator><ajaxToolkit:ValidatorCalloutExtender
-                                                    ID="ValidatorCalloutExtender15" runat="Server" HighlightCssClass="validatorCalloutHighlight"
-                                                    TargetControlID="RFVTxt_VotreEmail" />
-                                            <asp:RegularExpressionValidator ID="REVTxt_VotreEmail" runat="server" ControlToValidate="Txt_VotreEmail"
-                                                ErrorMessage="Email incorrete - le format doit etre: monemail@nomdomaine.ext"
-                                                SetFocusOnError="True" Text="*" ValidationExpression="^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
-                                                ValidationGroup="GPSendNotification"></asp:RegularExpressionValidator><ajaxToolkit:ValidatorCalloutExtender
-                                                    ID="ValidatorCalloutExtender9" runat="Server" HighlightCssClass="validatorCalloutHighlight"
-                                                    TargetControlID="REVTxt_VotreEmail" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="Label6" runat="server" Style="font-weight: 700" Text="Email destination(To):" />
-                                            <asp:Label ID="Label_EmailDestination" runat="server" Style="font-weight: 700" Text="0" /><br />
-                                            <asp:TextBox ID="txt_EmailTo" runat="server" CssClass="TextField" Width="95%" />
-                                            <asp:RequiredFieldValidator ID="RFVtxt_EmailTo" runat="server" ControlToValidate="txt_EmailTo"
-                                                ErrorMessage="Adresse email destination obligatoire" SetFocusOnError="True" Text="*"
-                                                ValidationGroup="GPSendNotification" Style="color: #FF0000" />
-                                            <ajaxToolkit:ValidatorCalloutExtender ID="ValidatorCalloutExtender13" runat="Server"
-                                                HighlightCssClass="validatorCalloutHighlight" TargetControlID="RFVtxt_EmailTo" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="Label12" runat="server" Style="font-weight: 700">Notes(Optionel):</asp:Label><br />
-                                            <asp:TextBox ID="txt_Notes" runat="server" TextMode="MultiLine" CssClass="TextField"
-                                                Style="width: 95%; height: 200px;">
-                                            </asp:TextBox>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <asp:Button ID="Btn_SendNotification" ValidationGroup="GPSendNotification" CssClass="BtnPartager"
-                                                runat="server" Text="Notifier cette utilisateur" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+
+                                <asp:Panel ID="PanelBody_Plan" runat="server" CssClass="box-body">
+                                    <div id="DIV_ListePlan" runat="server">
+                                        <asp:LinkButton ID="rbtnAddPlan" runat="server" CssClass="btn btn-sm btn-warning" Style="margin-bottom: 5px;">
+                                            <i class="fa fa-plus-square-o"></i> Ajouter un Plan </asp:LinkButton>
+                                        <telerik:RadGrid ID="RadGrid_Plan" AllowPaging="True" AllowSorting="True" PageSize="20"
+                                            runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="true"
+                                            EnableViewState="true" AllowMultiRowSelection="false" GroupingSettings-CaseSensitive="false">
+                                            <ExportSettings HideStructureColumns="true" />
+                                            <MasterTableView CommandItemDisplay="None" GridLines="None" DataKeyNames="ID" NoDetailRecordsText="Pas d'enregistrement"
+                                                NoMasterRecordsText="Pas d'enregistrement">
+                                                <CommandItemSettings ShowAddNewRecordButton="false" ShowRefreshButton="false" ShowExportToExcelButton="true"
+                                                    ExportToExcelText="Exporter en excel" />
+                                                <Columns>
+                                                    <telerik:GridBoundColumn DataField="ID" UniqueName="ID" Display="false">
+                                                        <ItemStyle Width="1px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn HeaderText="#" UniqueName="Compteur" AllowFiltering="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label Visible="true" ID="lbOrder" runat="server" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridBoundColumn DataField="DateCreated" UniqueName="DateAjout" HeaderText=" Date Ajout"
+                                                        FilterControlAltText="Filter DateAjout column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="DateEffectif" UniqueName="DateEffectif" HeaderText=" Date Effectif"
+                                                        FilterControlAltText="Filter DateAjout column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="DateLimite" UniqueName="DateLimite" HeaderText=" Date Limite"
+                                                        FilterControlAltText="Filter DateLimite column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="NomPlan" UniqueName="NomPlan" HeaderText=" Plan"
+                                                        FilterControlAltText="Filter Plan column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn HeaderText="Actif(Y/N)" AllowFiltering="false" SortExpression="ActifYN">
+                                                        <ItemTemplate>
+                                                            <asp:Image ID="LabelSTATUT_IMAGE" runat="server" ImageUrl='<%# Bind("STATUT_IMAGE")%>' Style="" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer" UniqueName="editer"
+                                                        DataTextField="ID" ImageUrl="~/images/_edit.png"
+                                                        HeaderText="">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridButtonColumn>
+                                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="delete" DataTextField="ID"
+                                                        ImageUrl="~/images/delete.png"
+                                                        UniqueName="delete" HeaderText="" ConfirmDialogType="RadWindow" ConfirmText="Voulez-vous vraiment supprimer ce Plan?"
+                                                        ConfirmTitle="Attention!">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridButtonColumn>
+                                                </Columns>
+                                                <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                                </RowIndicatorColumn>
+                                                <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                                </ExpandCollapseColumn>
+                                            </MasterTableView>
+                                            <ClientSettings>
+                                                <ClientEvents></ClientEvents>
+                                                <Selecting AllowRowSelect="true" />
+                                            </ClientSettings>
+                                            <HeaderContextMenu />
+                                            <FilterMenu EnableImageSprites="False">
+                                            </FilterMenu>
+                                        </telerik:RadGrid>
+                                    </div>
+                                </asp:Panel>
+                            </asp:Panel>--%>
+
+                            <%--<asp:Panel class="box box-success" runat="server" ID="Panel_Produits">
+                                <asp:Panel class="box-header" runat="server" ID="PanelHeader_Reference">
+                                    <h3 class="box-title">
+                                        <i class="fa fa-briefcase"></i>
+                                        <asp:Label ID="LabelTitreProduit" runat="server" Text="Produits / Services par Utilisateur  " />
+                                    </h3>
+                                    <div class="box-tools pull-right">
+                                        <asp:Label ID="LabelHeader_Reference" runat="server" Text="(Cliquer pour afficher form...)"></asp:Label>&nbsp;<asp:ImageButton
+                                            ID="ImageButton_Reference" runat="server" ImageUrl="~/images/expand.jpg" AlternateText="(Cliquer pour afficher form...)" />
+                                    </div>
+                                </asp:Panel>
+
+                                <asp:Panel ID="PanelBody_Reference" runat="server" CssClass="box-body">
+                                    <div id="DIV_LISTEProduitsServices" runat="server">
+                                        <asp:LinkButton ID="rbtnAddSR_PRIVILEGE_SERVICES" runat="server" CssClass="btn btn-sm btn-success" Style="margin-bottom: 5px;">
+                                        <i class="fa fa-plus-square-o"></i> Ajouter un Privilège </asp:LinkButton>
+                                        <telerik:RadGrid ID="rdgSR_PRIVILEGE_SERVICES" AllowPaging="True" AllowSorting="True" PageSize="20"
+                                            runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="true"
+                                            EnableViewState="true" AllowMultiRowSelection="false" GroupingSettings-CaseSensitive="false">
+                                            <ExportSettings HideStructureColumns="true" />
+                                            <MasterTableView CommandItemDisplay="None" GridLines="None" DataKeyNames="ID" NoDetailRecordsText="Pas d'enregistrement"
+                                                NoMasterRecordsText="Pas d'enregistrement">
+                                                <CommandItemSettings ShowAddNewRecordButton="false" ShowRefreshButton="false" ShowExportToExcelButton="true"
+                                                    ExportToExcelText="Exporter en excel" />
+                                                <Columns>
+                                                    <telerik:GridBoundColumn DataField="ID" UniqueName="ID" Display="false">
+                                                        <ItemStyle Width="1px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn HeaderText="#" UniqueName="Compteur" AllowFiltering="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label Visible="true" ID="lbOrder" runat="server" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridBoundColumn DataField="DateAjout" UniqueName="DateAjout" HeaderText=" Date Ajout"
+                                                        FilterControlAltText="Filter DateAjout column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="DateLimite" UniqueName="DateLimite" HeaderText=" Date Limite"
+                                                        FilterControlAltText="Filter DateLimite column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="DescriptionService" UniqueName="NomService" HeaderText=" Produits/Services"
+                                                        FilterControlAltText="Filter Produits/Services column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn DataField="Nomcomplet_et_Username" UniqueName="ID_User" HeaderText=" Utilisateur"
+                                                        FilterControlAltText="Filter Prénom, Nom, Compte Utilisateur column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="LabelNomcomplet_et_Username" runat="server" Text='<%# Bind("Nomcomplet_et_Username") %>' />
+                                                        </ItemTemplate>
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridTemplateColumn HeaderText="Actif(Y/N)" AllowFiltering="false" SortExpression="ActifYN">
+                                                        <ItemTemplate>
+                                                            <asp:Image ID="LabelSTATUT_IMAGE" runat="server" ImageUrl='<%# Bind("STATUT_IMAGE")%>' Style="" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer" UniqueName="editer"
+                                                        DataTextField="ID" ImageUrl="~/images/_edit.png"
+                                                        HeaderText="">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridButtonColumn>
+                                                    <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="delete" DataTextField="ID"
+                                                        ImageUrl="~/images/delete.png"
+                                                        UniqueName="delete" HeaderText="" ConfirmDialogType="RadWindow" ConfirmText="Voulez-vous vraiment supprimer ce Produit et SERVICES?"
+                                                        ConfirmTitle="Attention!">
+                                                        <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                        <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                    </telerik:GridButtonColumn>
+                                                </Columns>
+                                                <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                                </RowIndicatorColumn>
+                                                <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                                </ExpandCollapseColumn>
+                                            </MasterTableView>
+                                            <ClientSettings>
+                                                <ClientEvents></ClientEvents>
+                                                <Selecting AllowRowSelect="true" />
+                                            </ClientSettings>
+                                            <HeaderContextMenu />
+                                            <FilterMenu EnableImageSprites="False">
+                                            </FilterMenu>
+                                        </telerik:RadGrid>
+                                        <telerik:RadWindowManager ID="RadWindowManager1" IconUrl="~/images/favicon.ico" runat="server" VisibleStatusbar="false"
+                                            EnableViewState="false">
+                                            <Windows>
+                                                <telerik:RadWindow ID="AddUpdateDialog" runat="server" IconUrl="~/images/favicon.ico" Title="" Left="75px" ReloadOnShow="true"
+                                                    ShowContentDuringLoad="false" Modal="true" OnClientClose="RadWindowClosing" Behaviors="Reload, Pin, Minimize, Move, Resize, Maximize, Close"
+                                                    EnableShadow="true" OnClientResizeEnd="RadWindowClientResizeEnd" />
+                                            </Windows>
+                                        </telerik:RadWindowManager>
+                                    </div>
+                                </asp:Panel>
+                            </asp:Panel>--%>
+                            <!-- End box box-danger -->
+                            <div style="clear: both;"></div>
                         </div>
                     </asp:Panel>
-                    <!-- FIN -->
-                    <div id="Div_List">
-                        <asp:Panel ID="Panel_List" runat="server">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td>
-                                        <div style="float: left; width: 200px;">
-                                            <%--<div style="display: inline; float: left; padding-right: 10px;">
-                                                <asp:UpdateProgress ID="UpdateProgress31" runat="server" AssociatedUpdatePanelID="UpdatePanel_First">
-                                                    <ProgressTemplate>
-                                                        <div>
-                                                            <asp:Image ID="Image13spinner" runat="server" ImageUrl="~/Images/spinner.gif" AlternateText="Waiting..." />
-                                                        </div>
-                                                    </ProgressTemplate>
-                                                </asp:UpdateProgress>
-                                            </div>--%>
-                                        </div>
-                                        <div style="float: right;">
-                                            <asp:Panel ID="Panel_Search" runat="server">
-                                                Recherche:
-                                                <asp:TextBox ID="txt_Search" runat="server" CssClass="TextField" Width="200px" />
-                                                <asp:Button ID="Btn_Search" runat="server" CausesValidation="false" CssClass="BtnControl_Search"
-                                                    Text="RECHERCHER" /></asp:Panel>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:GridView ID="GridView_List" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                                            CellPadding="4" CssClass="GridViewCss" DataKeyNames="ID" ForeColor="#333333"
-                                            GridLines="None" PageSize="20" AllowSorting="True" Width="100%">
-                                            <%-- <RowStyle CssClass="RowStyle" />
-                                            <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                                            <FooterStyle CssClass="FooterStyle" />
-                                            <HeaderStyle CssClass="HeaderStyle" ForeColor="White" />
-                                            <PagerStyle CssClass="PagerStyle" ForeColor="White" />
-                                            <PagerStyle CssClass="DataPager" />--%>
-                                            <EditRowStyle BackColor="#999999" />
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <PagerSettings FirstPageImageUrl="~/Images/first.png" LastPageImageUrl="~/Images/Last.png"
-                                                Position="TopAndBottom" />
-                                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                </div>
+
+                <div id="Div_List" style="overflow: auto; padding-bottom: 100px;">
+                    <asp:Panel ID="Panel_List" runat="server">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <div style="float: right; width: 20%; display: none;">
+                                        <asp:Panel ID="Panel_Search" runat="server">
+                                            <div class="input-group input-group-sm">
+                                                <asp:TextBox ID="txt_Search" runat="server" CssClass="form-control" placeholder="Recherche..." />
+                                                <span class="input-group-btn">
+                                                    <asp:LinkButton ID="Btn_Search" runat="server" CausesValidation="false" CssClass="btn btn-info btn-flat">
+                                                        <i class="fa fa-search"></i> </asp:LinkButton>
+                                                </span>
+                                            </div>
+                                        </asp:Panel>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <telerik:RadGrid ID="RadGrid_1" AllowPaging="True" AllowSorting="True" PageSize="20"
+                                        runat="server" AutoGenerateColumns="False" GridLines="None" CellSpacing="0" AllowFilteringByColumn="true"
+                                        EnableViewState="true" AllowMultiRowSelection="false"
+                                        GroupingSettings-CaseSensitive="false">
+                                        <MasterTableView GridLines="None" CommandItemDisplay="None" DataKeyNames="ID" NoDetailRecordsText="Pas d'enregistrement"
+                                            NoMasterRecordsText="Pas d'enregistrement">
+                                            <CommandItemSettings ShowExportToExcelButton="False" AddNewRecordText="Ajouter nouveau" AddNewRecordImageUrl="~/images/save_add.png"
+                                                ShowAddNewRecordButton="true" ShowRefreshButton="true" />
+                                            <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                             <Columns>
-                                                <asp:TemplateField HeaderText="No">
+                                                <telerik:GridTemplateColumn Visible="true" ShowFilterIcon="false" AllowFiltering="false" HeaderText="#" UniqueName="Compteur"
+                                                    HeaderStyle-Width="17px"
+                                                    HeaderStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
-                                                        <asp:Label ID="lbOrder" runat="server"></asp:Label><asp:Label ID="lbID" runat="server"
-                                                            Text='<%# Bind("ID") %>' Visible="false"></asp:Label></ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField ReadOnly="true" DataField="USERNAME" HeaderText="Nom utilisateur"
-                                                    SortExpression="USERNAME" />
-                                                <asp:BoundField ReadOnly="true" DataField="NOMCOMPLET" HeaderText="Nom Complet" SortExpression="NOMCOMPLET" />
-                                                <asp:BoundField ReadOnly="true" DataField="GROUPE_STR" HeaderText="Groupe" SortExpression="GROUPE_STR" />
-                                                <asp:ImageField DataImageUrlField="ACTIF_YN_IMAGE" SortExpression="ACTIF_YN" ControlStyle-Width="16px"
-                                                    HeaderText="Stat" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
-                                                    ReadOnly="True">
-                                                    <ControlStyle Width="16px" />
-                                                    <HeaderStyle HorizontalAlign="Center" Width="16" />
+                                                        <asp:Label Visible="true" ID="lbOrder" runat="server" />
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+                                                <%--<telerik:GridTemplateColumn HeaderText="Validité" Visible="true" SortExpression="IsValideAccount" AllowFiltering="false" UniqueName="IsValideAccount">
+                                                    <ItemTemplate>
+                                                        <asp:ImageButton ID="Btn_IsValideAccount" ToolTip="Compte Valide" runat="server"
+                                                            CommandName="IsValideAccount" CommandArgument='<%# Bind("ID") %>' ImageUrl="~/images/img_succes.png" />
+                                                    </ItemTemplate>
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:ImageField>
-                                                <asp:TemplateField>
+                                                </telerik:GridTemplateColumn>--%>
+                                                <%--<telerik:GridBoundColumn HeaderText="Code" DataField="ID" UniqueName="ID" Display="true" AllowFiltering="false" />--%>
+
+                                                <telerik:GridDateTimeColumn DataField="DateCreated" HeaderText="DateCreated" FilterControlWidth="110px"
+                                                    SortExpression="DateCreated" PickerType="DatePicker" EnableTimeIndependentFiltering="true"
+                                                    DataFormatString="{0:dd/MM/yyyy}" ShowFilterIcon="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                </telerik:GridDateTimeColumn>
+
+
+                                                <telerik:GridTemplateColumn HeaderText="Infos candidats" SortExpression="NOM_COMPLET" AllowFiltering="true" UniqueName="NOM_COMPLET"
+                                                    DataField="Email_Adresse_NomComplet_Telephone"
+                                                    FilterControlAltText="Recherche par Email, Nom, Prénom, Adresse et téléphone" FilterControlWidth="95%" ShowFilterIcon="false"
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                    <ItemTemplate>
+                                                        <div runat="server" id="DIV_Image_PHOTO" style="float: left;">
+                                                            <asp:Image ID="Image_PHOTO" Style="border-width: 0px; height: 45px; margin-right: 5px;" runat="server"
+                                                                CssClass="img-circle" ImageUrl='<%# Eval("ID", "~/Show_Image.aspx?ID={0}&Action=User")%>' />
+                                                        </div>
+                                                        <div style="float: left;">
+                                                            <asp:Label ID="Label_SexeIcon_FontAwesome" runat="server" Text='<%# Bind("SexeIcon_FontAwesome")%>' />
+                                                            <asp:Label ID="Label_NOM_COMPLET" runat="server" Text='<%# Bind("NOMCOMPLET")%>' Style="font-weight: bold;" />
+
+                                                            <hr style="margin: 0px; padding: 0px;" />
+                                                            <a href='<%# Eval("Email", "mailto:{0}")%>'>
+                                                                <i class="fa fa-envelope"></i>
+                                                                <asp:Label ID="Label_ADRESSE_EMAIL" runat="server" Text='<%# Bind("Email")%>' /><br />
+                                                            </a>
+
+                                                            <hr style="margin: 0px; padding: 0px;" />
+                                                            <%--<a href='<%# Eval("Telephone", "tel:{0}")%>'>
+                                                                <i class="fa fa-phone"></i>
+                                                                <asp:Label ID="Label1" runat="server" Text='<%# Bind("Telephone")%>' ForeColor="Black"
+                                                                    Font-Italic="True" />
+                                                            </a>--%>
+
+                                                            <%--<asp:Label ID="LabelPoste1" runat="server" Text='<%# Bind("Poste") %>' Style="font-size: 11px; color: Blue;" />--%>
+                                                            <%--<asp:Label ID="LabelAdresseComplet" runat="server" Text='<%# Bind("AdresseComplet") %>' Style="display: block;" />--%>
+                                                            <asp:Label ID="LabelAdresseComplet1" runat="server" Text='<%# Bind("CreatedBy") %>' Style="font-size: 11px; color: red;" />
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+
+                                                <telerik:GridTemplateColumn DataField="GroupeStr" UniqueName="GroupeStr" SortExpression="GroupeStr" HeaderText=" Groupe"
+                                                    FilterControlAltText="Filter Groupe Utilisateur column" FilterControlWidth="99%" ShowFilterIcon="false"
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                                    <FilterTemplate>
+                                                        <telerik:RadComboBox ID="rcmb_CATEGORIE_ANNONCE" runat="server" Culture="fr-FR" AppendDataBoundItems="true"
+                                                            DataSourceID="SqlDS_GROUPE_USER" DataTextField="Groupe_Description" DataValueField="Groupe_Description"
+                                                            SelectedValue='<%# CType(Container, GridItem).OwnerTableView.GetColumn("GroupeStr").CurrentFilterValue%>'
+                                                            OnClientSelectedIndexChanged="BrandNameCategorieAgeComboIndexChanged">
+                                                            <Items>
+                                                                <telerik:RadComboBoxItem Text="--- ---" />
+                                                            </Items>
+                                                        </telerik:RadComboBox>
+                                                        <telerik:RadScriptBlock ID="RadScriptBlockCategorieAge" runat="server">
+                                                            <script type="text/javascript">
+                                                                function BrandNameCategorieAgeComboIndexChanged(sender, args) {
+                                                                    var tableView = $find("<%# CType(Container, GridItem).OwnerTableView.ClientID %>");
+                                                                    tableView.filter("GroupeStr", args.get_item().get_value(), "EqualTo");
+                                                                }
+                                                            </script>
+                                                        </telerik:RadScriptBlock>
+                                                    </FilterTemplate>
+                                                    <HeaderStyle HorizontalAlign="Center" Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                    <ItemTemplate>
+                                                        <i>
+                                                            <asp:Label ID="LabelGroupeStr2" runat="server" Text='<%# Bind("GroupeStr")%>'></asp:Label></i>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+
+                                                <telerik:GridTemplateColumn HeaderText="" UniqueName="Valider" ShowFilterIcon="false" AllowFiltering="false">
+                                                    <ItemTemplate>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Actions</button>
+                                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                <span class="caret"></span>
+                                                                <span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu">
+                                                                    <li id="LI_Btn_Disconnect" runat="server" style="cursor: pointer;" data-placement="left" data-toggle="tooltip" data-original-title="Déconnecter l'utilisateur">
+                                                                        <asp:LinkButton ID="Btn_Disconnect" ToolTip="Deconnecter" runat="server"
+                                                                            CommandName="DISCONNECT_USER" CommandArgument='<%# Bind("ID") %>'>                                                            
+                                                                            <i class="fa fa-keys"></i> Déconnecter
+                                                                        </asp:LinkButton>
+                                                                    </li>
+                                                                    <li data-placement="left" data-toggle="tooltip" data-original-title="Réinitialiser le mot de passe">
+                                                                        <asp:LinkButton ID="Btn_ResetPassword" ToolTip="Reset Mot de passe" runat="server"
+                                                                            CommandName="RESET_PASSWORD" CommandArgument='<%# Bind("ID") %>'>                                                        
+                                                                            <i class="fa fa-refresh"></i> Reset Mot de passe
+                                                                        </asp:LinkButton>
+                                                                    </li>
+                                                                    <li class="divider"></li>
+                                                                    <li data-placement="left" data-toggle="tooltip" data-original-title="Envoyer une notification sur son téléphone Android">
+                                                                        <asp:LinkButton ID="LinkButton_SendNotificationAndroid" runat="server">                                        
+                                                                            <i class="glyphicon glyphicon-comment"></i>                                         
+                                                                            Notification Android
+                                                                        </asp:LinkButton>
+                                                                    </li>
+                                                                    <li data-placement="left" data-toggle="tooltip" data-original-title="Envoyer un email">
+                                                                        <asp:LinkButton ID="Btn_SendEmail" runat="server" CommandName="SEND_EMAIL" CommandArgument='<%# Bind("ID") %>'>                                                                    
+                                                                            <i class="fa  fa-envelope"></i> Contacter par email
+                                                                        </asp:LinkButton>
+                                                                    </li>
+                                                                </ul>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+
+                                                <telerik:GridTemplateColumn HeaderText="Conf. Y/N" AllowFiltering="false" SortExpression="CONFIRMER_IMAGE">
+                                                    <ItemTemplate>
+                                                        <asp:Image ID="LabelCONFIRMER_IMAGE" runat="server" ImageUrl='<%# Bind("CONFIRMER_IMAGE")%>' Style="" />
+                                                    </ItemTemplate>
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </telerik:GridTemplateColumn>
+
+                                                <telerik:GridCheckBoxColumn DataField="Actifyn" HeaderText="Actif Y/N" UniqueName="Actifyn"
+                                                    FilterControlAltText="Filter Actifyn column" HeaderStyle-Wrap="false" ShowFilterIcon="false" AllowFiltering="false">
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </telerik:GridCheckBoxColumn>
+                                                <%--<telerik:GridTemplateColumn Visible="true" ShowFilterIcon="false" AllowFiltering="false" UniqueName="DISCONNECT_USER">
                                                     <ItemTemplate>
                                                         <asp:CheckBox ID="CBX_CONNECTED_YN" Visible="false" runat="server" Checked='<%# Bind("Connecteryn") %>' />
                                                         <asp:ImageButton ID="Btn_Disconnect" ToolTip="Deconnecter" runat="server" Width="15"
                                                             CommandName="DISCONNECT_USER" CommandArgument='<%# Bind("ID") %>' ImageUrl="~/images/Keys.png" />
                                                     </ItemTemplate>
-                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="MDP" Visible="true">
+                                                </telerik:GridTemplateColumn>--%>
+
+                                                <%--<telerik:GridTemplateColumn HeaderText="MDP" Visible="true" AllowFiltering="false" UniqueName="RESET_PASSWORD">
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="Btn_ResetPassword" ToolTip="Reset Mot de passe" runat="server"
                                                             CommandName="RESET_PASSWORD" CommandArgument='<%# Bind("ID") %>' ImageUrl="~/images/view-refresh.png" />
                                                     </ItemTemplate>
-                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Email">
+                                                </telerik:GridTemplateColumn>--%>
+                                                <%--<telerik:GridTemplateColumn HeaderText="Email" AllowFiltering="false" UniqueName="SEND_EMAIL">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton ID="Btn_SendEmail" runat="server" CommandName="SEND_EMAIL" CommandArgument='<%# Bind("ID") %>'
+                                                        <asp:ImageButton ID="Btn_SendEmail" runat="server"
                                                             ToolTip="Envoyer email" ImageUrl="~/Images/email.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Edit" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="Btn_Edit" runat="server" CommandName="Edit" ImageUrl="~/Images/_edit.png" />
-                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>--%>
+                                                <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="UPDATE" DataTextField="ID"
+                                                    HeaderStyle-Width="17px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center"
+                                                    ImageUrl="~/images/_edit.png" UniqueName="UPDATE">
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Del" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="Btn_Del" runat="server" CommandName="Delete" ImageUrl="~/Images/delete.png" />
-                                                    </ItemTemplate>
+                                                </telerik:GridButtonColumn>
+                                                <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="DELETE" UniqueName="DELETE" DataTextField="ID"
+                                                    HeaderStyle-Width="17px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center"
+                                                    ImageUrl="~/images/delete.png" ConfirmDialogType="RadWindow"
+                                                    ConfirmText="Êtes-vous sûr de vouloir supprimer?" ConfirmTitle="Attention!">
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </telerik:GridButtonColumn>
                                             </Columns>
-                                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                                        </asp:GridView>
-                                        <asp:Label ID="Label_Result" runat="server" Text="Aucun Résultat..." Visible="false"
-                                            EnableViewState="false" Style="font-weight: 700; font-size: large; color: #800000"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="TextAlignRight">
-                                        <asp:Panel ID="PagingPane" runat="server" Width="100%">
-                                            <asp:DropDownList ID="DDL_PageSize" runat="server" AutoPostBack="True" CssClass="ComboField">
-                                                <asp:ListItem Value="10">10 lignes par page</asp:ListItem>
-                                                <asp:ListItem Selected="True" Value="20">20 lignes par page</asp:ListItem>
-                                                <asp:ListItem Value="40">40 lignes par page</asp:ListItem>
-                                                <asp:ListItem Value="60">60 lignes par page</asp:ListItem>
-                                                <asp:ListItem Value="100">100 lignes par page</asp:ListItem>
-                                                <asp:ListItem Value="30000">Toutes</asp:ListItem>
-                                            </asp:DropDownList>
-                                        </asp:Panel>
-                                    </td>
-                                </tr>
-                            </table>
-                        </asp:Panel>
-                    </div>
-                </asp:Panel>
-    </div>
+                                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                            </RowIndicatorColumn>
+                                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                            </ExpandCollapseColumn>
+                                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                                            <EditFormSettings>
+                                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                                </EditColumn>
+                                            </EditFormSettings>
+
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <ClientEvents></ClientEvents>
+                                            <Selecting AllowRowSelect="true" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                                    <asp:SqlDataSource ID="SqlDS_GROUPE_USER" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringDataBase %>" SelectCommand="SELECT [ID_Group],[Groupe_Description] FROM [TBL_SR_GROUPE]"></asp:SqlDataSource>
+
+                                    <telerik:RadWindowManager ID="RadWindowManager2" IconUrl="~/images/LogoRezo509.png" runat="server" VisibleStatusbar="false"
+                                        EnableViewState="false">
+                                        <Windows>
+                                            <telerik:RadWindow ID="RadWindow1" runat="server" Title="" IconUrl="~/images/LogoRezo509.png" Left="75px" ReloadOnShow="true"
+                                                ShowContentDuringLoad="false" Modal="true" OnClientClose="RadWindowClosing" Behaviors="Reload, Pin, Minimize, Move, Resize, Maximize, Close"
+                                                EnableShadow="true" OnClientResizeEnd="RadWindowClientResizeEnd" />
+                                        </Windows>
+                                    </telerik:RadWindowManager>
+                                </td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
+                </div>
+            </asp:Panel>
+        </div>
+
+        <!-- FORM LOGIN -->
+        <div class="md-modal colored-header custom-width md-effect-12" id="FormLoginModal" runat="server" style="perspective: 1300px;">
+            <BRAIN:CULogin2 runat="server" ID="LoginWUC" Visible="false" />
+        </div>
+        <div class="md-overlay"></div>
+
+        <%--<ajaxToolkit:CollapsiblePanelExtender ID="CollapsiblePanelExtender_Plan" runat="Server"
+            ExpandControlID="PanelHeader_Plan" CollapseControlID="PanelHeader_Plan"
+            Collapsed="false" TargetControlID="PanelBody_Plan" TextLabelID="LabelHeader_Plan"
+            ImageControlID="ImageButton_Plan" ExpandedText="(Cacher Form...)" CollapsedText="(Cliquer pour afficher form...)"
+            ExpandedImage="~/images/collapse.jpg" CollapsedImage="~/images/expand.jpg" SuppressPostBack="true"
+            SkinID="CollapsiblePanelDemo" />--%>
+
+        <%--<ajaxToolkit:CollapsiblePanelExtender ID="CollapsiblePanelExtender_References" runat="Server"
+            ExpandControlID="PanelHeader_Reference" CollapseControlID="PanelHeader_Reference"
+            Collapsed="false" TargetControlID="PanelBody_Reference" TextLabelID="LabelHeader_Reference"
+            ImageControlID="ImageButton_Reference" ExpandedText="(Cacher Form...)" CollapsedText="(Cliquer pour afficher form...)"
+            ExpandedImage="~/images/collapse.jpg" CollapsedImage="~/images/expand.jpg" SuppressPostBack="true"
+            SkinID="CollapsiblePanelDemo" />--%>
+
+        <input id="txtWindowPage" type="hidden" />
     </section>
 </asp:Content>

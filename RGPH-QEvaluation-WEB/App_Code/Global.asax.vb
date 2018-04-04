@@ -4,28 +4,8 @@
 
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
-Imports Microsoft.VisualBasic
-Imports System.Collections
-Imports System.Configuration
-Imports System.Collections.Generic
-Imports System
-Imports System.IO
-Imports System.Web
-Imports System.Web.UI
-Imports System.Web.Mail
-Imports System.Web.Security
-Imports System.Web.UI.WebControls
-Imports System.Web.UI.WebControls.WebParts
-Imports System.Web.UI.HtmlControls
-
-'Imports System.Collections
-Imports System.ComponentModel
-Imports System.Web.SessionState
-Imports System.Security.Principal
-Imports System.Data
-Imports System.Data.SqlClient
 Imports Telerik.Web.UI
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 Public Class [Global]
     Inherits System.Web.HttpApplication
@@ -159,9 +139,37 @@ Public Class [Global]
         Return page
     End Function
 
-    Public Shared Sub WriteError(ByVal Message As String)
-        Dim _User As String = "..."
+    Public Function GetUserContinus_Work() As Boolean
+        Dim GetOut As Boolean = False
+        Dim User_Connected As Cls_User
+        If Session([Global].GLOBAL_SESSION) Is Nothing Then
+            '-- Session expirée --'
+            GetOut = True
+        Else
+            Try
+                User_Connected = CType(Session([Global].GLOBAL_SESSION), Cls_User)
+                If Not (GlobalFunctions.IsUserStillConnected(User_Connected) And GlobalFunctions.IsUserStillActive(User_Connected)) Then
+                    User_Connected.Set_Status_ConnectedUser(False)
+                    User_Connected.Activite_Utilisateur_InRezo("Forced Log Off", "Forced to Log Off", Request.UserHostAddress)
+                    GetOut = True
+                    Session.RemoveAll()
+                End If
+            Catch ex As Exception
+                GetOut = True
+            End Try
+        End If
+        Return GetOut
+    End Function
+
+    Public Shared Sub WriteError(ByVal Message As String, ByVal User_Connected As String, Optional ByVal IS_SendMail As Boolean = True)
+        Dim _User As String = User_Connected
+
         ErreurLog.WriteError("[" & _User & " ] : " & Message)
+        If IS_SendMail Then
+            If Not Message.Contains(Msg_Thread_Abandonne) OrElse Not Message.Contains(Msg_Thread_Abandonne_Anglais) Then
+                GlobalFunctions.Send_Mail_Erreur("[ " & _User & " ] : " & [Global].Global_APP_NAME_SIGLE & " ", Message)
+            End If
+        End If
     End Sub
 
     Public Shared Sub WriteError(ByVal Message As String, ByVal User_Connected As Cls_User, Optional ByVal IS_SendMail As Boolean = True)
@@ -171,7 +179,9 @@ Public Class [Global]
         End If
         ErreurLog.WriteError("[" & _User & " ] : " & Message)
         If IS_SendMail Then
-            GlobalFunctions.Send_Mail_Erreur("[ " & _User & " ] : OPC ", Message)
+            If Not Message.Contains(Msg_Thread_Abandonne) OrElse Not Message.Contains(Msg_Thread_Abandonne_Anglais) Then
+                GlobalFunctions.Send_Mail_Erreur("[ " & _User & " ] : " & [Global].Global_APP_NAME_SIGLE & " ", Message)
+            End If
         End If
     End Sub
 

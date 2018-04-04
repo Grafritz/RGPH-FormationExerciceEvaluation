@@ -103,10 +103,8 @@ Public Class Cls_GroupeUser
     End Function
 
     Private Sub SetProperties(ByVal dr As DataRow)
-        _id = TypeSafeConversion.NullSafeLong(dr("ProfileId"))
-        '_id = TypeSafeConversion.NullSafeLong(dr("ID_Group"))
-        '_Groupe_Description = TypeSafeConversion.NullSafeString(dr("Groupe_Description"))
-        _Groupe_Description = TypeSafeConversion.NullSafeString(dr("ProfileName"))
+        _id = TypeSafeConversion.NullSafeLong(dr("ID_Group"))
+        _Groupe_Description = TypeSafeConversion.NullSafeString(dr("Groupe_Description"))
         _PageDefault = TypeSafeConversion.NullSafeString(dr("PageDefault"))
 
         _isdirty = False
@@ -197,14 +195,13 @@ Public Class Cls_GroupeUser
             If _id = 0 Then
                 Return True
             Else
-                If ds.Tables(0).Rows(0).Item("ProfileId") <> _id Then
-                    ' If ds.Tables(0).Rows(0).Item("ID_Group") <> _id Then
+                If ds.Tables(0).Rows(0).Item("ID_Group") <> _id Then
                     Return True
                 Else
                     Return False
                 End If
             End If
-            End If
+        End If
     End Function
 
     Private Sub Validation()
@@ -212,9 +209,9 @@ Public Class Cls_GroupeUser
             Throw (New System.Exception("La description de Groupe n'est pas renseignée."))
         End If
 
-        'If Len(_Groupe_Description) > 50 Then
-        '    Throw (New System.Exception("Description de Groupe trop longue (doit être inférieure à 50 caractères)"))
-        'End If
+        If Len(_Groupe_Description) > 50 Then
+            Throw (New System.Exception("Description de Groupe trop longue (doit être inférieure à 50 caractères)"))
+        End If
 
         If GroupeValueExists(_Groupe_Description) Then
             Throw (New System.Exception("Description de Groupe déjà enregistrée."))

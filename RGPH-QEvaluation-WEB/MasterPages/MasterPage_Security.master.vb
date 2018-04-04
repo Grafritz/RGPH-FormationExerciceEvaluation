@@ -1,56 +1,83 @@
-﻿Imports RGPH_QCOLLECTE_Library
+﻿' @Brain Development
+' Mercredi 18-06-2014
+
+Imports System.Data
+Imports System.Collections.Generic
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
+Imports BRAIN_DEVLOPMENT
+Imports BRAIN_DEVLOPMENT.DataAccessLayer
+Imports Telerik.Web.UI
+
 Partial Class MasterPage_MasterPage_Security
     Inherits System.Web.UI.MasterPage
 
 #Region "ATRIBUTS"
     Dim _message As String = ""
-    Private Const PANEL_GESTION_SECURITE As String = "PANEL-GESTION-SECURITE"
-    Private Const PAGE_GESTION_UTILISATEUR As String = "PAGE-GESTION-UTILISATEUR"
-    Private Const PAGE_GESTION_GROUPE_UTILISATEUR As String = "PAGE-GESTION-GROUPE-UTILISATEUR"
-    Private Const PAGE_ACTIVITES_UTILISATEUR As String = "PAGE-ACTIVITES-UTILISATEUR"
-    Private Const PAGE_PRIVILEGE_GROUPE As String = "PAGE-PRIVILEGE-GROUPE"
-    Private Const PAGE_MODULES As String = "PAGE-MODULES"
-    Private Const PAGE_GESTION_OBJET As String = "PAGE-GESTION-OBJET"
-    Private Const PAGE_PRIVILEGES_DES_TACHES_UTILISATEURS As String = "PAGE-PRIVILEGES-DES-TACHES-UTILISATEURS"
-    Private Const PAGE_GESTION_TACHES_UTILISATEURS As String = "PAGE-GESTION-TACHES-UTILISATEURS"
-    Private Const PAGE_UTILISATEURS_CONNECTES As String = "PAGE-UTILISATEURS-CONNECTES"
-
+    Private Const Nom_page As String = "DashBoardReunion.aspx"
+    Private Const Btn_Save As String = "Btn_SaveREUNION"
+    Private Const Btn_GestionParticipant As String = "Btn_GestionParticipant"
+    Private Const PageName_GestionParticipant As String = "PAGE_GestionParticipant"
+    Private Const Btn_UpdateReunion As String = "Btn_EditREUNION"
 
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
     Dim GetOut As Boolean = False
     Private IS_SendMail As Boolean = True
+
+
+    Public PrenomParticipant As String = ""
+    Public NomCompletParticipant As String = ""
+    Public NomCompletEtPostParticipant As String = ""
+    Public PhotoParticipant As String = "../images/LogoRezo509.png"
+    Public EmailParticipant As String = ""
 #End Region
 
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
         Response.Expires = -1
-        SYSTEME_SECURITE()
-    End Sub
 
+        If Now.Month = 12 Then
+            'Style_Division(bodyMasterPage, "background-image:url('../images/Bg_christmas.jpg')", "style")
+        End If
+        ' CType(Me.Master.FindControl("MenuVerticalPresentation").FindControl("HyperLink_MyInstitution"), HyperLink).CssClass = "active"
+        SYSTEME_SECURITE()
+        If Is_Acces_Page Then
+            If Not IsPostBack Then
+                'BindGrid()
+                'BindGrid_RadScheduler1()
+            End If
+        End If
+    End Sub
 
 #Region "SECURITE"
     Public Sub SYSTEME_SECURITE()
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
             User_Connected = CType(Session([Global].GLOBAL_SESSION), Cls_User)
 
-            ImageParticipant.ImageUrl = "~/Show_Image.aspx?Action=User&ID=" & User_Connected.ID
-            LabelPrenomParticipant.Text = " " & User_Connected.Prenom & " " & User_Connected.Nom
+            PhotoParticipant = "../Show_Image.aspx?Action=User&ID=" & User_Connected.ID
+            'ImageParticipant.ImageUrl = "~/Show_Image.aspx?Action=User&ID=" & User_Connected.IdReunionparticipant
+            'LabelPrenomParticipant.Text = "Hello, " & User_Connected.ReunionParticipant.Prenom
 
-            '_check = Cls_Privilege.VerifyRightOnObject(PANEL_GESTION_SECURITE, User_Connected.IdGroupeuser)
-            'liPANEL_GESTION_SECURITE.Visible = _check
-            'If _check Then
-            '    'liPANEL_GESTION_SECURITE.Visible = Cls_Privilege.VerifyRightOnObject(PANEL_GESTION_SECURITE, User_Connected.IdGroupeuser)
-            '    liPAGE_GESTION_UTILISATEUR.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_GESTION_UTILISATEUR, User_Connected.IdGroupeuser)
-            '    liPAGE_GESTION_GROUPE_UTILISATEUR.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_GESTION_GROUPE_UTILISATEUR, User_Connected.IdGroupeuser)
-            '    liPAGE_ACTIVITES_UTILISATEUR.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_ACTIVITES_UTILISATEUR, User_Connected.IdGroupeuser)
-            '    liPAGE_PRIVILEGE_GROUPE.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_PRIVILEGE_GROUPE, User_Connected.IdGroupeuser)
-            '    liPAGE_MODULES.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_MODULES, User_Connected.IdGroupeuser)
-            '    liPAGE_GESTION_OBJET.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_GESTION_OBJET, User_Connected.IdGroupeuser)
-            '    liPAGE_PRIVILEGES_DES_TACHES_UTILISATEURS.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_PRIVILEGES_DES_TACHES_UTILISATEURS, User_Connected.IdGroupeuser)
-            '    liPAGE_GESTION_TACHES_UTILISATEURS.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_GESTION_TACHES_UTILISATEURS, User_Connected.IdGroupeuser)
-            '    liPAGE_UTILISATEURS_CONNECTES.Visible = Cls_Privilege.VerifyRightOnObject(PAGE_UTILISATEURS_CONNECTES, User_Connected.IdGroupeuser)
-            'End If
+            NomCompletParticipant = User_Connected.Nomcomplet
+            NomCompletEtPostParticipant = User_Connected.NOMCOMPLET '& " - " & User_Connected.Poste
+            EmailParticipant = User_Connected.GROUPE_STR & "<br />" & User_Connected.Username
+        Else
+            DashMenu_Securite.Visible = False
+        End If
+    End Sub
+#End Region
+
+#Region "Other Method - SAVE"
+    Private Sub MessageToShow(ByVal _err As String, Optional ByVal E_or_S As String = "E")
+        Panel_Msg.Visible = True
+        GlobalFunctions.Message_Image(Image_Msg, E_or_S)
+        Label_Msg.Text = _err
+        Dialogue.alert(_err)
+        'RadAjaxManager1.ResponseScripts.Add("alert('" & _err.Replace("'", "\'") & "');")
+        If E_or_S = "S" Then
+            Label_Msg.ForeColor = Drawing.Color.Green
+        Else
+            Label_Msg.ForeColor = Drawing.Color.Red
         End If
     End Sub
 #End Region

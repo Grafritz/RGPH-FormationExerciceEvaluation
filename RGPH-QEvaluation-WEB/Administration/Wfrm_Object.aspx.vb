@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Saturday 21-09-2013
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -10,9 +10,14 @@ Imports System.Collections.Generic
 Partial Class Parametres_Administration_Wfrm_Object
     Inherits Cls_BasePage
 
-    Private Const Nom_page As String = "PAGE-GESTION-OBJET"
-    Private Const Btn_SaveEdit As String = "Bouton-Save-Edit-Objet"
-    Private Const Btn_Delete As String = "Bouton-Delete-Objet"
+    'Private Const Nom_page As String = "PAGE-GESTION-OBJET"
+    'Private Const Btn_SaveEdit As String = "Bouton-Save-Edit-Objet"
+    'Private Const Btn_Delete As String = "Bouton-Delete-Objet"
+
+    Private Const Nom_page As String = "Wfrm_Object.aspx"
+    Private Const Btn_SaveEdit As String = "Btn_SaveEditObjet"
+    Private Const Btn_Delete As String = "Btn_DeleteObjet"
+
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
 
@@ -43,7 +48,7 @@ Partial Class Parametres_Administration_Wfrm_Object
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active ")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_GESTION_OBJET"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -91,8 +96,12 @@ Partial Class Parametres_Administration_Wfrm_Object
                     Label_Msg.Text = "Session expirée."
                     Is_Acces_Page = True
                 End If
+            Catch ex As Threading.ThreadAbortException
+            Catch ex As Rezo509Exception
+                MessageToShow(ex.Message)
             Catch ex As Exception
-                Label_Msg.Text = "Session expirée."
+                MessageToShow(ex.Message)
+                [Global].WriteError(ex, User_Connected)
             End Try
         End If
 
@@ -139,7 +148,7 @@ Partial Class Parametres_Administration_Wfrm_Object
     Public Sub Clear_Field()
         txt_Objet.Text = String.Empty
         Txt_DescriptionObjet.Text = String.Empty
-        DDLModule.SelectedIndex = -1
+        'DDLModule.SelectedIndex = -1
     End Sub
 
     Private Sub SAVE()
@@ -149,13 +158,16 @@ Partial Class Parametres_Administration_Wfrm_Object
             obj.DESCRIPTION_OBJET = Txt_DescriptionObjet.Text
             obj.TYPE_OBJET = DDL_TypeObjet.SelectedValue
             obj.ID_Modules = TypeSafeConversion.NullSafeLong(DDLModule.SelectedValue)
-            obj.Save(User_Connected.USERNAME)
+            obj.IsProduitsRezo509 = CBX_IsProduitsRezo509.Checked
+            obj.Save(User_Connected.Username)
             MessageToShow("Enregistrement effectuée", "S")
-            'Clear_Field()
-        Catch ex As Exception
-            Label_Msg.Text = ex.Message
-            ErreurLog.WriteError("SAVE --> " & ex.Message)
+            Clear_Field()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
 
     End Sub
@@ -183,9 +195,12 @@ Partial Class Parametres_Administration_Wfrm_Object
             Else
                 PagingPane.Visible = True
             End If
-        Catch ex As Exception
-            ErreurLog.WriteError("METHODE -> LoadData_GridView_List" & ex.Message)
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -204,9 +219,12 @@ Partial Class Parametres_Administration_Wfrm_Object
                     .Items.Insert(0, New ListItem("Selectionnez le module", ""))
                 End If
             End With
-        Catch ex As Exception
-            ErreurLog.WriteError("METHODE -> LoadModule" & ex.Message)
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -237,9 +255,12 @@ Partial Class Parametres_Administration_Wfrm_Object
             obj.Read(CLng(GridView_List.DataKeys(e.RowIndex).Value))
             obj.Delete()
             LoadData_GridView_List()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
         Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
-            Dialogue.alert(ex.Message)
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -254,11 +275,15 @@ Partial Class Parametres_Administration_Wfrm_Object
             txt_ID.Text = obj.ID
             txt_Objet.Text = obj.NOM_OBJET
             Txt_DescriptionObjet.Text = obj.DESCRIPTION_OBJET
-            DDL_TypeObjet.SelectedValue = obj.TYPE_OBJET
-            DDLModule.SelectedValue = obj.ID_Modules
-        Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
+            DDL_TypeObjet.SelectedIndex = DDL_TypeObjet.Items.IndexOf(DDL_TypeObjet.Items.FindByValue(obj.TYPE_OBJET))
+            DDLModule.SelectedIndex = DDLModule.Items.IndexOf(DDLModule.Items.FindByValue(obj.ID_Modules))
+            CBX_IsProduitsRezo509.Checked = obj.IsProduitsRezo509
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -279,9 +304,12 @@ Partial Class Parametres_Administration_Wfrm_Object
                 Me.ViewState("sortdirection") = "ASC"
             End If
             LoadData_GridView_List()
-        Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -294,9 +322,12 @@ Partial Class Parametres_Administration_Wfrm_Object
             End If
             GridView_List.PageSize = DDL_PageSize.SelectedValue
             LoadData_GridView_List()
-        Catch ex As Exception
-            ErreurLog.WriteError("DDL_PageSize_SelectedIndexChanged -> " & ex.Message)
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 

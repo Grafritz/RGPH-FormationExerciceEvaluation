@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Monday 18-08-2014
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -40,7 +40,7 @@ Partial Class Parametres_Administration_Wfrm_Module
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active ")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_MODULES"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -89,7 +89,7 @@ Partial Class Parametres_Administration_Wfrm_Module
                     Label_Msg.Text = "Session expirée."
                     Is_Acces_Page = True
                 End If
-            Catch ex As Exception
+            Catch ex As Rezo509Exception
                 Label_Msg.Text = "Session expirée."
             End Try
         End If
@@ -149,7 +149,7 @@ Partial Class Parametres_Administration_Wfrm_Module
             obj.Save(User_Connected.Username)
             MessageToShow("Enregistrement effectuée", "S")
             'Clear_Field()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             ErreurLog.WriteError("SAVE --> " & ex.Message)
             MessageToShow(ex.Message)
@@ -178,7 +178,7 @@ Partial Class Parametres_Administration_Wfrm_Module
             Else
                 PagingPane.Visible = True
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError("METHODE -> LoadData_GridView_List" & ex.Message)
             MessageToShow(ex.Message)
             Label_Msg.Text = ex.Message
@@ -213,7 +213,7 @@ Partial Class Parametres_Administration_Wfrm_Module
             obj.Read(CLng(GridView_List.DataKeys(e.RowIndex).Value))
             obj.Delete()
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError(ex.Message)
             MessageToShow(ex.Message)
             Label_Msg.Text = ex.Message
@@ -233,7 +233,7 @@ Partial Class Parametres_Administration_Wfrm_Module
             txt_Module.Text = obj.NomModule
             Txt_DescriptionModule.Text = obj.Moduledescription
             Actifyn.Checked = obj.Actifyn
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError(ex.Message)
             MessageToShow(ex.Message)
             Label_Msg.Text = ex.Message
@@ -258,7 +258,7 @@ Partial Class Parametres_Administration_Wfrm_Module
                 Me.ViewState("sortdirection") = "ASC"
             End If
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError(ex.Message)
             MessageToShow(ex.Message)
             Label_Msg.Text = ex.Message
@@ -276,7 +276,7 @@ Partial Class Parametres_Administration_Wfrm_Module
             End If
             GridView_List.PageSize = DDL_PageSize.SelectedValue
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError("DDL_PageSize_SelectedIndexChanged -> " & ex.Message)
             MessageToShow(ex.Message)
         End Try

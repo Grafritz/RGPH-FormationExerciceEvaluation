@@ -82,8 +82,10 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="DDL_TypeObjet" runat="server" CssClass="ComboField" Width="200px">
-                                        <asp:ListItem Value="Page">PAGE</asp:ListItem>
-                                        <asp:ListItem Value="Action">ACTION/BOUTON/LIEN</asp:ListItem>
+                                        <asp:ListItem Value="PAGE">PAGE</asp:ListItem>
+                                        <asp:ListItem Value="ADD">BOUTON ADD</asp:ListItem>
+                                        <asp:ListItem Value="EDIT">BOUTON EDIT</asp:ListItem>
+                                        <asp:ListItem Value="DELETE">BOUTON DELETE</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                             </tr>
@@ -103,6 +105,7 @@
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="DDLModule"
                                         Text="*" ErrorMessage="Module obligatoire" ValidationGroup="GPSave" />
+                                    <asp:CheckBox ID="CBX_IsProduitsRezo509" runat="server" Text="Produits Rezo509" CssClass="text-green" />
                                 </td>
                             </tr>
                             <tr>
@@ -130,8 +133,10 @@
                                 <asp:TextBox ID="txt_Search" runat="server" CssClass="TextField" Width="200px" />
                                 <asp:DropDownList ID="DDLTypeObjSearch" AutoPostBack="true" runat="server" CssClass="ComboField" >
                                     <asp:ListItem Value="" Selected="True" >ALL</asp:ListItem>
-                                    <asp:ListItem Value="Page">PAGE</asp:ListItem>
-                                    <asp:ListItem Value="Action">ACTION/BOUTON/LIEN</asp:ListItem>
+                                        <asp:ListItem Value="PAGE">PAGE</asp:ListItem>
+                                        <asp:ListItem Value="ADD">BOUTON ADD</asp:ListItem>
+                                        <asp:ListItem Value="EDIT">BOUTON EDIT</asp:ListItem>
+                                        <asp:ListItem Value="DELETE">BOUTON DELETE</asp:ListItem>
                                 </asp:DropDownList>
                                     <asp:DropDownList ID="DDLModule2" AutoPostBack="true" runat="server" CssClass="ComboField" >
                                     </asp:DropDownList>
@@ -173,6 +178,7 @@
                                                 SortExpression="DESCRIPTION_OBJET" />
                                             <asp:BoundField ReadOnly="true" DataField="TYPE_OBJET" HeaderText="Type objet" SortExpression="TYPE_OBJET" />
                                             <asp:BoundField ReadOnly="true" DataField="ModulesSTR" HeaderText="Module" SortExpression="ModulesSTR" />
+                                            <asp:CheckBoxField DataField="IsProduitsRezo509" SortExpression="IsProduitsRezo509" ReadOnly="true" HeaderText="PRezo509" ItemStyle-HorizontalAlign="Center" />
                                             <asp:TemplateField HeaderText="Edit" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="Btn_Edit" runat="server" CommandName="Edit" ImageUrl="~/Images/_edit.png" />

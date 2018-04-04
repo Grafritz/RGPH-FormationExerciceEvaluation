@@ -89,6 +89,12 @@ Public Class Cls_Activite_Utilisateur
             Return _Description_Activite
         End Get
     End Property
+
+    Public ReadOnly Property DESCRIPTION_ACTIVITE_Search() As String
+        Get
+            Return Cls_Enumeration.GetTextFromHtml(_Description_Activite)
+        End Get
+    End Property
 #End Region
 
 #Region " DB Access "
@@ -125,6 +131,27 @@ Public Class Cls_Activite_Utilisateur
     End Sub
 
     Public Sub Delete() Implements IGeneral.Delete
+        Try
+            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Delete_ALL_Activite_Utilisateur")
+        Catch ex As SqlClient.SqlException
+            Throw New System.Exception(ex.ErrorCode)
+        End Try
+    End Sub
+
+    Public Shared Sub DeleteALL()
+        Try
+            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Delete_ALL_Activite_Utilisateur")
+        Catch ex As SqlClient.SqlException
+            Throw New System.Exception(ex.ErrorCode)
+        End Try
+    End Sub
+
+    Public Shared Sub DeleteOne(ByVal id As Long)
+        Try
+            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Delete_Activite_Utilisateur_ById", id)
+        Catch ex As SqlClient.SqlException
+            Throw New System.Exception(ex.ErrorCode)
+        End Try
     End Sub
 
     Public Function Refresh() As Boolean Implements IGeneral.Refresh
@@ -175,7 +202,7 @@ Public Class Cls_Activite_Utilisateur
                 Nbr = ds.Tables(0).Rows.Count
             End If
             Return Nbr
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError(" -- >(Class:Cls_Activite_Utilisateur) - Methode:COUNTAll_Activite_Utilisateur :-->" & ex.Message)
         End Try
         Return Nbr

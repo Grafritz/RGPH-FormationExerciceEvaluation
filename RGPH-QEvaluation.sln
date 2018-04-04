@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RGPH-QEvaluation", "http://localhost/RGPH-QEvaluation", "{28C25115-C948-41FE-A40D-148D821369FB}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{74684d02-d4eb-45fd-96f9-af531b3a605b}|RGPH_QUETIONNAIRE_EXERCICE_Library.dll;{2827D0CE-8488-4863-AC4A-E16B055A57D6}|BRAINDClassLibrary.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/RGPH-QEvaluation"
+		Debug.AspNetCompiler.PhysicalPath = "RGPH-QEvaluation-WEB\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\RGPH-QEvaluation\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/RGPH-QEvaluation"
+		Release.AspNetCompiler.PhysicalPath = "RGPH-QEvaluation-WEB\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\RGPH-QEvaluation\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "RGPH-QEvaluation-WEB\"
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrincipalClassLibrary", "ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\PrincipalClassLibrary.vbproj", "{2827D0CE-8488-4863-AC4A-E16B055A57D6}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RGPH_QEvaluation_Library", "RGPH_QEvaluation_Library\RGPH_QEvaluation_Library.vbproj", "{74684D02-D4EB-45FD-96F9-AF531B3A605B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28C25115-C948-41FE-A40D-148D821369FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C25115-C948-41FE-A40D-148D821369FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C25115-C948-41FE-A40D-148D821369FB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C25115-C948-41FE-A40D-148D821369FB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{2827D0CE-8488-4863-AC4A-E16B055A57D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2827D0CE-8488-4863-AC4A-E16B055A57D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2827D0CE-8488-4863-AC4A-E16B055A57D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2827D0CE-8488-4863-AC4A-E16B055A57D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74684D02-D4EB-45FD-96F9-AF531B3A605B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74684D02-D4EB-45FD-96F9-AF531B3A605B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74684D02-D4EB-45FD-96F9-AF531B3A605B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74684D02-D4EB-45FD-96F9-AF531B3A605B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

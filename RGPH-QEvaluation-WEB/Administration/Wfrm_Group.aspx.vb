@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Saturday 21-09-2013
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -11,9 +11,14 @@ Partial Class Parametres_Administration_Wfrm_Group
     Inherits System.Web.UI.Page
 
     Dim _message As String = ""
-    Private Const Nom_page As String = "PAGE-GESTION-GROUPE-UTILISATEUR"
-    Private Const Btn_SaveEditGroupe As String = "Bouton-Save-Edit-Groupe"
-    Private Const Btn_DeleteGroupe As String = "Bouton-Delete-Groupe"
+    'Private Const Nom_page As String = "PAGE-GESTION-GROUPE-UTILISATEUR"
+    'Private Const Btn_SaveEditGroupe As String = "Bouton-Save-Edit-Groupe"
+    'Private Const Btn_DeleteGroupe As String = "Bouton-Delete-Groupe"
+
+    Private Const Nom_page As String = "Wfrm_Group.aspx"
+    Private Const Btn_SaveEditGroupe As String = "Btn_SaveEditGroupe"
+    Private Const Btn_DeleteGroupe As String = "Btn_DeleteGroupe"
+
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
     Dim GetOut As Boolean = False
@@ -41,7 +46,7 @@ Partial Class Parametres_Administration_Wfrm_Group
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_GESTION_GROUPE_UTILISATEUR"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -91,7 +96,7 @@ Partial Class Parametres_Administration_Wfrm_Group
                     MessageToShow(_message)
                     Is_Acces_Page = True
                 End If
-            Catch ex As Exception
+            Catch ex As Rezo509Exception
                 GetOut = True
                 _message = "Session expirée."
                 MessageToShow(_message)
@@ -149,15 +154,18 @@ Partial Class Parametres_Administration_Wfrm_Group
 
     Private Sub SAVE()
         Try
-            Dim obj As New Cls_GroupeUser(CLng(txt_ID.Text))
+            Dim obj As New Cls_GroupeUser(TypeSafeConversion.NullSafeLong(txt_ID.Text))
             obj.GROUPE_DESCRIPTION = txt_Description_Groupe.Text.Trim
             obj.PageDefault = txt_PageDefault.Text.Trim
 
             obj.Save(User_Connected.USERNAME)
             MessageToShow("Enregistrement effectuée", "S")
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
         Catch ex As Exception
             MessageToShow(ex.Message)
-            ErreurLog.WriteError("SAVE Groupe Utilisateur --> " & ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
 
     End Sub
@@ -180,7 +188,7 @@ Partial Class Parametres_Administration_Wfrm_Group
             Else
                 PagingPane.Visible = True
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("METHODE -> LoadData_GridView_List" & ex.Message)
         End Try
@@ -213,11 +221,12 @@ Partial Class Parametres_Administration_Wfrm_Group
             obj.Read(CLng(GridView_List.DataKeys(e.RowIndex).Value))
             obj.Delete()
             LoadData_GridView_List()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
         Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
-            Dialogue.alert(ex.Message)
-            Label_Msg.Text = ex.Message
-            Label_Msg.ForeColor = Drawing.Color.OrangeRed
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -232,11 +241,12 @@ Partial Class Parametres_Administration_Wfrm_Group
             txt_ID.Text = obj.ID
             txt_Description_Groupe.Text = obj.GROUPE_DESCRIPTION
             txt_PageDefault.Text = obj.PageDefault
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
         Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
-            Dialogue.alert(ex.Message)
-            Label_Msg.Text = ex.Message
-            Label_Msg.ForeColor = Drawing.Color.OrangeRed
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -257,9 +267,12 @@ Partial Class Parametres_Administration_Wfrm_Group
                 Me.ViewState("sortdirection") = "ASC"
             End If
             LoadData_GridView_List()
-        Catch ex As Exception
-            ErreurLog.WriteError(ex.Message)
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 
@@ -273,9 +286,12 @@ Partial Class Parametres_Administration_Wfrm_Group
             End If
             GridView_List.PageSize = DDL_PageSize.SelectedValue
             LoadData_GridView_List()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
         Catch ex As Exception
-            ErreurLog.WriteError("DDL_PageSize_SelectedIndexChanged -> " & ex.Message)
-            Dialogue.alert(ex.Message)
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
         End Try
     End Sub
 

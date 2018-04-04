@@ -8,7 +8,7 @@ Imports System.Collections.Generic
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 Partial Class GestionQuestionnaire_Default
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue

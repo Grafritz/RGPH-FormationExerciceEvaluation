@@ -1,4 +1,6 @@
 ﻿
+Imports System.Text.RegularExpressions
+
 Public Enum _GroupeEnum
     Administration = 1
     SecretaireReunion = 2
@@ -46,6 +48,17 @@ Public Enum _StatutSuiviEnum
 End Enum
 
 Public Class Cls_Enumeration
+
+
+    ''' <summary>Removes the tags from an HTML document.</summary>
+    ''' <param name="htmlText">HTML text to parse.</param>
+    ''' <returns>The text of an HTML document without tags.</returns>
+    ''' <remarks></remarks>
+    ''' 
+    Public Shared Function GetTextFromHtml(ByVal htmlText As String) As String
+        Dim output As String = Regex.Replace(htmlText, "\<[^\>]+\>", "")
+        Return output
+    End Function
 
     Public Enum _TypeDossier
         DETENTION = 1

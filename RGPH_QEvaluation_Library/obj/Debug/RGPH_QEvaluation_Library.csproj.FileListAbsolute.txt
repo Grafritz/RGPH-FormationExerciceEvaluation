@@ -1,8 +1,0 @@
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\bin\Debug\RGPH_FormationExercice_Library.dll
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\bin\Debug\RGPH_FormationExercice_Library.pdb
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\bin\Debug\BRAINDClassLibrary.dll
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\bin\Debug\BRAINDClassLibrary.pdb
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\bin\Debug\BRAINDClassLibrary.xml
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\obj\Debug\RGPH_QEvaluation_Library.csprojResolveAssemblyReference.cache
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\obj\Debug\RGPH_FormationExercice_Library.dll
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\obj\Debug\RGPH_FormationExercice_Library.pdb

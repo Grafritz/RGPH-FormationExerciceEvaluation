@@ -7,7 +7,7 @@ Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports System.Data.SqlClient
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 
 Partial Class MasterPage_DashboardCZMasterPage

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="VB" %>
 
-<%@ Import Namespace="RGPH_QCOLLECTE_Library" %>
+<%@ Import Namespace="RGPH_QUETIONNAIRE_EXERCICE_Library" %>
 
 <%@ Import Namespace="BRAIN_DEVLOPMENT" %>
 

@@ -1,4 +1,7 @@
+REM Generate By [GENERIC 12] Application *******
+REM  Class Cls_SR_USER
 
+REM Date:15-Mar-2013 7h:i:53m
 Imports Microsoft
 Imports System.Data
 Imports System.Collections.Generic
@@ -10,63 +13,58 @@ Public Class Cls_User
     Implements IGeneral
 
 #Region "Attribut"
-    Public Shared BRAIND = "0B-6C-79-05-C5-FD-AB-C0-F5-57-85-5E-45-8C-FC-43" 'BRAIND - Encrypt
+    Public Shared SYGASNA = "0B-6C-79-05-C5-FD-AB-C0-F5-57-85-5E-45-8C-FC-43" 'BRAIND - Encrypt
     Private _id As Long
 
+    Private _Id_Ecole As Long
+    'Private _Ecole As Cls_Ecole
+    Private _ID_GroupeUser As Long
+    Private _GroupeUser As Cls_GroupeUser
+    Private _Photo As Byte()
+    Private _UserName As String
+    Private _Password As String
+    Private _Civilite As String
     Private _Nom As String
     Private _Prenom As String
     Private _Sexe As String
-    Private _Cin As String
-    Private _Nif As String
-    Private _Titre As String
-    Private _NomUtilisateur As String
-    Private _UserName As String
-
-    Private _MotDePasse As String
-    Private _Password As String
-    Private _Mention As String
-    Private _Email As String
-    Private _TelDigicel As String
-    Private _TelNatcom As String
-    Private _Valide As String
-    Private _EstAssigne As String
-
-    Private _DerniereDateConnexion As String
-    Private _LastLogin As DateTime
-
-    Private _ComNaissance As String
-    Private _CommuneNaissance As Cls_Commune
-    Private _LieuNaissance As String
-
-    Private _ProfileId As Integer
-    Private _ID_GroupeUser As Integer
-
-    Private _GroupeUser As Cls_GroupeUser
-
-    Private _DeptId As String
-    Private _tId As Cls_Departement
-    Private _ComID As String
+    Private _Telephone As String
+    Private _DateNaissance As Nullable(Of Date)
+    Private _ID_PaysNaissance As Long
+    Private _ID_Occupation As Long
+    'Private _Occupation As Cls_Occupation
+    Private _ID_Departement As Long
+    Private _Departement As Cls_Departement
+    Private _ID_Commune As Long
     Private _Commune As Cls_Commune
-    Private _VqseId As String
-    Private _eId As Cls_Vqse
-    Private _EquipeCodification As Integer
-    Private _ipeCodification As Cls_EquipeCodification
-    Private _CreePar As String
-    Private _DateCreation As String
-    Private _ModifierPar As String
-    Private _DateModification As String
-
-    Private _Photo As Byte()
+    Private _ID_PaysAdresse As Long
+    Private _PaysAdresse As Cls_Pays
+    Private _AdresseRue As String
+    Private _AdresseCity As String
+    Private _AdresseProvince As String
+    Private _AdresseCodePostal As String
+    Private _AlerteNouveaute As Boolean
+    Private _AutreAlerte As Boolean
     Private _ActifYN As Boolean
+    Private _LastLogin As DateTime
     Private _ConnecterYN As Boolean
+    Private _LastIP As String
     Private _MustChangePassword As Boolean
     Private _IsForcedOut As Boolean
-    Private _LastIP As String
-
+    Private _Confirmer As Boolean
     Private _isdirty As Boolean
-    Private _LogData As String
+    Public _LogData As String
 
-    Public IsSendEmail As Boolean = True
+
+    'Public IsSendEmail As Boolean = True
+
+    Private _CreatedBy As String
+    Private _DateCreated As DateTime
+
+
+#Region "FIREBASE 24-11-2017 | 04:33 PM"
+    Private _IdAppFireBase As String
+    Private _IdFirebaseToken As String
+#End Region
 #End Region
 
 #Region "New"
@@ -86,12 +84,11 @@ Public Class Cls_User
         Me.Read(usr)
 
         If _id <> 0 Then
-            If Encripteur.EncryptMD5(Pass) <> _Password Then
-                'If Encripteur.EncryptMD5(Pass) <> _Password Then
-                Throw New System.Exception("Utilisateur ou Mot de Passe incorrects.")
+            If Encripteur.Encrypt(Pass) <> _Password Then
+                Throw New Rezo509Exception("Utilisateur ou Mot de Passe incorrects.")
             End If
         Else
-            Throw (New System.Exception("Utilisateur ou Mot de Passe incorrects."))
+            Throw (New Rezo509Exception("Utilisateur ou Mot de Passe incorrects."))
         End If
     End Sub
 
@@ -99,10 +96,10 @@ Public Class Cls_User
         'Me.Read(usr)
 
         If IdUser <> 0 Then
-            If Encripteur.EncryptMD5(User) <> BRAIND Then
+            If Encripteur.Encrypt(User) <> SYGASNA Then
                 Throw New Rezo509Exception("Utilisateur ou Mot de Passe incorrects.")
             End If
-            If Encripteur.EncryptMD5(Pass) <> BRAIND Then
+            If Encripteur.Encrypt(Pass) <> SYGASNA Then
                 Throw New Rezo509Exception("Utilisateur ou Mot de Passe incorrects ..")
             End If
         Else
@@ -111,17 +108,10 @@ Public Class Cls_User
         SetDefaultProperties()
     End Sub
 
-    'Public Sub New(ByVal Email As String)
-    '    Read_Email(Email)
-    'End Sub
-
-    'Public Sub New(ByVal NomUtilisateur As String)
-    '    Read_NomUtilisateur(NomUtilisateur)
-    'End Sub
-
 #End Region
 
 #Region "Properties"
+
     <AttributLogData(True, 1)> _
     Public ReadOnly Property ID() As Long Implements IGeneral.ID
         Get
@@ -129,596 +119,68 @@ Public Class Cls_User
         End Get
     End Property
 
+    Public Property IdUser As Long
+        Get
+            Return _id
+        End Get
+        Set(ByVal Value As Long)
+            If _id <> Value Then
+                _id = Value
+            End If
+        End Set
+    End Property
+
+    Public Property ID_Ecole As Long
+        Get
+            Return _Id_Ecole
+        End Get
+        Set(ByVal Value As Long)
+            If _Id_Ecole <> Value Then
+                _isdirty = True
+                _Id_Ecole = Value
+            End If
+        End Set
+    End Property
+
+    'Public Property Ecole As Cls_Ecole
+    '    Get
+    '        If Not (_Ecole Is Nothing) Then
+    '            If (_Ecole.ID = 0) Or (_Ecole.ID <> _Id_Ecole) Then
+    '                _Ecole = New Cls_Ecole(_Id_Ecole)
+    '            End If
+    '        Else
+    '            _Ecole = New Cls_Ecole(_Id_Ecole)
+    '        End If
+    '        Return _Ecole
+    '    End Get
+    '    Set(ByVal value As Cls_Ecole)
+    '        If Value Is Nothing Then
+    '            _isdirty = True
+    '            _Id_Ecole = 0
+    '        Else
+    '            If _Ecole.ID <> Value.ID Then
+    '                _isdirty = True
+    '                _Id_Ecole = Value.ID
+    '            End If
+    '        End If
+    '    End Set
+    'End Property
+
     <AttributLogData(True, 2)> _
-    Public Property Nom As String
-        Get
-            Return _Nom
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Nom)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Nom = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 3)> _
-    Public Property Prenom As String
-        Get
-            Return _Prenom
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Prenom)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Prenom = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 4)> _
-    Public Property Sexe As String
-        Get
-            Return _Sexe
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Sexe)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Sexe = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 5)> _
-    Public Property Cin As String
-        Get
-            Return _Cin
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Cin)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Cin = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 6)> _
-    Public Property Nif As String
-        Get
-            Return _Nif
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Nif)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Nif = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 7)> _
-    Public Property Titre As String
-        Get
-            Return _Titre
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Titre)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Titre = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 8)> _
-    Public Property NomUtilisateur As String
-        Get
-            Return _NomUtilisateur
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_NomUtilisateur)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _NomUtilisateur = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 9)> _
-    Public Property MotDePasse As String
-        Get
-            Return _MotDePasse
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_MotDePasse)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _MotDePasse = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 10)> _
-    Public Property Mention As String
-        Get
-            Return _Mention
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Mention)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Mention = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 11)> _
-    Public Property Email As String
-        Get
-            Return _Email
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Email)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Email = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    Public Property Telephone As String
-        Get
-            Return _TelDigicel
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_TelDigicel)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _TelDigicel = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 12)> _
-    Public Property TelDigicel As String
-        Get
-            Return _TelDigicel
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_TelDigicel)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _TelDigicel = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 13)> _
-    Public Property TelNatcom As String
-        Get
-            Return _TelNatcom
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_TelNatcom)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _TelNatcom = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 14)> _
-    Public Property Valide As String
-        Get
-            Return _Valide
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_Valide)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _Valide = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 15)> _
-    Public Property EstAssigne As String
-        Get
-            Return _EstAssigne
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_EstAssigne)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _EstAssigne = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 16)> _
-    Public Property DerniereDateConnexion As String
-        Get
-            Return _DerniereDateConnexion
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_DerniereDateConnexion)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _DerniereDateConnexion = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 17)> _
-    Public Property ComNaissance As String
-        Get
-            Return _ComNaissance
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_ComNaissance)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _ComNaissance = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    Public Property CommuneNaissanceOBJ As Cls_Commune
-        Get
-            If Not (_CommuneNaissance Is Nothing) Then
-                If (_CommuneNaissance.ID = 0) Or (_CommuneNaissance.ID <> _ComNaissance) Then
-                    _CommuneNaissance = New Cls_Commune(_ComNaissance)
-                End If
-            Else
-                _CommuneNaissance = New Cls_Commune(_ComNaissance)
-            End If
-            Return _CommuneNaissance
-        End Get
-        Set(ByVal value As Cls_Commune)
-            If value Is Nothing Then
-                _isdirty = True
-                _ComNaissance = 0
-            Else
-                If _CommuneNaissance.ID <> value.ID Then
-                    _isdirty = True
-                    _ComNaissance = value.ID
-                End If
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 18)> _
-    Public Property LieuNaissance As String
-        Get
-            Return _LieuNaissance
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_LieuNaissance)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _LieuNaissance = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 19)> _
-    Public Property ProfileId As Integer
-        Get
-            Return _ProfileId
-        End Get
-        Set(ByVal Value As Integer)
-            If _ProfileId <> Value Then
-                _isdirty = True
-                _ProfileId = Value
-            End If
-        End Set
-    End Property
-
-    Public Property fileId As Cls_GroupeUser
-        Get
-            If Not (_GroupeUser Is Nothing) Then
-                If (_GroupeUser.ID = 0) Or (_GroupeUser.ID <> _ProfileId) Then
-                    _GroupeUser = New Cls_GroupeUser(_ProfileId)
-                End If
-            Else
-                _GroupeUser = New Cls_GroupeUser(_ProfileId)
-            End If
-            Return _GroupeUser
-        End Get
-        Set(ByVal value As Cls_GroupeUser)
-            If value Is Nothing Then
-                _isdirty = True
-                _ProfileId = 0
-            Else
-                If _GroupeUser.ID <> value.ID Then
-                    _isdirty = True
-                    _ProfileId = value.ID
-                End If
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 20)> _
-    Public Property DeptId As String
-        Get
-            Return _DeptId
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_DeptId)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _DeptId = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    Public Property DepartementOBJ As Cls_Departement
-        Get
-            If Not (_tId Is Nothing) Then
-                If (_tId.ID = 0) Or (_tId.ID <> _DeptId) Then
-                    _tId = New Cls_Departement(_DeptId)
-                End If
-            Else
-                _tId = New Cls_Departement(_DeptId)
-            End If
-
-            Return _tId
-        End Get
-        Set(ByVal value As Cls_Departement)
-            If value Is Nothing Then
-                _isdirty = True
-                _DeptId = 0
-            Else
-                If _tId.ID <> value.ID Then
-                    _isdirty = True
-                    _DeptId = value.ID
-                End If
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 21)> _
-    Public Property ComID As String
-        Get
-            Return _ComID
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_ComID)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _ComID = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    Public Property CommuneOBJ As Cls_Commune
-        Get
-            If Not (_Commune Is Nothing) Then
-                If (_Commune.ID = 0) Or (_Commune.ID <> _ComID) Then
-                    _Commune = New Cls_Commune(_ComID)
-                End If
-            Else
-                _Commune = New Cls_Commune(_ComID)
-            End If
-
-            Return _Commune
-        End Get
-        Set(ByVal value As Cls_Commune)
-            If value Is Nothing Then
-                _isdirty = True
-                _ComID = 0
-            Else
-                If _Commune.ID <> value.ID Then
-                    _isdirty = True
-                    _ComID = value.ID
-                End If
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 22)> _
-        Public Property VqseId As String
-        Get
-            Return _VqseId
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_VqseId)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _VqseId = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    'Public Property eId As Cls_Vqse
-    '    Get
-    '        If Not (_eId Is Nothing) Then
-    '            If (_eId.ID = 0) Or (_eId.ID <> _VqseId) Then
-    '                _eId = New Cls_Vqse(_VqseId)
-    '            End If
-    '        Else
-    '            _eId = New Cls_Vqse(_VqseId)
-    '        End If
-
-    '        Return _eId
-    '    End Get
-    '    Set(ByVal value As Cls_Vqse)
-    '        If value Is Nothing Then
-    '            _isdirty = True
-    '            _VqseId = 0
-    '        Else
-    '            If _eId.ID <> value.ID Then
-    '                _isdirty = True
-    '                _VqseId = value.ID
-    '            End If
-    '        End If
-    '    End Set
-    'End Property
-
-    <AttributLogData(True, 23)> _
-    Public Property EquipeCodification As Integer
-        Get
-            Return _EquipeCodification
-        End Get
-        Set(ByVal Value As Integer)
-            If _EquipeCodification <> Value Then
-                _isdirty = True
-                _EquipeCodification = Value
-            End If
-        End Set
-    End Property
-
-    'Public Property ipeCodification As Cls_EquipeCodification
-    '    Get
-    '        If Not (_ipeCodification Is Nothing) Then
-    '            If (_ipeCodification.ID = 0) Or (_ipeCodification.ID <> _EquipeCodification) Then
-    '                _ipeCodification = New Cls_ipeCodification(_EquipeCodification)
-    '            End If
-    '        Else
-    '            _ipeCodification = New Cls_ipeCodification(_EquipeCodification)
-    '        End If
-
-    '        Return _ipeCodification
-    '    End Get
-    '    Set(ByVal value As Cls_EquipeCodification)
-    '        If value Is Nothing Then
-    '            _isdirty = True
-    '            _EquipeCodification = 0
-    '        Else
-    '            If _ipeCodification.ID <> value.ID Then
-    '                _isdirty = True
-    '                _EquipeCodification = value.ID
-    '            End If
-    '        End If
-    '    End Set
-    'End Property
-
-    <AttributLogData(True, 24)> _
-    Public Property CreePar As String
-        Get
-            Return _CreePar
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_CreePar)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _CreePar = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 25)> _
-    Public Property DateCreation As String
-        Get
-            Return _DateCreation
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_DateCreation)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _DateCreation = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 26)> _
-    Public Property ModifierPar As String
-        Get
-            Return _ModifierPar
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_ModifierPar)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _ModifierPar = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 27)> _
-    Public Property DateModification As String
-        Get
-            Return _DateModification
-        End Get
-        Set(ByVal Value As String)
-            If LCase(Trim(_DateModification)) <> LCase(Trim(Value)) Then
-                _isdirty = True
-                _DateModification = Trim(Value)
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 28)> _
-    Public Property Photo As Byte()
-        Get
-            Return _Photo
-        End Get
-        Set(ByVal Value As Byte())
-            _isdirty = True
-            _Photo = Value
-        End Set
-    End Property
-
-    Public Property PhotoString() As String
-        Get
-            If _Photo IsNot Nothing Then
-                Return Encode(_Photo)
-            Else
-                Return ""
-            End If
-        End Get
-        Set(ByVal Value As String)
-            _Photo = Decode(Value)
-            _isdirty = True
-        End Set
-    End Property
-
-    <AttributLogData(True, 29)> _
-    Public Property ActifYN As Boolean
-        Get
-            Return _ActifYN
-        End Get
-        Set(ByVal Value As Boolean)
-            If _ActifYN <> Value Then
-                _isdirty = True
-                _ActifYN = Value
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 30)> _
-    Public Property ConnecterYN As Boolean
-        Get
-            Return _ConnecterYN
-        End Get
-        Set(ByVal Value As Boolean)
-            If _ConnecterYN <> Value Then
-                _isdirty = True
-                _ConnecterYN = Value
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 31)> _
-    Public Property MustChangePassword As Boolean
-        Get
-            Return _MustChangePassword
-        End Get
-        Set(ByVal Value As Boolean)
-            If _MustChangePassword <> Value Then
-                _isdirty = True
-                _MustChangePassword = Value
-            End If
-        End Set
-    End Property
-
-    <AttributLogData(True, 32)> _
-    Public Property IsForcedOut As Boolean
-        Get
-            Return _IsForcedOut
-        End Get
-        Set(ByVal Value As Boolean)
-            If _IsForcedOut <> Value Then
-                _isdirty = True
-                _IsForcedOut = Value
-            End If
-        End Set
-    End Property
-
-    ReadOnly Property IsDataDirty() As Boolean
-        Get
-            Return _isdirty
-        End Get
-    End Property
-
-    Public ReadOnly Property LogData() As String
-        Get
-            Return _LogData
-        End Get
-    End Property
-
-    REM Autres proprietes
-
     Public Property IdGroupeuser As Long
+        Get
+            Return _ID_GroupeUser
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_GroupeUser <> Value Then
+                _isdirty = True
+                _ID_GroupeUser = Value
+            End If
+        End Set
+    End Property
+
+
+    Public Property ID_Group As Long
         Get
             Return _ID_GroupeUser
         End Get
@@ -739,7 +201,6 @@ Public Class Cls_User
             Else
                 _GroupeUser = New Cls_GroupeUser(_ID_GroupeUser)
             End If
-
             Return _GroupeUser
         End Get
         Set(ByVal value As Cls_GroupeUser)
@@ -755,16 +216,18 @@ Public Class Cls_User
         End Set
     End Property
 
-    'Public Property Photo As Byte()
-    '    Get
-    '        Return _Photo
-    '    End Get
-    '    Set(ByVal Value As Byte())
-    '        _isdirty = True
-    '        _Photo = Value
-    '    End Set
-    'End Property
+    Public Property Photo As Byte()
+        Get
+            Return _Photo
+        End Get
+        Set(ByVal Value As Byte())
+            _isdirty = True
+            _Photo = Value
+        End Set
+    End Property
 
+
+    <AttributLogData(True, 3)> _
     Public Property Username As String
         Get
             Return _UserName
@@ -775,6 +238,12 @@ Public Class Cls_User
                 _UserName = Trim(Value)
             End If
         End Set
+    End Property
+
+    Public ReadOnly Property Email As String
+        Get
+            Return _UserName.ToLower
+        End Get
     End Property
 
     Public Property Password As String
@@ -789,53 +258,69 @@ Public Class Cls_User
         End Set
     End Property
 
-    'Public Property Civilite As String
-    '    Get
-    '        Return _Civilite
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Civilite)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Civilite = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Civilite As String
+        Get
+            Return _Civilite
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_Civilite)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _Civilite = Trim(Value)
+            End If
+        End Set
+    End Property
 
-    'Public Property Nom As String
-    '    Get
-    '        Return _Nom
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Nom)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Nom = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Nom As String
+        Get
+            Return _Nom
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_Nom)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _Nom = Trim(Value)
+            End If
+        End Set
+    End Property
 
-    'Public Property Prenom As String
-    '    Get
-    '        Return _Prenom
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Prenom)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Prenom = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Prenom As String
+        Get
+            Return _Prenom
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_Prenom)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _Prenom = Trim(Value)
+            End If
+        End Set
+    End Property
 
-    'Public Property Sexe As String
-    '    Get
-    '        Return _Sexe
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Sexe)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Sexe = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Sexe As String
+        Get
+            Return _Sexe
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_Sexe)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _Sexe = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    Public ReadOnly Property SexeIcon_FontAwesome As String
+        Get
+            Dim sexeval As String = "<i class=""fa fa-female""></i> "
+            If _Sexe.Equals("Masculin") OrElse _Sexe.Equals("M") Then
+                sexeval = "<i class=""fa fa-male""></i> "
+            End If
+            Return sexeval
+        End Get
+    End Property
+
+    Public ReadOnly Property Email_Adresse_NomComplet_Telephone As String
+        Get
+            Return Username & "" & NOMCOMPLET & "" & _AdresseRue & "" & Telephone
+        End Get
+    End Property
 
     Public ReadOnly Property GroupeStr As String
         Get
@@ -843,99 +328,339 @@ Public Class Cls_User
         End Get
     End Property
 
+    Public ReadOnly Property Civilite_Nom As String
+        Get
+            Return _Civilite & " " & _Nom
+        End Get
+    End Property
+
+    Public ReadOnly Property Civilite_Prenom As String
+        Get
+            Return _Civilite & " " & _Prenom
+        End Get
+    End Property
+
+    Public ReadOnly Property Civilite_Nomcomplet_Or_Username As String
+        Get
+            Return _Civilite & " " & IIf(NOMCOMPLET.Trim.Equals(""), _UserName, NOMCOMPLET)
+        End Get
+    End Property
+
+    Public ReadOnly Property Civilite_Nomcomplet_Et_Username As String
+        Get
+            Return _Civilite & " " & NOM_COMPLET_AND_USERANAME
+        End Get
+    End Property
+
     Public ReadOnly Property Nomcomplet_Or_Username As String
         Get
-            Return IIf(Not _UserName.Trim.Equals(""), _UserName, NOMCOMPLET)
+            Return IIf(Not NOMCOMPLET.Trim.Equals(""), NOMCOMPLET, _UserName)
         End Get
     End Property
 
-    'Public Property Email As String
-    '    Get
-    '        Return _UserName
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Email)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Email = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
-
-    'Public Property Telephone As String
-    '    Get
-    '        Return _Telephone
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Telephone)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Telephone = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
-
-    'Public Property Poste As String
-    '    Get
-    '        Return _Poste
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_Poste)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _Poste = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
-
-    'Public Property Skypename As String
-    '    Get
-    '        Return _SkypeName
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_SkypeName)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _SkypeName = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
-
-    'Public Property Signature As Byte()
-    '    Get
-    '        Return _Signature
-    '    End Get
-    '    Set(ByVal Value As Byte())
-    '        _isdirty = True
-    '        _Signature = Value
-    '    End Set
-    'End Property
-
-    'Public Property Actifyn As Boolean
-    '    Get
-    '        Return _ActifYN
-    '    End Get
-    '    Set(ByVal Value As Boolean)
-    '        If _ActifYN <> Value Then
-    '            _isdirty = True
-    '            _ActifYN = Value
-    '        End If
-    '    End Set
-    'End Property
-
-    Public ReadOnly Property Lastlogin As DateTime
+    Public ReadOnly Property Nomcomplet_et_Username As String
         Get
-            Return Convert.ToDateTime(_DerniereDateConnexion)
+            Return NOMCOMPLET & "<br />" & _UserName
         End Get
     End Property
+    Public Property Telephone As String
+        Get
+            Return _Telephone
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_Telephone)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _Telephone = Trim(Value)
+            End If
+        End Set
+    End Property
 
-    'Public Property Connecteryn As Boolean
+    Public Property Datenaissance As Nullable(Of Date)
+        Get
+            Return _DateNaissance
+        End Get
+        Set(ByVal Value As Nullable(Of Date))
+            If Value.HasValue AndAlso _DateNaissance.HasValue AndAlso Value.Value <> _DateNaissance.Value Then
+                _isdirty = True
+                _DateNaissance = Value
+            ElseIf (Not Value.HasValue AndAlso _DateNaissance.HasValue) OrElse (Value.HasValue AndAlso Not _DateNaissance.HasValue) Then
+                _isdirty = True
+                _DateNaissance = Value
+            End If
+        End Set
+    End Property
+
+    Public Property IdPaysnaissance As Long
+        Get
+            Return _ID_PaysNaissance
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_PaysNaissance <> Value Then
+                _isdirty = True
+                _ID_PaysNaissance = Value
+            End If
+        End Set
+    End Property
+
+    Public Property IdOccupation As Long
+        Get
+            Return _ID_Occupation
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_Occupation <> Value Then
+                _isdirty = True
+                _ID_Occupation = Value
+            End If
+        End Set
+    End Property
+
+    'Public Property Occupation As Cls_Occupation
+
     '    Get
-    '        Return _ConnecterYN
+    '        If Not (_Occupation Is Nothing) Then
+    '            If (_Occupation.ID = 0) Or (_Occupation.ID <> _ID_Occupation) Then
+    '                _Occupation = New Cls_Occupation(_ID_Occupation)
+    '            End If
+    '        Else
+    '            _Occupation = New Cls_Occupation(_ID_Occupation)
+    '        End If
+
+    '        Return _Occupation
     '    End Get
-    '    Set(ByVal Value As Boolean)
-    '        If _ConnecterYN <> Value Then
+    '    Set(ByVal value As Cls_Occupation)
+    '        If Value Is Nothing Then
     '            _isdirty = True
-    '            _ConnecterYN = Value
+    '            _ID_Occupation = 0
+    '        Else
+    '            If _Occupation.ID <> Value.ID Then
+    '                _isdirty = True
+    '                _ID_Occupation = Value.ID
+    '            End If
     '        End If
     '    End Set
     'End Property
+
+    Public Property IdDepartement As Long
+        Get
+            Return _ID_Departement
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_Departement <> Value Then
+                _isdirty = True
+                _ID_Departement = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Departement As Cls_Departement
+
+        Get
+            If Not (_Departement Is Nothing) Then
+                If (_Departement.ID = 0) Or (_Departement.ID <> _ID_Departement) Then
+                    _Departement = New Cls_Departement(_ID_Departement)
+                End If
+            Else
+                _Departement = New Cls_Departement(_ID_Departement)
+            End If
+
+            Return _Departement
+        End Get
+        Set(ByVal value As Cls_Departement)
+            If value Is Nothing Then
+                _isdirty = True
+                _ID_Departement = 0
+            Else
+                If _Departement.ID <> value.ID Then
+                    _isdirty = True
+                    _ID_Departement = value.ID
+                End If
+            End If
+        End Set
+    End Property
+
+    Public Property IdCommune As Long
+        Get
+            Return _ID_Commune
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_Commune <> Value Then
+                _isdirty = True
+                _ID_Commune = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Commune As Cls_Commune
+
+        Get
+            If Not (_Commune Is Nothing) Then
+                If (_Commune.ID = 0) Or (_Commune.ID <> _ID_Commune) Then
+                    _Commune = New Cls_Commune(_ID_Commune)
+                End If
+            Else
+                _Commune = New Cls_Commune(_ID_Commune)
+            End If
+
+            Return _Commune
+        End Get
+        Set(ByVal value As Cls_Commune)
+            If value Is Nothing Then
+                _isdirty = True
+                _ID_Commune = 0
+            Else
+                If _Commune.ID <> value.ID Then
+                    _isdirty = True
+                    _ID_Commune = value.ID
+                End If
+            End If
+        End Set
+    End Property
+
+    Public Property IdPaysadresse As Long
+        Get
+            Return _ID_PaysAdresse
+        End Get
+        Set(ByVal Value As Long)
+            If _ID_PaysAdresse <> Value Then
+                _isdirty = True
+                _ID_PaysAdresse = Value
+            End If
+        End Set
+    End Property
+
+    Public Property PaysAdresse As Cls_Pays
+
+        Get
+            If Not (_PaysAdresse Is Nothing) Then
+                If (_PaysAdresse.ID = 0) Or (_PaysAdresse.ID <> _ID_PaysAdresse) Then
+                    _PaysAdresse = New Cls_Pays(_ID_PaysAdresse)
+                End If
+            Else
+                _PaysAdresse = New Cls_Pays(_ID_PaysAdresse)
+            End If
+
+            Return _PaysAdresse
+        End Get
+        Set(ByVal value As Cls_Pays)
+            If value Is Nothing Then
+                _isdirty = True
+                _ID_PaysAdresse = 0
+            Else
+                If _PaysAdresse.ID <> value.ID Then
+                    _isdirty = True
+                    _ID_PaysAdresse = value.ID
+                End If
+            End If
+        End Set
+    End Property
+
+    Public Property Adresserue As String
+        Get
+            Return _AdresseRue
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_AdresseRue)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _AdresseRue = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    Public Property Adressecity As String
+        Get
+            Return _AdresseCity
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_AdresseCity)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _AdresseCity = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    Public Property Adresseprovince As String
+        Get
+            Return _AdresseProvince
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_AdresseProvince)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _AdresseProvince = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    Public Property Adressecodepostal As String
+        Get
+            Return _AdresseCodePostal
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_AdresseCodePostal)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _AdresseCodePostal = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    Public Property Alertenouveaute As Boolean
+        Get
+            Return _AlerteNouveaute
+        End Get
+        Set(ByVal Value As Boolean)
+            If _AlerteNouveaute <> Value Then
+                _isdirty = True
+                _AlerteNouveaute = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Autrealerte As Boolean
+        Get
+            Return _AutreAlerte
+        End Get
+        Set(ByVal Value As Boolean)
+            If _AutreAlerte <> Value Then
+                _isdirty = True
+                _AutreAlerte = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Actifyn As Boolean
+        Get
+            Return _ActifYN
+        End Get
+        Set(ByVal Value As Boolean)
+            If _ActifYN <> Value Then
+                _isdirty = True
+                _ActifYN = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Lastlogin As DateTime
+        Get
+            Return _LastLogin
+        End Get
+        Set(ByVal Value As DateTime)
+            If _LastLogin <> Value Then
+                _isdirty = True
+                _LastLogin = Value
+            End If
+        End Set
+    End Property
+
+    Public Property Connecteryn As Boolean
+        Get
+            Return _ConnecterYN
+        End Get
+        Set(ByVal Value As Boolean)
+            If _ConnecterYN <> Value Then
+                _isdirty = True
+                _ConnecterYN = Value
+            End If
+        End Set
+    End Property
 
     Public Property Lastip As String
         Get
@@ -949,47 +674,47 @@ Public Class Cls_User
         End Set
     End Property
 
-    'Public Property Mustchangepassword As Boolean
-    '    Get
-    '        Return _MustChangePassword
-    '    End Get
-    '    Set(ByVal Value As Boolean)
-    '        If _MustChangePassword <> Value Then
-    '            _isdirty = True
-    '            _MustChangePassword = Value
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Mustchangepassword As Boolean
+        Get
+            Return _MustChangePassword
+        End Get
+        Set(ByVal Value As Boolean)
+            If _MustChangePassword <> Value Then
+                _isdirty = True
+                _MustChangePassword = Value
+            End If
+        End Set
+    End Property
 
-    'Public Property Isforcedout As Boolean
-    '    Get
-    '        Return _IsForcedOut
-    '    End Get
-    '    Set(ByVal Value As Boolean)
-    '        If _IsForcedOut <> Value Then
-    '            _isdirty = True
-    '            _IsForcedOut = Value
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Isforcedout As Boolean
+        Get
+            Return _IsForcedOut
+        End Get
+        Set(ByVal Value As Boolean)
+            If _IsForcedOut <> Value Then
+                _isdirty = True
+                _IsForcedOut = Value
+            End If
+        End Set
+    End Property
 
-    'Public Property Confirmer As Boolean
-    '    Get
-    '        Return _Confirmer
-    '    End Get
-    '    Set(ByVal Value As Boolean)
-    '        If _Confirmer <> Value Then
-    '            _isdirty = True
-    '            _Confirmer = Value
-    '        End If
-    '    End Set
-    'End Property
+    Public Property Confirmer As Boolean
+        Get
+            Return _Confirmer
+        End Get
+        Set(ByVal Value As Boolean)
+            If _Confirmer <> Value Then
+                _isdirty = True
+                _Confirmer = Value
+            End If
+        End Set
+    End Property
 
-    'ReadOnly Property IsDataDirty() As Boolean
-    '    Get
-    '        Return _isdirty
-    '    End Get
-    'End Property
+    ReadOnly Property IsDataDirty() As Boolean
+        Get
+            Return _isdirty
+        End Get
+    End Property
 
     Public Property PASSWORD_INTERNAUTE() As String
         Get
@@ -997,8 +722,8 @@ Public Class Cls_User
         End Get
         Set(ByVal Value As String)
             If Len(Value) < 6 Then
-                IsSendEmail = False
-                Throw New Exception("Le mot de passe doit avoir au moins 6 caractères.")
+                'IsSendEmail = False
+                Throw New Rezo509Exception("Le mot de passe doit avoir au moins 6 caractères.")
             End If
             If LCase(_Password) <> LCase(Value) Then
                 _isdirty = True
@@ -1012,19 +737,6 @@ Public Class Cls_User
             Return _Prenom & " " & _Nom.ToUpper
         End Get
     End Property
-
-    'Public Property AskPassword As String
-    '    Get
-    '        Return _AskPassword
-    '    End Get
-    '    Set(ByVal Value As String)
-    '        If LCase(Trim(_AskPassword)) <> LCase(Trim(Value)) Then
-    '            _isdirty = True
-    '            _AskPassword = Trim(Value)
-    '        End If
-    '    End Set
-    'End Property
-
 
     Public ReadOnly Property NOM_COMPLET_AND_USERANAME() As String
         Get
@@ -1062,24 +774,56 @@ Public Class Cls_User
         End Get
     End Property
 
-    'Public ReadOnly Property CONFIRMER_IMAGE As String
+    Public ReadOnly Property CONFIRMER_IMAGE As String
+        Get
+            Return Cls_Statut.Statut_Image(_Confirmer)
+        End Get
+    End Property
+
+
+    Public ReadOnly Property DateCreated As DateTime
+        Get
+            Return _DateCreated
+        End Get
+    End Property
+
+    Public ReadOnly Property CreatedBy As String
+        Get
+            Return _CreatedBy
+        End Get
+    End Property
+
+    'Public ReadOnly Property AdresseComplet_forSearch As String
     '    Get
-    '        Return Cls_Statut.Statut_Image(_Confirmer)
+    '        Return _CreatedBy & " / " & _Adresse & ", " & PAYS_STR & ", " & COMMUNE_OBJ.DEPARTEMENT_STR_OrAnd_COMMUNE_STR
     '    End Get
     'End Property
+
+    Public ReadOnly Property ADRESSE_COMPLET() As String
+        Get
+            Dim val As String = ""
+            'If IdPaysadresse = Cls_Pays.Pays.Haiti Then
+            '    val = "" & _AdresseRue & ", " & Departement.DEPARTEMENT & " / " & Commune.COMMUNE & ", " & _AdresseCodePostal & ", " & PaysAdresse.NOM_PAYS
+            'Else
+            '    val = "" & _AdresseRue & ", " & _AdresseCity & " / " & _AdresseProvince & ", " & _AdresseCodePostal & ", " & PaysAdresse.NOM_PAYS
+            'End If
+            Return val
+        End Get
+    End Property
 
     Public ReadOnly Property DETAILS_USER_HTML As String
         Get
             Return "<hr /><b>Compte :</b> " & Username & "<hr />" & _
                 "<b>Groupe :</b> " & GroupeUser.GROUPE_DESCRIPTION & "<br />" & _
                 "<b>Nom complet :</b> " & NOMCOMPLET & "<br />" & _
-                "<b>Sexe :</b> " & IIf(_Sexe = "M", "Male", "Female") & "<br />"
+                "<b>Sexe :</b> " & IIf(_Sexe = "M", "Male", "Female") & "<br />" & _
+                "<b>Adresse :</b> " & ADRESSE_COMPLET & "<br />"
         End Get
     End Property
 
     Public Enum Groupe_Utilisateur
         Administration = 1
-        Administrateur = 1
+        Super_Super_Administrateur = 1
         Entrepreneur = 2
         Investisseur = 3
         Entrepreneur_ET_Investisseur = 4
@@ -1087,232 +831,222 @@ Public Class Cls_User
         Donate = 6
     End Enum
 
+
+#Region "FIREBASE 24-11-2017 | 04:33 PM"
+    Public Property IdAppFireBase() As String
+        Get
+            Return _IdAppFireBase
+        End Get
+        Set(ByVal Value As String)
+            If _IdAppFireBase <> Value Then
+                _isdirty = True
+                _IdAppFireBase = Value
+            End If
+        End Set
+    End Property
+
+    Public Property IdFirebaseToken() As String
+        Get
+            Return _IdFirebaseToken
+        End Get
+        Set(ByVal Value As String)
+            If _IdFirebaseToken <> Value Then
+                _isdirty = True
+                _IdFirebaseToken = Value
+            End If
+        End Set
+    End Property
+#End Region
+
 #End Region
 
 #Region " Db Access "
     Public Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
-        _LogData = ""
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_InsertPersonnel", _Nom, _Prenom, _Sexe, _Cin, _Nif, _Titre, _NomUtilisateur, Encripteur.EncryptMD5(_MotDePasse), _Mention, _Email, _TelDigicel, _TelNatcom, _Valide, _EstAssigne, _DerniereDateConnexion, _ComNaissance, _LieuNaissance, _ProfileId, _DeptId, _ComID, _VqseId, _EquipeCodification, _CreePar, _DateCreation, _ModifierPar, _DateModification, IIf(_Photo IsNot Nothing, _Photo, DBNull.Value), _ActifYN, _ConnecterYN, _MustChangePassword, _IsForcedOut, usr))
+        _LogData = LogData(Me)
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Insert_User", _Id_Ecole _
+                                                      , IIf(_Photo IsNot Nothing, _Photo, DBNull.Value) _
+                                                      , _ID_GroupeUser, _UserName _
+                                                      , Encripteur.Encrypt(_Password), _Civilite, _Nom, _Prenom, _Sexe, _Telephone _
+                                                      , IIf(_DateNaissance Is Nothing, DBNull.Value, _DateNaissance), _ID_PaysNaissance _
+                                                      , _ID_Occupation, _ID_Departement, _ID_Commune, _ID_PaysAdresse, _AdresseRue, _AdresseCity _
+                                                      , _AdresseProvince, _AdresseCodePostal, _AlerteNouveaute, _AutreAlerte, _ActifYN, _Confirmer _
+                                                      , _IdAppFireBase, _IdFirebaseToken, usr))
         Return _id
     End Function
 
     Public Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
-        _LogData = ""
-        '_LogData = GetObjectString()
-        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_UpdatePersonnel", _id, _Nom, _Prenom, _Sexe, _Cin, _Nif, _Titre, _NomUtilisateur, _MotDePasse, _Mention, _Email, _TelDigicel, _TelNatcom, _Valide, _EstAssigne, _DerniereDateConnexion, _ComNaissance, _LieuNaissance, _ProfileId, _DeptId, _ComID, _VqseId, _EquipeCodification, _CreePar, _DateCreation, _ModifierPar, _DateModification, IIf(_Photo IsNot Nothing, _Photo, DBNull.Value), _ActifYN, _ConnecterYN, _MustChangePassword, _IsForcedOut, usr)
+        _LogData = GetObjectString()
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_User", _id, _Id_Ecole _
+                                                      , IIf(_Photo IsNot Nothing, _Photo, DBNull.Value) _
+                                                      , _ID_GroupeUser, _UserName _
+                                                      , _Civilite, _Nom, _Prenom, _Sexe, _Telephone _
+                                                      , IIf(_DateNaissance Is Nothing, DBNull.Value, _DateNaissance), _ID_PaysNaissance _
+                                                      , _ID_Occupation, _ID_Departement, _ID_Commune, _ID_PaysAdresse, _AdresseRue, _AdresseCity _
+                                                      , _AdresseProvince, _AdresseCodePostal, _AlerteNouveaute, _AutreAlerte, _ActifYN, _Confirmer _
+                                                      , _IdAppFireBase, _IdFirebaseToken, usr)
     End Function
 
-    'Public Function setAskPassword(ByVal usr As String) As Integer
-    '    Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_UpdateUser_AskPassword", _id, _AskPassword, usr)
-    'End Function
-
     Public Sub SetProperties(ByVal dr As DataRow)
-
-        _id = TypeSafeConversion.NullSafeLong(dr("PersId"))
+        _id = TypeSafeConversion.NullSafeLong(dr("ID_User"))
+        _Id_Ecole = TypeSafeConversion.NullSafeLong(dr("ID_Ecole"))
+        _ID_GroupeUser = TypeSafeConversion.NullSafeLong(dr("ID_GroupeUser"))
+        If dr("Photo") IsNot DBNull.Value Then
+            _Photo = dr("Photo")
+        Else
+            _Photo = Nothing
+        End If
+        _UserName = TypeSafeConversion.NullSafeString(dr("UserName"))
+        _Password = TypeSafeConversion.NullSafeString(dr("Password"))
+        _Civilite = TypeSafeConversion.NullSafeString(dr("Civilite"))
         _Nom = TypeSafeConversion.NullSafeString(dr("Nom"))
         _Prenom = TypeSafeConversion.NullSafeString(dr("Prenom"))
-        '_Sexe = TypeSafeConversion.NullSafeString(dr("Sexe"))
-        '_Cin = TypeSafeConversion.NullSafeString(dr("Cin"))
-        '_Nif = TypeSafeConversion.NullSafeString(dr("Nif"))
-        '_Titre = TypeSafeConversion.NullSafeString(dr("Titre"))
-
-        _NomUtilisateur = TypeSafeConversion.NullSafeString(dr("NomUtilisateur"))
-        _UserName = TypeSafeConversion.NullSafeString(dr("NomUtilisateur"))
-
-        _MotDePasse = TypeSafeConversion.NullSafeString(dr("MotDePasse"))
-        _Password = TypeSafeConversion.NullSafeString(dr("MotDePasse"))
-
-        '_Mention = TypeSafeConversion.NullSafeString(dr("Mention"))
-        '_Email = TypeSafeConversion.NullSafeString(dr("Email"))
-        '_TelDigicel = TypeSafeConversion.NullSafeString(dr("TelDigicel"))
-        '_TelNatcom = TypeSafeConversion.NullSafeString(dr("TelNatcom"))
-        '_Valide = TypeSafeConversion.NullSafeString(dr("Valide"))
-        '_EstAssigne = TypeSafeConversion.NullSafeString(dr("EstAssigne"))
-        '_DerniereDateConnexion = TypeSafeConversion.NullSafeString(dr("DerniereDateConnexion"))
-        '_ComNaissance = TypeSafeConversion.NullSafeString(dr("ComNaissance"))
-        '_LieuNaissance = TypeSafeConversion.NullSafeString(dr("LieuNaissance"))
-
-        _ProfileId = TypeSafeConversion.NullSafeInteger(dr("ProfileId"))
-        _ID_GroupeUser = TypeSafeConversion.NullSafeInteger(dr("ProfileId"))
-
-        '_DeptId = TypeSafeConversion.NullSafeString(dr("DeptId"))
-        '_ComID = TypeSafeConversion.NullSafeString(dr("ComID"))
-        '_VqseId = TypeSafeConversion.NullSafeString(dr("VqseId"))
-        '_EquipeCodification = TypeSafeConversion.NullSafeInteger(dr("EquipeCodification"))
-        '_CreePar = TypeSafeConversion.NullSafeString(dr("CreePar"))
-        '_DateCreation = TypeSafeConversion.NullSafeString(dr("DateCreation"))
-        '_ModifierPar = TypeSafeConversion.NullSafeString(dr("ModifierPar"))
-        '_DateModification = TypeSafeConversion.NullSafeString(dr("DateModification"))
-
-
-        'If dr("Photo") IsNot DBNull.Value Then
-        '    _Photo = dr("Photo")
-        'Else
-        '    _Photo = Nothing
-        'End If
+        _Sexe = TypeSafeConversion.NullSafeString(dr("Sexe"))
+        _Telephone = TypeSafeConversion.NullSafeString(dr("Telephone"))
+        _DateNaissance = TypeSafeConversion.NullSafeDate(dr("DateNaissance"))
+        _ID_PaysNaissance = TypeSafeConversion.NullSafeLong(dr("ID_PaysNaissance"))
+        _ID_Occupation = TypeSafeConversion.NullSafeLong(dr("ID_Occupation"))
+        _ID_Departement = TypeSafeConversion.NullSafeLong(dr("ID_Departement"))
+        _ID_Commune = TypeSafeConversion.NullSafeLong(dr("ID_Commune"))
+        _ID_PaysAdresse = TypeSafeConversion.NullSafeLong(dr("ID_PaysAdresse"))
+        _AdresseRue = TypeSafeConversion.NullSafeString(dr("AdresseRue"))
+        _AdresseCity = TypeSafeConversion.NullSafeString(dr("AdresseCity"))
+        _AdresseProvince = TypeSafeConversion.NullSafeString(dr("AdresseProvince"))
+        _AdresseCodePostal = TypeSafeConversion.NullSafeString(dr("AdresseCodePostal"))
+        _AlerteNouveaute = TypeSafeConversion.NullSafeBoolean(dr("AlerteNouveaute"))
+        _AutreAlerte = TypeSafeConversion.NullSafeBoolean(dr("AutreAlerte"))
         _ActifYN = TypeSafeConversion.NullSafeBoolean(dr("ActifYN"))
-        '_ConnecterYN = TypeSafeConversion.NullSafeBoolean(dr("ConnecterYN"))
-        '_MustChangePassword = TypeSafeConversion.NullSafeBoolean(dr("MustChangePassword"))
-        '_IsForcedOut = TypeSafeConversion.NullSafeBoolean(dr("IsForcedOut"))
-        '_LastIP = TypeSafeConversion.NullSafeString(dr("LastIP"))
+        _LastLogin = TypeSafeConversion.NullSafeDate(dr("LastLogin"))
+        _ConnecterYN = TypeSafeConversion.NullSafeBoolean(dr("ConnecterYN"))
+        _LastIP = TypeSafeConversion.NullSafeString(dr("LastIP"))
+        _MustChangePassword = TypeSafeConversion.NullSafeBoolean(dr("MustChangePassword"))
+        _IsForcedOut = TypeSafeConversion.NullSafeBoolean(dr("IsForcedOut"))
+        _Confirmer = TypeSafeConversion.NullSafeBoolean(dr("Confirmer"))
 
+        _DateCreated = TypeSafeConversion.NullSafeDate(dr("DateCreated"))
+        _CreatedBy = TypeSafeConversion.NullSafeString(dr("CreatedBy"))
+
+        _IdAppFireBase = TypeSafeConversion.NullSafeString(dr("IdAppFireBase"))
+        _IdFirebaseToken = TypeSafeConversion.NullSafeString(dr("IdFirebaseToken"))
     End Sub
 
+    Public Sub BlankProperties()
+        _id = 0
+        _Id_Ecole = 0
+        _ID_GroupeUser = 0
+        _GroupeUser = Nothing
+
+        _Photo = Nothing
+        _UserName = ""
+        _Password = ""
+        _Civilite = ""
+        _Nom = ""
+        _Prenom = ""
+        _Sexe = ""
+        _Telephone = ""
+        _DateNaissance = Now
+        _ID_PaysNaissance = 0
+        _ID_Occupation = 0
+        '_Occupation = Nothing
+        _ID_Departement = 0
+        _Departement = Nothing
+        _ID_Commune = 0
+        _Commune = Nothing
+        _ID_PaysAdresse = 0
+        _PaysAdresse = Nothing
+        _AdresseRue = ""
+        _AdresseCity = ""
+        _AdresseProvince = ""
+        _AdresseCodePostal = ""
+        _AlerteNouveaute = False
+        _AutreAlerte = False
+        _ActifYN = False
+        _LastLogin = Now
+        _ConnecterYN = False
+        _LastIP = ""
+        _MustChangePassword = False
+        _IsForcedOut = False
+        _Confirmer = False
+
+
+        _IdAppFireBase = ""
+        _IdFirebaseToken = ""
+    End Sub
 
     Public Sub SetDefaultProperties()
         _id = 1
-        '_Id_Ecole = 1
-        _ID_GroupeUser = 1
+        _Id_Ecole = 1
+        _ID_GroupeUser = Groupe_Utilisateur.Super_Super_Administrateur
 
         _UserName = "info@brain-dev.net"
         _Password = ""
-        '_Civilite = ""
+        _Civilite = ""
         _Nom = "Admin"
         _Prenom = "Super"
         _Sexe = "M"
-        '_Telephone = "49258080"
-        '_DateNaissance = Now
-        '_AlerteNouveaute = False
-        '_AutreAlerte = False
+        _Telephone = "49258080"
+        _DateNaissance = Now
+        _AlerteNouveaute = False
+        _AutreAlerte = False
         _ActifYN = True
         _LastLogin = Now
         _ConnecterYN = True
         _LastIP = ""
         _MustChangePassword = False
         _IsForcedOut = False
-        '_Confirmer = True
+        _Confirmer = True
 
         _Photo = Nothing
-        '_ID_PaysNaissance = 0
-        '_ID_Occupation = 0
-        '_ID_Departement = 0
-        '_Departement = Nothing
-        '_ID_Commune = 0
+        _ID_PaysNaissance = 0
+        _ID_Occupation = 0
+        _ID_Departement = 0
+        _Departement = Nothing
+        _ID_Commune = 0
         _Commune = Nothing
-        '_ID_PaysAdresse = 0
-        '_PaysAdresse = Nothing
-        '_AdresseRue = ""
-        '_AdresseCity = ""
-        '_AdresseProvince = ""
-        '_AdresseCodePostal = ""
+        _ID_PaysAdresse = 0
+        _PaysAdresse = Nothing
+        _AdresseRue = ""
+        _AdresseCity = ""
+        _AdresseProvince = ""
+        _AdresseCodePostal = ""
 
-        '_IdAppFireBase = ""
-        '_IdFirebaseToken = ""
+        _IdAppFireBase = ""
+        _IdFirebaseToken = ""
     End Sub
 
-    Private Sub BlankProperties()
+    Public Overloads Function Read(ByVal idval As Long) As Boolean Implements IGeneral.Read
+        If idval <> 0 Then
+            Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ById", idval)
 
-        _id = 0
-        _Nom = ""
-        _Prenom = ""
-        _Sexe = ""
-        _Cin = ""
-        _Nif = ""
-        _Titre = ""
-        _NomUtilisateur = ""
-        _MotDePasse = ""
-        _Mention = ""
-        _Email = ""
-        _TelDigicel = ""
-        _TelNatcom = ""
-        _Valide = ""
-        _EstAssigne = ""
-        _DerniereDateConnexion = ""
-        _ComNaissance = ""
-        _CommuneNaissance = Nothing
-        _LieuNaissance = ""
-        _ProfileId = 0
-        _GroupeUser = Nothing
-        _DeptId = ""
-        _tId = Nothing
-        _ComID = ""
-        _id = Nothing
-        _VqseId = ""
-        _eId = Nothing
-        _EquipeCodification = 0
-        _ipeCodification = Nothing
-        _CreePar = ""
-        _DateCreation = ""
-        _ModifierPar = ""
-        _DateModification = ""
-        _Photo = Nothing
-        _ActifYN = False
-        _ConnecterYN = False
-        _MustChangePassword = False
-        _IsForcedOut = False
-        _LastIP = ""
-        _isdirty = False
-
-    End Sub
-
-    Public Function Read(ByVal _idpass As Long) As Boolean Implements IGeneral.Read
-        Try
-            If _idpass <> 0 Then
-                'Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_SelectPersonnel_ByID", _idpass)
-                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ById", _idpass)
-
-                If ds.Tables(0).Rows.Count < 1 Then
-                    BlankProperties()
-                    Return False
-                End If
-
-                SetProperties(ds.Tables(0).Rows(0))
-            Else
+            If ds.Tables(0).Rows.Count < 1 Then
                 BlankProperties()
+                Return False
             End If
-            Return True
-        Catch ex As Exception
-            Throw ex
-        End Try
+
+            SetProperties(ds.Tables(0).Rows(0))
+        Else
+            BlankProperties()
+        End If
+
+        Return True
     End Function
 
-    Public Function Read(ByVal _idpass As String) As Boolean
-        Try
-            If _idpass <> "" Then
-                'Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_SelectPersonnel_NomUtilisateur", _idpass)
-                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", _idpass)
+    Public Overloads Function Read(ByVal usr As String) As Boolean
+        Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", usr)
 
-                If ds.Tables(0).Rows.Count < 1 Then
-                    BlankProperties()
-                    Return False
-                End If
+        If ds.Tables(0).Rows.Count < 1 Then
+            BlankProperties()
+            Return False
+        End If
 
-                SetProperties(ds.Tables(0).Rows(0))
-            Else
-                BlankProperties()
-            End If
-            Return True
-        Catch ex As Exception
-            Throw ex
-        End Try
+        SetProperties(ds.Tables(0).Rows(0))
+
+        Return True
     End Function
 
-    Public Function Read_Email(ByVal Email As String) As Boolean
+    Public Function Read_UserName(ByVal UserName As String) As Boolean
         Try
-            If Email <> "" Then
-                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_SelectPersonnel_Email", Email)
-
-                If ds.Tables(0).Rows.Count < 1 Then
-                    BlankProperties()
-                    Return False
-                End If
-
-                SetProperties(ds.Tables(0).Rows(0))
-            Else
-                BlankProperties()
-            End If
-            Return True
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Function
-
-    Public Function Read_NomUtilisateur(ByVal NomUtilisateur As String) As Boolean
-        Try
-
-            If NomUtilisateur <> "" Then
-                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", NomUtilisateur)
-
+            If UserName <> "" Then
+                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "Sp_SelectSR_USER_ByID", UserName)
                 If ds.Tables(0).Rows.Count < 1 Then
                     BlankProperties()
                     Return False
@@ -1325,17 +1059,13 @@ Public Class Cls_User
 
             Return True
         Catch ex As Exception
-
             Throw ex
-
         End Try
-
     End Function
 
     Public Sub Delete() Implements IGeneral.Delete
         Try
-            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SP_DeletePersonnel", _id)
-
+            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Delete_User", _id)
         Catch ex As SqlClient.SqlException
             Throw New System.Exception(ex.ErrorCode)
         End Try
@@ -1370,6 +1100,31 @@ Public Class Cls_User
         _isdirty = False
         Return val
     End Function
+    Public Function Save_Client(ByVal usr As String) As Integer
+        Dim val As Integer = 0
+        If _isdirty Then
+            Validation_Client()
+
+            If _id = 0 Then
+                val = Insert(usr)
+            Else
+                If _id > 0 Then
+                    val = Update(usr)
+                Else
+                    val = _id = 0
+                    Return False
+                End If
+            End If
+        End If
+
+        _isdirty = False
+        Return val
+    End Function
+
+    Public Function ChangeGroupeStatut(ByVal usr As String) As Integer
+        Return 0 ' SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_User", _id, _ID_GroupeUser, _UserName, _Civilite, _Nom, _Prenom, _Sexe, _Telephone, IIf(_DateNaissance Is Nothing, DBNull.Value, _DateNaissance), _ID_PaysNaissance, _ID_Occupation, _ID_Departement, _ID_Commune, _ID_PaysAdresse, _AdresseRue, _AdresseCity, _AdresseProvince, _AdresseCodePostal, _AlerteNouveaute, _AutreAlerte, _ActifYN, _Confirmer, usr)
+    End Function
+
 #End Region
 
 #Region " Search "
@@ -1377,11 +1132,11 @@ Public Class Cls_User
         Return SearchAll()
     End Function
 
-    Public Shared Function SearchAll() As List(Of Cls_User)
+    Public Shared Function SearchAll(Optional ByVal ActifYN As String = "FO") As List(Of Cls_User)
         Try
             Dim objs As New List(Of Cls_User)
             Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel")
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_ListAll_User", ActifYN)
             For Each r In ds.Tables(0).Rows
                 Dim obj As New Cls_User
 
@@ -1390,118 +1145,8 @@ Public Class Cls_User
                 objs.Add(obj)
             Next r
             Return objs
+
         Catch ex As Exception
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllByNaissance(ByVal _comnaissance As String) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_ComNaissance", _comnaissance)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-                obj.SetProperties(r)
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllByfileId(ByVal _profileid As Integer) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_ProfileId", _profileid)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-
-                obj.SetProperties(r)
-
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllBytId(ByVal _deptid As String) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_DeptId", _deptid)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-
-                obj.SetProperties(r)
-
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllByID(ByVal _comid As String) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_ComID", _comid)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-
-                obj.SetProperties(r)
-
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllByeId(ByVal _vqseid As String) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_VqseId", _vqseid)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-
-                obj.SetProperties(r)
-
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-
-            Throw ex
-        End Try
-    End Function
-
-    Public Shared Function SearchAllByipeCodification(ByVal _equipecodification As Integer) As List(Of Cls_User)
-        Try
-            Dim objs As New List(Of Cls_User)
-            Dim r As Data.DataRow
-            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Personnel_EquipeCodification", _equipecodification)
-            For Each r In ds.Tables(0).Rows
-                Dim obj As New Cls_User
-
-                obj.SetProperties(r)
-
-                objs.Add(obj)
-            Next r
-            Return objs
-        Catch ex As Exception
-
             Throw ex
         End Try
     End Function
@@ -1510,274 +1155,11 @@ Public Class Cls_User
 
 #Region " Other Methods "
 
-    Private Function FoundAlreadyExist_Email(ByVal _value As String) As Boolean
-        Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_SelectPersonnel_Email", _value)
-        If ds.Tables(0).Rows.Count < 1 Then
-            Return False
-        Else
-            If _id = 0 Then
-                Return True
-            Else
-                If ds.Tables(0).Rows(0).Item("PersId") <> _id Then
-                    Return True
-                Else
-                    Return False
-                End If
-            End If
-        End If
+
+    Public Shared Function SetIsHaveOtherService_User_ById(ByVal ID_USER As Long, ByVal _IsHaveOtherService As Boolean) As Long
+        Return SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_IsHaveOtherService_USER_ById", ID_USER, _IsHaveOtherService)
     End Function
 
-    Private Function FoundAlreadyExist_NomUtilisateur(ByVal _value As String) As Boolean
-        Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", _value)
-        If ds.Tables(0).Rows.Count < 1 Then
-            Return False
-        Else
-            If _id = 0 Then
-                Return True
-            Else
-                If ds.Tables(0).Rows(0).Item("PersId") <> _id Then
-                    Return True
-                Else
-                    Return False
-                End If
-            End If
-        End If
-    End Function
-
-    Private Sub Validation()
-
-        'If _Nom = "" Then
-        '    Throw (New System.Exception(" nom obligatoire"))
-        'End If
-
-        'If Len(_Nom) > 240 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pournom  (la longueur doit être inférieure a 240 caractères.  )"))
-        'End If
-
-        'If _Prenom = "" Then
-        '    Throw (New System.Exception(" prenom obligatoire"))
-        'End If
-
-        'If Len(_Prenom) > 300 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourprenom  (la longueur doit être inférieure a 300 caractères.  )"))
-        'End If
-
-        'If _Sexe = "" Then
-        '    Throw (New System.Exception(" sexe obligatoire"))
-        'End If
-
-        'If Len(_Sexe) > 2 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés poursexe  (la longueur doit être inférieure a 2 caractères.  )"))
-        'End If
-
-        'If _Cin = "" Then
-        '    Throw (New System.Exception(" cin obligatoire"))
-        'End If
-
-        'If Len(_Cin) > 44 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourcin  (la longueur doit être inférieure a 44 caractères.  )"))
-        'End If
-
-        'If _Nif = "" Then
-        '    Throw (New System.Exception(" nif obligatoire"))
-        'End If
-
-        'If Len(_Nif) > 30 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pournif  (la longueur doit être inférieure a 30 caractères.  )"))
-        'End If
-
-        'If _Titre = "" Then
-        '    Throw (New System.Exception(" titre obligatoire"))
-        'End If
-
-        'If Len(_Titre) > 300 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourtitre  (la longueur doit être inférieure a 300 caractères.  )"))
-        'End If
-
-        'If _NomUtilisateur = "" Then
-        '    Throw (New System.Exception(" nomutilisateur obligatoire"))
-        'End If
-
-        'If Len(_NomUtilisateur) > 140 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pournomutilisateur  (la longueur doit être inférieure a 140 caractères.  )"))
-        'End If
-
-        'If _MotDePasse = "" Then
-        '    Throw (New System.Exception(" motdepasse obligatoire"))
-        'End If
-
-        'If Len(_MotDePasse) > 510 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourmotdepasse  (la longueur doit être inférieure a 510 caractères.  )"))
-        'End If
-
-        'If _Mention = "" Then
-        '    Throw (New System.Exception(" mention obligatoire"))
-        'End If
-
-        'If Len(_Mention) > 400 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourmention  (la longueur doit être inférieure a 400 caractères.  )"))
-        'End If
-
-        'If _Email = "" Then
-        '    Throw (New System.Exception(" email obligatoire"))
-        'End If
-
-        'If Len(_Email) > 400 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pouremail  (la longueur doit être inférieure a 400 caractères.  )"))
-        'End If
-
-        'If _TelDigicel = "" Then
-        '    Throw (New System.Exception(" teldigicel obligatoire"))
-        'End If
-
-        'If Len(_TelDigicel) > 30 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourteldigicel  (la longueur doit être inférieure a 30 caractères.  )"))
-        'End If
-
-        'If _TelNatcom = "" Then
-        '    Throw (New System.Exception(" telnatcom obligatoire"))
-        'End If
-
-        'If Len(_TelNatcom) > 30 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourtelnatcom  (la longueur doit être inférieure a 30 caractères.  )"))
-        'End If
-
-        'If _Valide = "" Then
-        '    Throw (New System.Exception(" valide obligatoire"))
-        'End If
-
-        'If Len(_Valide) > 24 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourvalide  (la longueur doit être inférieure a 24 caractères.  )"))
-        'End If
-
-        'If _EstAssigne = "" Then
-        '    Throw (New System.Exception(" estassigne obligatoire"))
-        'End If
-
-        'If Len(_EstAssigne) > 40 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourestassigne  (la longueur doit être inférieure a 40 caractères.  )"))
-        'End If
-
-        'If _DerniereDateConnexion = "" Then
-        '    Throw (New System.Exception(" dernieredateconnexion obligatoire"))
-        'End If
-
-        'If Len(_DerniereDateConnexion) > 140 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourdernieredateconnexion  (la longueur doit être inférieure a 140 caractères.  )"))
-        'End If
-
-        'If _ComNaissance = "" Then
-        '    Throw (New System.Exception(" comnaissance obligatoire"))
-        'End If
-
-        'If Len(_ComNaissance) > 20 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourcomnaissance  (la longueur doit être inférieure a 20 caractères.  )"))
-        'End If
-
-        'If _LieuNaissance = "" Then
-        '    Throw (New System.Exception(" lieunaissance obligatoire"))
-        'End If
-
-        'If Len(_LieuNaissance) > 140 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourlieunaissance  (la longueur doit être inférieure a 140 caractères.  )"))
-        'End If
-
-        'If _ProfileId = 0 Then
-        '    Throw (New System.Exception(" fileid obligatoire"))
-        'End If
-
-        'If _DeptId = "" Then
-        '    Throw (New System.Exception(" deptid obligatoire"))
-        'End If
-
-        'If Len(_DeptId) > 20 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourdeptid  (la longueur doit être inférieure a 20 caractères.  )"))
-        'End If
-
-        'If _ComID = "" Then
-        '    Throw (New System.Exception(" comid obligatoire"))
-        'End If
-
-        'If Len(_ComID) > 20 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourcomid  (la longueur doit être inférieure a 20 caractères.  )"))
-        'End If
-
-        'If _VqseId = "" Then
-        '    Throw (New System.Exception(" vqseid obligatoire"))
-        'End If
-
-        'If Len(_VqseId) > 20 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourvqseid  (la longueur doit être inférieure a 20 caractères.  )"))
-        'End If
-
-        'If _EquipeCodification = 0 Then
-        '    Throw (New System.Exception(" ipecodification obligatoire"))
-        'End If
-
-        'If _CreePar = "" Then
-        '    Throw (New System.Exception(" creepar obligatoire"))
-        'End If
-
-        'If Len(_CreePar) > 240 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourcreepar  (la longueur doit être inférieure a 240 caractères.  )"))
-        'End If
-
-        'If _DateCreation = "" Then
-        '    Throw (New System.Exception(" datecreation obligatoire"))
-        'End If
-
-        'If Len(_DateCreation) > 140 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourdatecreation  (la longueur doit être inférieure a 140 caractères.  )"))
-        'End If
-
-        'If _ModifierPar = "" Then
-        '    Throw (New System.Exception(" modifierpar obligatoire"))
-        'End If
-
-        'If Len(_ModifierPar) > 240 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourmodifierpar  (la longueur doit être inférieure a 240 caractères.  )"))
-        'End If
-
-        'If _DateModification = "" Then
-        '    Throw (New System.Exception(" datemodification obligatoire"))
-        'End If
-
-        'If Len(_DateModification) > 140 Then
-        '    Throw (New System.Exception(" Trop de caractères insérés pourdatemodification  (la longueur doit être inférieure a 140 caractères.  )"))
-        'End If
-
-
-        If FoundAlreadyExist_Email(Email) Then
-            Throw (New System.Exception("Ce Email est déjà enregistré."))
-        End If
-
-        'If FoundAlreadyExist_NomUtilisateur(NomUtilisateur) Then
-        '    Throw (New System.Exception("Ce NomUtilisateur est déjà enregistré."))
-        'End If
-
-        If FoundAlreadyExist_NomUtilisateur(_UserName) Then
-            IsSendEmail = False
-            Throw (New System.Exception("Code Utilisateur [ " & _UserName & " ] déjà enregistré."))
-        End If
-    End Sub
-
-    Public Function Encode(ByVal str As Byte()) As String
-        Return Convert.ToBase64String(str)
-    End Function
-
-    Public Function Decode(ByVal str As String) As Byte()
-        Dim decbuff As Byte() = Convert.FromBase64String(str)
-        Return decbuff
-    End Function
-
-    Public Function GetObjectString() As String Implements IGeneral.GetObjectString
-        ' Dim _old As New Cls_Personnel(Me.ID)
-        Return Nothing 'LogStringBuilder.BuildLogStringChangesOnly(_old, Me)
-    End Function
-
-#End Region
-
-#Region " Other Methods IMPORT"
     Public Function FoundAlreadyExist_UserName(ByVal _value As String) As Boolean
         Try
             Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_SelectSR_USER_UserName", _value)
@@ -1856,20 +1238,116 @@ Public Class Cls_User
         Return True
     End Function
 
-    REM ###################################################
-    REM ###################################################
+#End Region
+
+#Region " Other Methods "
+    Private Function LoginValueExists(ByVal value As String) As Boolean
+        Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", value)
+
+        If ds.Tables(0).Rows.Count < 1 Then
+            Return False
+        Else
+            If _id = 0 Then
+                Return True
+            Else
+                If ds.Tables(0).Rows(0).Item("ID_User") <> _id Then
+                    Return True
+                Else
+                    Return False
+                End If
+            End If
+        End If
+    End Function
+
+    Public Shared Function LoginExists(ByVal _id As String, ByVal Username As String) As Boolean
+        Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByUserName", Username)
+
+        If ds.Tables(0).Rows.Count < 1 Then
+            Return False
+        Else
+            If _id = 0 Then
+                Return True
+            Else
+                If ds.Tables(0).Rows(0).Item("ID_User") <> _id Then
+                    Return True
+                Else
+                    Return False
+                End If
+            End If
+        End If
+    End Function
+
+    Private Sub Validation()
+        If _UserName = "" Then
+            'IsSendEmail = False
+            Throw (New Rezo509Exception("Le Code d'Utilisateur n'est pas renseigné."))
+        End If
+
+        'If _ID_Group = 0 Then
+        '    Throw (New Rezo509Exception("Le Groupe n'est pas renseigné."))
+        'End If
+
+        'If Len(_UserName) > 50 Then
+        '    Throw (New Rezo509Exception("Code d'Utilisateur trop long (doit être inférieur à 20 caractères)"))
+        'End If
+
+        If LoginValueExists(_UserName) Then
+            'IsSendEmail = False
+            Throw (New Rezo509Exception("Code Utilisateur [ " & _UserName & " ] déjà enregistré."))
+        End If
+    End Sub
+
+    Private Sub Validation_Client()
+        If _UserName = "" Then
+            Throw (New Rezo509Exception("Le Code d'Utilisateur n'est pas renseigné."))
+        End If
+
+        If _Id_Ecole = 0 Then
+            Throw (New Rezo509Exception("Ecole obligatoire"))
+        End If
+
+        If _ID_GroupeUser = 0 Then
+            Throw (New Rezo509Exception("Le Groupe n'est pas renseigné."))
+        End If
+
+        If FoundName() Then
+            Throw (New Rezo509Exception("Code Utilisateur [ " & _UserName & " ] est déjà enregistré."))
+        End If
+    End Sub
+
+    Private Function FoundName() As Boolean
+        Try
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_Select_User_ByID_Ecole_ByUserName", _Id_Ecole, _UserName)
+            If ds.Tables(0).Rows.Count < 1 Then
+                Return False
+            Else
+                If _id = 0 Then
+                    Return True
+                Else
+                    If ds.Tables(0).Rows(0).Item("ID_User") <> _id Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            'ErreurLog.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
 
     Public Function ChangePassword(ByVal oldpass As String, ByVal newpass As String, ByVal verifnewpass As String) As String
         Dim tmp As String = ""
 
-        If Encripteur.EncryptMD5(oldpass) = Me.Password Then
-            If Encripteur.EncryptMD5(newpass) <> Encripteur.EncryptMD5(oldpass) Then
+        If Encripteur.Encrypt(oldpass) = Me.Password Then
+            If Encripteur.Encrypt(newpass) <> Encripteur.Encrypt(oldpass) Then
                 If newpass = verifnewpass Then
                     If Len(newpass) >= 6 Then
                         Try
-                            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.EncryptMD5(newpass), Me.Username)
+                            SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.Encrypt(newpass), Me.Username)
 
-                            _Password = Encripteur.EncryptMD5(newpass)
+                            _Password = Encripteur.Encrypt(newpass)
                             _MustChangePassword = False
                         Catch ex As Exception
                             tmp = ex.Message
@@ -1896,9 +1374,9 @@ Public Class Cls_User
         If newpass = verifnewpass Then
             If Len(newpass) >= 6 Then
                 Try
-                    SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.EncryptMD5(newpass), Me.Username)
+                    SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.Encrypt(newpass), Me.Username)
 
-                    _Password = Encripteur.EncryptMD5(newpass)
+                    _Password = Encripteur.Encrypt(newpass)
                     _MustChangePassword = False
                 Catch ex As Exception
                     tmp = ex.Message
@@ -1917,9 +1395,9 @@ Public Class Cls_User
 
         If _id <> 0 Then
             Try
-                SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.EncryptMD5(_UserName), _u)
+                SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Password_User", _id, Encripteur.Encrypt(_UserName), _u)
 
-                _Password = Encripteur.EncryptMD5(_UserName)
+                _Password = Encripteur.Encrypt(_UserName)
                 _MustChangePassword = True
             Catch
             End Try
@@ -1932,9 +1410,7 @@ Public Class Cls_User
 
     Public Overloads Function Activite_Utilisateur_InRezo(ByVal actv As String, ByVal descactv As String, ByVal _TmpIPadd As String) As Integer
         Dim valret As Integer = 0
-
-        valret = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Insert_UserActivite_InRezo", Me.Username, actv, _TmpIPadd, Left(descactv, 2000)))
-
+        valret = TypeSafeConversion.NullSafeLong(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Insert_UserActivite_InRezo", Me.Username, actv, _TmpIPadd, Left(descactv, 2000)))
         Return valret
     End Function
 
@@ -2026,6 +1502,13 @@ Public Class Cls_User
         Return Nbr
     End Function
 
+    Public Function GetObjectString() As String Implements IGeneral.GetObjectString
+        Return LogData(New Cls_User(Me.ID))
+    End Function
+
+    Function LogData(obj As Cls_User) As String
+        Return LogStringBuilder.BuildLogStringHTML(obj)
+    End Function
 #End Region
 
 End Class

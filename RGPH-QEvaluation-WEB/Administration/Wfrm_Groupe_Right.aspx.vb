@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Saturday 21-09-2013
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -11,9 +11,12 @@ Partial Class Parametres_Administration_Groupe_Right
     Inherits System.Web.UI.Page
 
     Dim _message As String = ""
-    Private Const Nom_page As String = "PAGE-PRIVILEGE-GROUPE"
+    'Private Const Nom_page As String = "PAGE-PRIVILEGE-GROUPE"
+    Private Const Nom_page As String = "Wfrm_Groupe_Right.aspx"
     Private Const btnSendPrivilege As String = "Bouton-Ajouter-Privilege"
     Private Const btnRemovePrivilege As String = "Bouton-Remove-Privilege"
+
+
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
     Dim GetOut As Boolean = False
@@ -42,7 +45,7 @@ Partial Class Parametres_Administration_Groupe_Right
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active ")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_PRIVILEGE_GROUPE"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -79,7 +82,7 @@ Partial Class Parametres_Administration_Groupe_Right
                     MessageToShow(_message)
                     Is_Acces_Page = True
                 End If
-            Catch ex As Exception
+            Catch ex As Rezo509Exception
                 GetOut = True
                 _message = "Session expirée."
                 MessageToShow(_message)
@@ -122,7 +125,7 @@ Partial Class Parametres_Administration_Groupe_Right
                 Label_Msg.Text = "Pas de Groupe déjà créé."
                 Dialogue.alert("Pas de Groupe déjà créé.")
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try
@@ -152,7 +155,7 @@ Partial Class Parametres_Administration_Groupe_Right
             Else
                 LstAvailObjects.Items.Clear()
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try
@@ -184,7 +187,7 @@ Partial Class Parametres_Administration_Groupe_Right
                 Dialogue.alert("Pas de Tâche sélectionnée pour affectation OU pas de Groupe.")
                 Label_Msg.Text = "Pas de Tâche sélectionnée pour affectation OU pas de Groupe."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try
@@ -209,7 +212,7 @@ Partial Class Parametres_Administration_Groupe_Right
                 Label_Msg.Text = "Pas de Tâche disponible pour affectation OU pas de Groupe."
                 Dialogue.alert("Pas de Tâche disponible pour affectation OU pas de Groupe.")
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try
@@ -233,7 +236,7 @@ Partial Class Parametres_Administration_Groupe_Right
                 Label_Msg.Text = "Pas de Tâche disponible pour suppression OU pas de Groupe."
                 Dialogue.alert("Pas de Tâche disponible pour suppression OU pas de Groupe.")
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try
@@ -260,7 +263,7 @@ Partial Class Parametres_Administration_Groupe_Right
                 Label_Msg.Text = "Pas de Tâche sélectionnée pour suppression OU pas de Groupe."
                 Dialogue.alert("Pas de Tâche sélectionnée pour suppression OU pas de Groupe.")
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
             Dialogue.alert(ex.Message)
         End Try

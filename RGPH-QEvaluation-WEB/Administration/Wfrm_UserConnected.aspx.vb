@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Saturday 21-09-2013
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -12,7 +12,12 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
 
 #Region "ATTRIBUTS"
     Dim _message As String = ""
-    Private Const Nom_page As String = "PAGE-UTILISATEURS-CONNECTES"
+    'Private Const Nom_page As String = "PAGE-UTILISATEURS-CONNECTES"
+
+    Private Const Nom_page As String = "Wfrm_UserConnected.aspx"
+    Private Const Btn_SaveEditUser As String = "Btn_SaveEditUser"
+    Private Const Btn_DeleteUser As String = "Btn_DeleteUser"
+    Private Const Btn_ResetPassWordUser As String = "Btn_ResetPassWordUser"
 
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
@@ -56,7 +61,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active ")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_UTILISATEURS_CONNECTES"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -113,7 +118,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
                     MessageToShow(_message)
                     Is_Acces_Page = True
                 End If
-            Catch ex As Exception
+            Catch ex As Rezo509Exception
                 GetOut = True
                 _message = "Session expirée."
                 MessageToShow(_message)
@@ -187,7 +192,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
                 Label_Result.Visible = False
                 PagingPane.Visible = True
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ LoadData_GridView_List Utilisateur ] " & ex.Message)
         End Try
@@ -211,7 +216,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
             DDL_GroupUtilisateur.DataSource = obj
             DDL_GroupUtilisateur.DataBind()
 
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ Load_Group_Utilisateur Utilisateur ] " & ex.Message)
         End Try
@@ -224,7 +229,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
             Cls_User.DisconnectAll()
             LoadData_GridView_List()
             Count_DATAUser()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ Btn_DisconnectAll_Utilisateur_Click Utilisateur ] " & ex.Message)
         End Try
@@ -237,7 +242,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
         Try
             GridView_List.PageIndex = e.NewPageIndex
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ GridView_List_PageIndexChanging Utilisateur ] " & ex.Message)
         End Try
@@ -258,7 +263,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
                     Dim obj As New Cls_User(CLng(e.CommandArgument))
                     MessageToShow("SEND_EMAIL to " & obj.NOMCOMPLET, "S")
             End Select
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ GridView_List_RowCommand Utilisateur ] " & ex.Message)
             GlobalFunctions.Send_Mail_Erreur("[ " & User_Connected.USERNAME & " ] Methode -> [ GridView_List_RowCommand Utilisateur ] " & ex.Message, ex.Message)
@@ -277,7 +282,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
                 CType(e.Row.FindControl("Btn_Del"), ImageButton).Attributes.Add("onclick", "return confirm('Êtes-vous sûr de vouloir déconnecté cet utilisateur')")
 
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ GridView_List_RowDataBound Utilisateur ] " & ex.Message)
         End Try
@@ -288,7 +293,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
             Cls_User.Disconnect_User_ById(CLng(GridView_List.DataKeys(e.NewEditIndex).Value))
             LoadData_GridView_List()
             Count_DATAUser()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ GridView_List_RowEditing Utilisateur ] " & ex.Message)
         End Try
@@ -311,7 +316,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
                 Me.ViewState("sortdirection") = "ASC"
             End If
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ Sorting Utilisateur ] " & ex.Message)
         End Try
@@ -326,7 +331,7 @@ Partial Class Parametres_Administration_Wfrm_UserConnected
             End If
             GridView_List.PageSize = DDL_PageSize.SelectedValue
             LoadData_GridView_List()
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
             ErreurLog.WriteError("[ " & User_Connected.USERNAME & " ] Methode -> [ PageSize Utilisateur ] " & ex.Message)
         End Try

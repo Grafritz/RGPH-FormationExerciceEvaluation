@@ -3,7 +3,7 @@
 
 Imports BRAIN_DEVLOPMENT
 Imports System.IO
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 Partial Class UserControl_WUC_Login2
     Inherits System.Web.UI.UserControl

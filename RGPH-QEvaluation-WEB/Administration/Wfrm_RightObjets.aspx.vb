@@ -1,7 +1,7 @@
 ﻿' @Brain Development
 ' Saturday 21-09-2013
 
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Microsoft.VisualBasic
@@ -11,9 +11,12 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
     Inherits System.Web.UI.Page
 
     Dim _message As String = ""
-    Private Const Nom_page As String = "PAGE-PRIVILEGES-DES-TACHES-UTILISATEURS"
+    'Private Const Nom_page As String = "PAGE-PRIVILEGES-DES-TACHES-UTILISATEURS"
     Private Const btnSendPrivilege As String = "Bouton-Ajouter-Privilege-des-taches-utilisateur"
     Private Const btnRemovePrivilege As String = "Bouton-Remove-Privilege-des-taches-utilisateur"
+
+    Private Const Nom_page As String = "Wfrm_RightObjets.aspx"
+
     Dim User_Connected As Cls_User
     Dim Is_Acces_Page As Boolean = True
     Dim GetOut As Boolean = False
@@ -27,10 +30,11 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
 
         If Is_Acces_Page Then
             If Not IsPostBack Then
-                Me.ViewState("sortfield") = "ID"
-                Me.ViewState("sortdirection") = "DESC"
+                'Me.ViewState("sortfield") = "ID"
+                'Me.ViewState("sortdirection") = "DESC"
                 LikeFirstTime(True)
                 LoadModule()
+                FillListes(DDL_ListeALLTache.Items(DDL_ListeALLTache.SelectedIndex).Value, DDLModule.Items(DDLModule.SelectedIndex).Value, DLL_ListeObjectType.Items(DLL_ListeObjectType.SelectedIndex).Value)
             End If
         End If
 
@@ -42,7 +46,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
 
         User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active ")
+        CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPANEL_GESTION_SECURITE"), HtmlControl).Attributes.Add("class", "active treeview")
         CType(Page.Master.FindControl("DashMenu_Securite").FindControl("liPAGE_PRIVILEGES_DES_TACHES_UTILISATEURS"), HtmlControl).Attributes.Add("class", "active")
 
         If Session([Global].GLOBAL_SESSION) IsNot Nothing Then
@@ -55,10 +59,10 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
                 Panel_First.Visible = False
                 '--- Sorry vous n'avez pas Acces a la page     
             Else
-                'btnSendOne.Visible = Cls_Privilege.VerifyRightOnObject(btnSendPrivilege, User_Connected.IdGroupeuser)
-                'btnSendAll.Visible = Cls_Privilege.VerifyRightOnObject(btnSendPrivilege, User_Connected.IdGroupeuser)
-                'btnRemoveOne.Visible = Cls_Privilege.VerifyRightOnObject(btnRemovePrivilege, User_Connected.IdGroupeuser)
-                'btnRemoveAll.Visible = Cls_Privilege.VerifyRightOnObject(btnRemovePrivilege, User_Connected.IdGroupeuser)
+                btnSendOne.Visible = Cls_Privilege.VerifyRightOnObject(btnSendPrivilege, User_Connected.IdGroupeuser)
+                btnSendAll.Visible = Cls_Privilege.VerifyRightOnObject(btnSendPrivilege, User_Connected.IdGroupeuser)
+                btnRemoveOne.Visible = Cls_Privilege.VerifyRightOnObject(btnRemovePrivilege, User_Connected.IdGroupeuser)
+                btnRemoveAll.Visible = Cls_Privilege.VerifyRightOnObject(btnRemovePrivilege, User_Connected.IdGroupeuser)
             End If
         End If
 
@@ -79,7 +83,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
                     MessageToShow(_message)
                     Is_Acces_Page = True
                 End If
-            Catch ex As Exception
+            Catch ex As Rezo509Exception
                 GetOut = True
                 _message = "Session expirée."
                 MessageToShow(_message)
@@ -104,7 +108,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             DDLModule.DataSource = objs
             DDLModule.DataBind()
             'DDLModule.Items.Insert(0, New ListItem("Selectionnez le module", ""))
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             ErreurLog.WriteError("METHODE -> LoadModule" & ex.Message)
             MessageToShow(ex.Message)
         End Try
@@ -146,7 +150,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
 
                     DLL_ListeObjectType.SelectedIndex = 0
 
-                    FillListes(DDL_ListeALLTache.Items(DDL_ListeALLTache.SelectedIndex).Value, DLL_ListeObjectType.Items(DLL_ListeObjectType.SelectedIndex).Value)
+                    'FillListes(DDL_ListeALLTache.Items(DDL_ListeALLTache.SelectedIndex).Value, DLL_ListeObjectType.Items(DLL_ListeObjectType.SelectedIndex).Value)
                 Else
                     Label_Msg.Text = "Pas d'Objet déjà créé."
                     '_out = True
@@ -154,7 +158,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 Label_Msg.Text = "Pas de Tâche déjà créée."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -183,7 +187,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 LstAvailObjects.Items.Clear()
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -212,7 +216,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 LstAvailObjects.Items.Clear()
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -230,6 +234,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
     Protected Sub DDLModule_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles DDLModule.SelectedIndexChanged
         FillListes(DDL_ListeALLTache.Items(DDL_ListeALLTache.SelectedIndex).Value, DDLModule.Items(DDLModule.SelectedIndex).Value, DLL_ListeObjectType.Items(DLL_ListeObjectType.SelectedIndex).Value)
     End Sub
+
 #Region "EVENTS"
     Private Sub btnSendOne_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSendOne.Click
         Try
@@ -256,7 +261,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 Label_Msg.Text = "Pas d'Objet sélectionné pour affectation OU pas de Tâche."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -280,7 +285,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 Label_Msg.Text = "Pas d'Objet disponible pour affectation OU pas de Tâche."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -303,7 +308,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 Label_Msg.Text = "Pas d'Objet disponible pour suppression OU pas de Tâche."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub
@@ -329,7 +334,7 @@ Partial Class Parametres_Administration_Wfrm_RightObjets
             Else
                 Label_Msg.Text = "Pas d'Objet sélectionné pour suppression OU pas de Tâche."
             End If
-        Catch ex As Exception
+        Catch ex As Rezo509Exception
             Label_Msg.Text = ex.Message
         End Try
     End Sub

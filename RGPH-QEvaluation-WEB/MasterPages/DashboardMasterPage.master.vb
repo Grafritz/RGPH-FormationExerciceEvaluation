@@ -1,4 +1,4 @@
-﻿Imports RGPH_QCOLLECTE_Library
+﻿Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 Partial Class MasterPage_DashboardMasterPage
     Inherits System.Web.UI.MasterPage

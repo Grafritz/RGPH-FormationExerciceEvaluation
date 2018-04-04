@@ -18,6 +18,7 @@ Public Class Cls_Privilege
     Private _objectdesc As String
     Private _objecttype As String
     Private _ID_Modules As Long
+    Private _IsProduitsRezo509 As Boolean
     Private _ModuleCls As Cls_SR_MODULES
 
     Private _isdirty As Boolean = False
@@ -55,6 +56,19 @@ Public Class Cls_Privilege
     End Property
 
     <AttributLogData(True, 3)> _
+    Public Property NomService As String
+        Get
+            Return _object
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_object)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _object = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    <AttributLogData(True, 4)> _
     Public Property DESCRIPTION_OBJET() As String
         Get
             Return _objectdesc
@@ -67,7 +81,20 @@ Public Class Cls_Privilege
         End Set
     End Property
 
-    <AttributLogData(True, 4)> _
+    <AttributLogData(True, 5)> _
+    Public Property DescriptionService As String
+        Get
+            Return _objectdesc
+        End Get
+        Set(ByVal Value As String)
+            If LCase(Trim(_objectdesc)) <> LCase(Trim(Value)) Then
+                _isdirty = True
+                _objectdesc = Trim(Value)
+            End If
+        End Set
+    End Property
+
+    <AttributLogData(True, 6)> _
     Public Property TYPE_OBJET() As String
         Get
             Return _objecttype
@@ -80,6 +107,7 @@ Public Class Cls_Privilege
         End Set
     End Property
 
+    <AttributLogData(True, 7)> _
     Public Property ID_Modules() As String
         Get
             Return _ID_Modules
@@ -88,6 +116,19 @@ Public Class Cls_Privilege
             If LCase(_ID_Modules) <> LCase(Value) Then
                 _isdirty = True
                 _ID_Modules = Value
+            End If
+        End Set
+    End Property
+
+    <AttributLogData(True, 8)> _
+    Public Property IsProduitsRezo509() As Boolean
+        Get
+            Return _IsProduitsRezo509
+        End Get
+        Set(ByVal Value As Boolean)
+            If LCase(_IsProduitsRezo509) <> LCase(Value) Then
+                _isdirty = True
+                _IsProduitsRezo509 = Value
             End If
         End Set
     End Property
@@ -133,12 +174,12 @@ Public Class Cls_Privilege
 
 #Region " DB Access "
     Private Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Insert_Object", _object, _objectdesc, _objecttype, _ID_Modules, usr))
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SR_Insert_Object", _object, _objectdesc, _objecttype, _ID_Modules, _IsProduitsRezo509, usr))
         Return _id
     End Function
 
     Private Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
-        Return SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Object", _id, _object, _objectdesc, _objecttype, _ID_Modules, usr)
+        Return SqlHelper.ExecuteNonQuery(SqlHelperParameterCache.BuildConfigDB(), "SR_Update_Object", _id, _object, _objectdesc, _objecttype, _ID_Modules, _IsProduitsRezo509, usr)
     End Function
 
     Public Function Read(ByVal idval As Long) As Boolean Implements IGeneral.Read
@@ -164,6 +205,7 @@ Public Class Cls_Privilege
         _objectdesc = Convert.ToString(r("ObjectDescription"))
         _objecttype = Convert.ToString(r("ObjectType"))
         _ID_Modules = TypeSafeConversion.NullSafeLong(r("ID_Modules"))
+        _IsProduitsRezo509 = TypeSafeConversion.NullSafeBoolean(r("IsProduitsRezo509"))
 
         _isdirty = False
     End Sub
@@ -174,6 +216,7 @@ Public Class Cls_Privilege
         _objectdesc = ""
         _objecttype = ""
         _ID_Modules = 0
+        _IsProduitsRezo509 = False
 
         _isdirty = False
     End Sub
@@ -227,6 +270,22 @@ Public Class Cls_Privilege
             obj1.SetProperties(r)
 
             objs.Add(obj1)
+        Next r
+
+        Return objs
+    End Function
+
+    Public Shared Function SearchAll(ByVal IsProduitRezo509 As Boolean) As List(Of Cls_Privilege)
+        Dim objs As New List(Of Cls_Privilege)
+        Dim r As Data.DataRow
+        Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SR_ListAll_Objects_IsProduitRezo509", IsProduitRezo509)
+
+        For Each r In ds.Tables(0).Rows
+            Dim obj As New Cls_Privilege
+
+            obj.SetProperties(r)
+
+            objs.Add(obj)
         Next r
 
         Return objs

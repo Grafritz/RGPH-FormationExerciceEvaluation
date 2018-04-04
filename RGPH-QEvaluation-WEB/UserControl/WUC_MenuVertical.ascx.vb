@@ -1,4 +1,5 @@
-﻿Imports RGPH_QCOLLECTE_Library
+﻿
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Imports BRAIN_DEVLOPMENT
 
 Partial Class UserControl_WUC_MenuVertical

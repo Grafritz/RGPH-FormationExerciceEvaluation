@@ -19,10 +19,8 @@
         <Msg:msgBox ID="Dialogue" runat="server" />
         <%--<ajaxToolkit:ToolkitScriptManager runat="Server" AsyncPostBackTimeout="600" EnablePartialRendering="true"
             EnableScriptGlobalization="true" EnableScriptLocalization="true" ID="ScriptManager1" />--%>
-        <asp:UpdatePanel ID="UpdatePanel_First" runat="server">
+        <%--<asp:UpdatePanel ID="UpdatePanel_First" runat="server">
             <ContentTemplate>
-                <%--<h2 class="art-postheader" style="margin-bottom: 5px;">
-                    <asp:Label ID="Label_Object" runat="server" Text="Groupe Utilisateur"></asp:Label></h2>--%>
                 <div style="display: inline; float: left; padding-right: 10px;">
                     <asp:UpdateProgress ID="updProgHeader" runat="server" AssociatedUpdatePanelID="UpdatePanel_First">
                         <ProgressTemplate>
@@ -39,6 +37,8 @@
                         </ProgressTemplate>
                     </asp:UpdateProgress>
                 </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>--%>
                 <asp:Panel runat="server" ID="Panel_Msg" Visible="false">
                     <div class="alert alert-warning">
                         <asp:Image ID="Image_Msg" runat="server" />
@@ -182,8 +182,6 @@
                         </div>
                     </asp:Panel>
                 </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
     </div>
      </section>
 </asp:Content>
