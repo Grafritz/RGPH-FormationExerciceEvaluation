@@ -171,33 +171,28 @@
                                     <span> App Mobile</span></asp:HyperLink>
                                     <ul class="sub-menu">
                                         <li runat="server" id="li_FormulaireCollecteListing">
-                                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_FormulaireExerciceListing.aspx">
+                                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx">
                                                 <i class="fa fa-folder" id="i2" runat="server"></i><span>Formulaire Exercice </span>
                                             </asp:HyperLink>
                                         </li>
                                         <li runat="server" id="li_QuestionsListing">
-                                            <asp:HyperLink ID="HyperLink_QuestionsListing1" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_QuestionsListing.aspx">
+                                            <asp:HyperLink ID="HyperLink_QuestionsListing" runat="server" NavigateUrl="~/GestionQEvaluation/Frm_QuestionsListing.aspx">
                                                 <i class="fa fa-folder" id="i_QuestionsListing" runat="server"></i><span>Questions </span>
                                             </asp:HyperLink>
                                         </li>
                                         <li runat="server" id="li_Questions_ReponsesListing">
-                                            <asp:HyperLink ID="HyperLink_Questions_ReponsesListing" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_Questions_ReponsesListing.aspx">
+                                            <asp:HyperLink ID="HyperLink_Questions_ReponsesListing" runat="server" NavigateUrl="~/GestionQEvaluation/Frm_ReponsesListing.aspx">
                                                 <i class="fa fa-folder" id="i_Questions_ReponsesListing" runat="server"></i><span>Réponses </span>
                                             </asp:HyperLink>
                                         </li>
-                                        <li runat="server" id="li_ModuleListing">
-                                            <asp:HyperLink ID="HyperLink_ModuleListing" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_ModuleListing.aspx">
-                                                <i class="fa fa-folder-o" id="i_ModuleListing" runat="server"></i><span>Modules</span>
-                                            </asp:HyperLink>
-                                        </li>
-                                        <li runat="server" id="li_CategorieQuestionListing">
-                                            <asp:HyperLink ID="HyperLink_CategorieQuestionListing" runat="server" NavigateUrl="~/GestionQuestionnaire/Frm_CategorieQuestionListing.aspx">
-                                                <i class="fa fa-folder-o" id="i_CategorieQuestionListing" runat="server"></i><span>Categories Question </span>
+                                        <li runat="server" id="li_JustificationReponsesListing">
+                                            <asp:HyperLink ID="HyperLink_JustificationReponsesListing" runat="server" NavigateUrl="~/GestionQEvaluation/Frm_JustificationReponsesListing.aspx">
+                                                <i class="fa fa-folder" id="i_JustificationReponsesListing" runat="server"></i><span>Justification Réponses </span>
                                             </asp:HyperLink>
                                         </li>
                                     </ul>
                                 </li>
-                                <li id="LI_PARAMETRES" runat="server">
+                                <%--<li id="LI_PARAMETRES" runat="server">
                                     <asp:HyperLink ID="HyperLink1" runat="server"
                                         NavigateUrl="~/GestionQuestionnaire/Frm_TypeModuleListing.aspx"><i class="fa fa-gears"></i>
                                     <span> PARAMETRES</span></asp:HyperLink>
@@ -218,7 +213,7 @@
                                             </asp:HyperLink>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </div>

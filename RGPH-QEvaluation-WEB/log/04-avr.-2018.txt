@@ -182,3 +182,42 @@ Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Me
    at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_SR_PRIVILEGE_SERVICES.SearchAllByUser(Int64 _id_user) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_SR_PRIVILEGE_SERVICES.vb:line 377
    at Parametres_Administration_Wfrm_User.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 1098
 __________________________
+
+Chemin Erreur : 
+04/04/2018 12:53:28
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Could not find stored procedure 'SP_ListAll_FormulaireExercices'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_FormulaireExercices'.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 293
+   at GestionQEvaluation_Frm_FormulaireExercicesListing.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesListing.aspx.vb:line 177
+ClientConnectionId:cca5a224-a6b9-4478-8fc8-74a2371ad50b
+Error Number:2812,State:62,Class:16
+__________________________
+
+Chemin Erreur : 
+04/04/2018 14:14:34
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.29219016345887194. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 181
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 257
+   at GestionQEvaluation_Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 213
+__________________________
+
+Chemin Erreur : 
+04/04/2018 14:41:03
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.4581135604583353. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 181
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 257
+   at Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 221
+__________________________
+
+Chemin Erreur : 
+04/04/2018 14:49:13
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9258584593275199. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Conversion from string "" to type 'Integer' is not valid.System.InvalidCastException: Conversion from string "" to type 'Integer' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
+   at Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 220
+__________________________

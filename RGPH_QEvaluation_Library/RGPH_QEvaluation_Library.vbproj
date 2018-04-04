@@ -61,6 +61,11 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cls_FormulaireExercices.vb" />
+    <Compile Include="Cls_JustificationReponses.vb" />
+    <Compile Include="Cls_QuestionFormulaireExercice.vb" />
+    <Compile Include="Cls_Questions.vb" />
+    <Compile Include="Cls_Reponses.vb" />
     <Compile Include="Exceptions\Rezo509Exception.vb" />
     <Compile Include="Localisation\Cls_Commune.vb" />
     <Compile Include="Localisation\Cls_Departement.vb" />
