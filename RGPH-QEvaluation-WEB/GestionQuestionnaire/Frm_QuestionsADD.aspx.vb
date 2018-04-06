@@ -8,7 +8,7 @@ Imports System.Collections.Generic
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
 Partial Class GestionQuestionnaire_Frm_QuestionsADD
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
@@ -18,10 +18,10 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
     Private _message As String  ' VARIABLE SERVANT A LA RECUPERATION DE TOUS LES MESSAGES D'ECHECS OU DE SUCCES
 
     REM DEFINITION ET INITIALISATION DES CONSTANTE POUR LA SECURITE
-    Private Const Nom_page As String = "PAGE-LISTING-STATUT"  ' POUR LA PAGE
-    Private Const Btn_Save As String = "Bouton-SAVE-STATUT"       ' POUR LE BOUTON D'ENREGISTREMENT
-    Private Const Btn_Edit As String = "Bouton-EDIT-STATUT"       ' POUR LE BOUTON DE MODIFICATION
-    Private Const Btn_Delete As String = "Bouton-DELETE-STATUT"   ' POUR LE BOUTON DE SUPPRESSION
+    Private Const Nom_page As String = "PAGE-FORMULAIRE-QUESTIONS"  ' POUR LA PAGE
+    Private Const Btn_Save As String = "Bouton-SAVE-QUESTIONS"       ' POUR LE BOUTON D'ENREGISTREMENT
+    Private Const Btn_Edit As String = "Bouton-EDIT-QUESTIONS"       ' POUR LE BOUTON DE MODIFICATION
+    Private Const Btn_Delete As String = "Bouton-DELETE-QUESTIONS"   ' POUR LE BOUTON DE SUPPRESSION
 
     Dim User_Connected As Cls_User          ' INSTANCE DE LA CLASSE UTILISATEUR - UTILISER POUR L'UTILISATEUR EN SESSION 
     Dim Is_Acces_Page As Boolean = True     ' LA VARIABLE SERVANT DE TEST POUR DONNEER L'ACCES A LA PAGE
@@ -176,11 +176,11 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
 
 #Region "Load DATA"
     Private Sub LOAD_ALL_DATA()
-        FillCombo_TypeModule()
-        FillCombo_CodeCategorie()
-        FillCombo_CaratereAccepte()
-        FillCombo_TypeQuestion()
-        FillCombo_QSuivant()
+        'FillCombo_TypeModule()
+        'FillCombo_CodeCategorie()
+        'FillCombo_CaratereAccepte()
+        'FillCombo_TypeQuestion()
+        'FillCombo_QSuivant()
         LOAD_QUESTIONS()
     End Sub
 
@@ -198,19 +198,19 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
 
                     Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
                     With obj
-                        txt_CodeQuestion.Text = .CodeQuestion
-                        DDL_TypeModule.SelectedIndex = DDL_TypeModule.Items.IndexOf(DDL_TypeModule.Items.FindByValue(.ID_TypeModule))
-                        txt_Libelle.Text = .Libelle
+                        txt_CodeQuestion.Text = .ID
+                        'DDL_TypeModule.SelectedIndex = DDL_TypeModule.Items.IndexOf(DDL_TypeModule.Items.FindByValue(.ID_TypeModule))
+                        txt_Libelle.Text = .LibelleQuestion
                         txt_DetailsQuestion.Text = .DetailsQuestion
                         txt_IndicationsQuestion.Text = .IndicationsQuestion
-                        DDL_CodeCategorie.SelectedIndex = DDL_CodeCategorie.Items.IndexOf(DDL_CodeCategorie.Items.FindByValue(.CodeCategorie))
-                        txt_NomChamps.Text = .NomChamps
+                        'DDL_CodeCategorie.SelectedIndex = DDL_CodeCategorie.Items.IndexOf(DDL_CodeCategorie.Items.FindByValue(.CodeCategorie))
+                        'txt_NomChamps.Text = .NomChamps
                         DDL_TypeQuestion.SelectedIndex = DDL_TypeQuestion.Items.IndexOf(DDL_TypeQuestion.Items.FindByValue(.TypeQuestion))
-                        DDL_CaratereAccepte.SelectedIndex = DDL_CaratereAccepte.Items.IndexOf(DDL_CaratereAccepte.Items.FindByValue(.CaratereAccepte))
+                        'DDL_CaratereAccepte.SelectedIndex = DDL_CaratereAccepte.Items.IndexOf(DDL_CaratereAccepte.Items.FindByValue(.CaratereAccepte))
                         txt_NbreValeurMinimal.Text = .NbreValeurMinimal
-                        txt_NbreCaratereMinimum.Text = .NbreCaratereMinimum
-                        txt_NbreCaratereMaximal.Text = .NbreCaratereMaximal
-                        CB_EstSautReponse.Checked = .EstSautReponse
+                        'txt_NbreCaratereMinimum.Text = .NbreCaratereMinimum
+                        'txt_NbreCaratereMaximal.Text = .NbreCaratereMaximal
+                        'CB_EstSautReponse.Checked = .EstSautReponse
                         DDL_QPrecedent.SelectedIndex = DDL_QPrecedent.Items.IndexOf(DDL_QPrecedent.Items.FindByValue(.QPrecedent))
                         'txt_QSuivant.Text = .QSuivant
                         RCB_QSuivant.Text = .QSuivant
@@ -232,133 +232,133 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
         End Try
     End Sub
 
-    Private Sub FillCombo_TypeModule()
-        Try
-            Dim objs1 As List(Of Cls_TypeModule) = Cls_TypeModule.SearchAll
-            With DDL_TypeModule
-                .Datasource = objs1
-                .DataValueField = "ID"
-                .DataTextField = "IdEtTypeModule"
-                .DataBind()
-                .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
-                .SelectedIndex = -1
-                '.Items.Sort()
-                '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
-                '.SelectedIndex = 0
-                '.EmptyMessage = "- Choisir -"
-            End With
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
+    'Private Sub FillCombo_TypeModule()
+    '    Try
+    '        Dim objs1 As List(Of Cls_TypeModule) = Cls_TypeModule.SearchAll
+    '        With DDL_TypeModule
+    '            .Datasource = objs1
+    '            .DataValueField = "ID"
+    '            .DataTextField = "IdEtTypeModule"
+    '            .DataBind()
+    '            .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
+    '            .SelectedIndex = -1
+    '            '.Items.Sort()
+    '            '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
+    '            '.SelectedIndex = 0
+    '            '.EmptyMessage = "- Choisir -"
+    '        End With
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 
-    Private Sub FillCombo_CodeCategorie()
-        Try
-            Dim objs1 As List(Of Cls_CategorieQuestion) = Cls_CategorieQuestion.SearchAll
-            With DDL_CodeCategorie
-                .DataSource = objs1
-                .DataValueField = "CodeCategorie"
-                .DataTextField = "CodeEtCategorieQuestion"
-                .DataBind()
-                .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
-                .SelectedIndex = -1
-                '.Items.Sort()
-                '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
-                '.SelectedIndex = 0
-                '.EmptyMessage = "- Choisir -"
-            End With
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
+    'Private Sub FillCombo_CodeCategorie()
+    '    Try
+    '        Dim objs1 As List(Of Cls_CategorieQuestion) = Cls_CategorieQuestion.SearchAll
+    '        With DDL_CodeCategorie
+    '            .DataSource = objs1
+    '            .DataValueField = "CodeCategorie"
+    '            .DataTextField = "CodeEtCategorieQuestion"
+    '            .DataBind()
+    '            .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
+    '            .SelectedIndex = -1
+    '            '.Items.Sort()
+    '            '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
+    '            '.SelectedIndex = 0
+    '            '.EmptyMessage = "- Choisir -"
+    '        End With
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 
-    Private Sub FillCombo_CaratereAccepte()
-        Try
-            Dim objs1 As List(Of Cls_Contrainte) = Cls_Contrainte.SearchAll
-            With DDL_CaratereAccepte
-                .DataSource = objs1
-                .DataValueField = "Code"
-                .DataTextField = "CodeEtContrainte"
-                .DataBind()
-                .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
-                .SelectedIndex = -1
-                '.Items.Sort()
-                '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
-                '.SelectedIndex = 0
-                '.EmptyMessage = "- Choisir -"
-            End With
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
+    'Private Sub FillCombo_CaratereAccepte()
+    '    Try
+    '        Dim objs1 As List(Of Cls_Contrainte) = Cls_Contrainte.SearchAll
+    '        With DDL_CaratereAccepte
+    '            .DataSource = objs1
+    '            .DataValueField = "Code"
+    '            .DataTextField = "CodeEtContrainte"
+    '            .DataBind()
+    '            .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
+    '            .SelectedIndex = -1
+    '            '.Items.Sort()
+    '            '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
+    '            '.SelectedIndex = 0
+    '            '.EmptyMessage = "- Choisir -"
+    '        End With
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 
-    Private Sub FillCombo_TypeQuestion()
-        Try
-            Dim objs1 As List(Of Cls_TypeQuestion) = Cls_TypeQuestion.SearchAll
-            With DDL_TypeQuestion
-                .DataSource = objs1
-                .DataValueField = "ID"
-                .DataTextField = "IDEtTypeQuestion"
-                .DataBind()
-                .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
-                .SelectedIndex = -1
-                '.Items.Sort()
-                '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
-                '.SelectedIndex = 0
-                '.EmptyMessage = "- Choisir -"
-            End With
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
+    'Private Sub FillCombo_TypeQuestion()
+    '    Try
+    '        Dim objs1 As List(Of Cls_TypeQuestion) = Cls_TypeQuestion.SearchAll
+    '        With DDL_TypeQuestion
+    '            .DataSource = objs1
+    '            .DataValueField = "ID"
+    '            .DataTextField = "IDEtTypeQuestion"
+    '            .DataBind()
+    '            .Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
+    '            .SelectedIndex = -1
+    '            '.Items.Sort()
+    '            '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
+    '            '.SelectedIndex = 0
+    '            '.EmptyMessage = "- Choisir -"
+    '        End With
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 
-    Private Sub FillCombo_QSuivant()
-        Try
-            Dim objs1 As List(Of Cls_Questions) = Cls_Questions.SearchAll
-            With RCB_QSuivant
-                .DataSource = objs1
-                .DataValueField = "CodeQuestion"
-                .DataTextField = "CodeQuestion" 'EtLibelle"
-                .DataBind()
-                '.Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", ""))
-                '.Items.Insert(1, New ListItem("FIN", "FIN"))
-                '.SelectedIndex = -1
-                '.Items.Sort()
-                .Items.Insert(0, New RadComboBoxItem("FIN du Questionnaire", "FIN"))
-                '.SelectedIndex = 0
-                .EmptyMessage = "- Tapez ou Choisir une question -"
-            End With
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
+    'Private Sub FillCombo_QSuivant()
+    '    Try
+    '        Dim objs1 As List(Of Cls_Questions) = Cls_Questions.SearchAll
+    '        With RCB_QSuivant
+    '            .DataSource = objs1
+    '            .DataValueField = "CodeQuestion"
+    '            .DataTextField = "CodeQuestion" 'EtLibelle"
+    '            .DataBind()
+    '            '.Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", ""))
+    '            '.Items.Insert(1, New ListItem("FIN", "FIN"))
+    '            '.SelectedIndex = -1
+    '            '.Items.Sort()
+    '            .Items.Insert(0, New RadComboBoxItem("FIN du Questionnaire", "FIN"))
+    '            '.SelectedIndex = 0
+    '            .EmptyMessage = "- Tapez ou Choisir une question -"
+    '        End With
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 
     Private Sub BindGrid(Optional ByVal _refresh As Boolean = True)
-        Dim objs As List(Of Cls_Questions_Reponses)
+        Dim objs As List(Of Cls_Reponses)
         Dim _ret As Long = 0
         Try
             Dim _CodeQuestion As String = TypeSafeConversion.NullSafeString(txt_CodeQuestion.Text)
-            objs = Cls_Questions_Reponses.SearchAllBy_CodeQuestion(_CodeQuestion)
+            objs = Cls_Reponses.SearchAllBy_CodeQuestion(_CodeQuestion)
             rdgQuestions_Reponses.DataSource = objs
             If _refresh Then
                 rdgQuestions_Reponses.DataBind()
@@ -381,19 +381,19 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
             Dim _id As Long = TypeSafeConversion.NullSafeLong(txt_CodeQuestions_Hid.Text)
             Dim obj As New Cls_Questions(_id)
             With obj
-                .CodeQuestion = txt_CodeQuestion.Text
-                .ID_TypeModule = TypeSafeConversion.NullSafeLong(DDL_TypeModule.SelectedValue)
-                .Libelle = txt_Libelle.Text
+                '.CodeQuestion = txt_CodeQuestion.Text
+                '.ID_TypeModule = TypeSafeConversion.NullSafeLong(DDL_TypeModule.SelectedValue)
+                .LibelleQuestion = txt_Libelle.Text
                 .DetailsQuestion = txt_DetailsQuestion.Text
                 .IndicationsQuestion = txt_IndicationsQuestion.Text
-                .CodeCategorie = DDL_CodeCategorie.SelectedValue
-                .NomChamps = txt_NomChamps.Text
+                '.CodeCategorie = DDL_CodeCategorie.SelectedValue
+                '.NomChamps = txt_NomChamps.Text
                 .TypeQuestion = TypeSafeConversion.NullSafeLong(DDL_TypeQuestion.SelectedValue)
-                .CaratereAccepte = DDL_CaratereAccepte.SelectedValue
+                '.CaratereAccepte = DDL_CaratereAccepte.SelectedValue
                 .NbreValeurMinimal = txt_NbreValeurMinimal.Text
-                .NbreCaratereMinimum = txt_NbreCaratereMinimum.Text
-                .NbreCaratereMaximal = txt_NbreCaratereMaximal.Text
-                .EstSautReponse = CB_EstSautReponse.Checked
+                '.NbreCaratereMinimum = txt_NbreCaratereMinimum.Text
+                '.NbreCaratereMaximal = txt_NbreCaratereMaximal.Text
+                '.EstSautReponse = CB_EstSautReponse.Checked
                 .QPrecedent = TypeSafeConversion.NullSafeString(DDL_QPrecedent.SelectedValue)
 
                 .QSuivant = TypeSafeConversion.NullSafeString(RCB_QSuivant.Text)
@@ -477,7 +477,7 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
             Dim _id As Long = TypeSafeConversion.NullSafeLong(e.CommandArgument)
             Select Case e.CommandName
                 Case "delete"
-                    Dim obj As New Cls_Questions_Reponses(_id)
+                    Dim obj As New Cls_Reponses(_id)
                     obj.Delete()
                     User_Connected.Activite_Utilisateur_InRezo("DELETE " & PAGE_TITLE, obj.LogData(obj), Request.UserHostAddress)
                     'User_Connected.Activite_Utilisateur_InRezo("DELETE Questions_Reponses ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
@@ -512,7 +512,7 @@ Partial Class GestionQuestionnaire_Frm_QuestionsADD
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
                 REM Privilege
                 'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                 'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)

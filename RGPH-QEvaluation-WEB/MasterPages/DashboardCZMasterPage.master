@@ -81,7 +81,7 @@
                         </button>
                         <a class="navbar-brand" href="#" style="font-family: 'Bauhaus 93'; font-size: 36px; font-weight: bold; font-style: italic; font-variant: normal; text-transform: capitalize; color: #FFFFFF">
                             <%--<img alt="SYGAS" src="../images/logo_sygas.png" style="width: 155px; margin: -15px;" />--%>
-                            RGPH
+                            QEvaluation
                         </a>
                     </div>
                     <div id="Head_Nav_MenuSous" runat="server" class="navbar-collapse collapse">

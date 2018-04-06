@@ -247,16 +247,17 @@ Partial Class Frm_FormulaireExercicesListing
             If (gridDataItem IsNot Nothing) Then
                 Dim item As GridDataItem = gridDataItem
                 CType(item.FindControl("lbOrder"), Label).Text = rdgFormulaireExercices.PageSize * rdgFormulaireExercices.CurrentPageIndex + (item.RowIndex / 2)
+                Dim _id As Long = CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long)
 
                 Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
                 Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
-                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
-                REM Privilege
-                'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
-                'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+                imagedelete.CommandArgument = _id
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+
+                Dim LinkButton_ADD_Question As LinkButton = CType(item.FindControl("LinkButton_ADD_Question"), LinkButton)
+                LinkButton_ADD_Question.Attributes.Add("onclick", "javascript:ShowAddUpdateForm('Frm_QuestionsADD.aspx?IDFormulaire=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',950,600); return false;")
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception

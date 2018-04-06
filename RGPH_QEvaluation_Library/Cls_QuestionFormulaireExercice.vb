@@ -160,6 +160,12 @@ Public Class Cls_QuestionFormulaireExercice
         End Set
     End Property
 
+    Public ReadOnly Property EstDebutQuestion_Image As String
+        Get
+            Return Cls_Statut.Statut_Image(_EstDebutQuestion)
+        End Get
+    End Property
+
     <AttributLogData(True, 6)>
     Public Property isdirty As Boolean
         Get

@@ -116,6 +116,12 @@ Public Class Cls_Reponses
         End Set
     End Property
 
+    Public ReadOnly Property Iscorrect_Image As String
+        Get
+            Return Cls_Statut.Statut_Image(_Iscorrect)
+        End Get
+    End Property
+
     <AttributLogData(True, 5)>
     Public Property estEnfant As Boolean
         Get

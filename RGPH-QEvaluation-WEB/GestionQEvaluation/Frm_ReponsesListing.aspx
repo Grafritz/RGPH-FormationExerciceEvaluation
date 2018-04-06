@@ -48,53 +48,53 @@
             }
             function RadWindowClosing() {
                 $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
-}
+            }
 
-function RadWindowClientResizeEnd() {
-    var manager = GetRadWindowManager();
-    var window1 = manager.getActiveWindow();
-    window1.center();
-    var bounds = window1.getWindowBounds();
-    window1.moveTo(bounds.x + 'px', "50px");
-}
+            function RadWindowClientResizeEnd() {
+                var manager = GetRadWindowManager();
+                var window1 = manager.getActiveWindow();
+                window1.center();
+                var bounds = window1.getWindowBounds();
+                window1.moveTo(bounds.x + 'px', "50px");
+            }
 
-var listItemIndex = null;
-function MenuItemClicked(sender, eventArgs) {
-    var clickedItemValue = eventArgs.get_item().get_value();
-    var rdGrid = $find("<%=rdgReponses.ClientID %>");
-     var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-     switch (clickedItemValue) {
-         case "Editer":
-             ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-         case "Delete":
-             ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-         default:
-             break;
-     }
- }
-
- function RowContextMenu(sender, eventArgs) {
-     var menu = $find("<%= ContextMenu.ClientID %>");
-    var evt = eventArgs.get_domEvent();
-    if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
-    var index = eventArgs.get_itemIndexHierarchical();
-    document.getElementById("radGridClickedRowIndex").value = index;
-    listItemIndex = index;
-    sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
-    menu.show(evt);
-    evt.cancelBubble = true;
-    evt.returnValue = false;
-    if (evt.stopPropagation) {
-        evt.stopPropagation();
-        evt.preventDefault();
+            var listItemIndex = null;
+            function MenuItemClicked(sender, eventArgs) {
+                var clickedItemValue = eventArgs.get_item().get_value();
+                var rdGrid = $find("<%=rdgReponses.ClientID %>");
+    var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+    switch (clickedItemValue) {
+        case "Editer":
+            ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+        case "Delete":
+            ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+        default:
+            break;
     }
 }
 
-function RowDblClick(sender, eventArgs) {
-    var index = eventArgs.get_itemIndexHierarchical();
-    document.getElementById("radGridClickedRowIndex").value = index;
-    listItemIndex = index;
-    var rdGrid = $find("<%=rdgReponses.ClientID %>");
+function RowContextMenu(sender, eventArgs) {
+    var menu = $find("<%= ContextMenu.ClientID %>");
+     var evt = eventArgs.get_domEvent();
+     if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
+     var index = eventArgs.get_itemIndexHierarchical();
+     document.getElementById("radGridClickedRowIndex").value = index;
+     listItemIndex = index;
+     sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
+     menu.show(evt);
+     evt.cancelBubble = true;
+     evt.returnValue = false;
+     if (evt.stopPropagation) {
+         evt.stopPropagation();
+         evt.preventDefault();
+     }
+ }
+
+ function RowDblClick(sender, eventArgs) {
+     var index = eventArgs.get_itemIndexHierarchical();
+     document.getElementById("radGridClickedRowIndex").value = index;
+     listItemIndex = index;
+     var rdGrid = $find("<%=rdgReponses.ClientID %>");
     var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
     ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
 }
@@ -209,22 +209,15 @@ function GetRadWindow() {
                                     FilterControlAltText="Filter LibelleReponse column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="Iscorrect" UniqueName="Iscorrect" HeaderText=" Iscorrect"
+                                <telerik:GridTemplateColumn DataField="Iscorrect" UniqueName="Iscorrect" HeaderText="Is Correct"
                                     FilterControlAltText="Filter Iscorrect column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                               <%-- <telerik:GridBoundColumn DataField="estEnfant" UniqueName="estEnfant" HeaderText="est Enfant"
-                                    FilterControlAltText="Filter estEnfant column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="avoirEnfant" UniqueName="avoirEnfant" HeaderText="avoir Enfant"
-                                    FilterControlAltText="Filter avoirEnfant column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CodeParent" UniqueName="CodeParent" HeaderText=" Code Parent"
-                                    FilterControlAltText="Filter CodeParent column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>--%>
+                                    <ItemTemplate>
+                                        <asp:Image ID="EstSautReponse_Image" runat="server" ImageUrl='<%#Bind("Iscorrect_Image") %>' />
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                    <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                </telerik:GridTemplateColumn>
                                 <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer"
                                     DataTextField="ID" ImageUrl="~/images/_edit.png"
                                     HeaderText="" UniqueName="editer">

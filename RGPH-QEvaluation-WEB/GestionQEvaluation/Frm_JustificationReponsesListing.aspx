@@ -1,4 +1,4 @@
-<%@ Page Title=" Questions" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" MaintainScrollPositionOnPostback="true" CodeFile="Frm_QuestionsListing.aspx.vb" Inherits="Frm_QuestionsListing" %>
+<%@ Page Title=" Justification Reponses" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" MaintainScrollPositionOnPostback="true" CodeFile="Frm_JustificationReponsesListing.aspx.vb" Inherits="Frm_JustificationReponsesListing" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
@@ -48,33 +48,33 @@
             }
             function RadWindowClosing() {
                 $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
-            }
+}
 
-            function RadWindowClientResizeEnd() {
-                var manager = GetRadWindowManager();
-                var window1 = manager.getActiveWindow();
-                window1.center();
-                var bounds = window1.getWindowBounds();
-                window1.moveTo(bounds.x + 'px', "50px");
-            }
+function RadWindowClientResizeEnd() {
+    var manager = GetRadWindowManager();
+    var window1 = manager.getActiveWindow();
+    window1.center();
+    var bounds = window1.getWindowBounds();
+    window1.moveTo(bounds.x + 'px', "50px");
+}
 
-            var listItemIndex = null;
-            function MenuItemClicked(sender, eventArgs) {
-                var clickedItemValue = eventArgs.get_item().get_value();
-                var rdGrid = $find("<%=rdgQuestions.ClientID %>");
-                var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-                switch (clickedItemValue) {
-                    case "Editer":
-                        ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-                    case "Delete":
-                        ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-                    default:
-                        break;
-                }
-            }
+var listItemIndex = null;
+function MenuItemClicked(sender, eventArgs) {
+    var clickedItemValue = eventArgs.get_item().get_value();
+    var rdGrid = $find("<%=rdgJustificationReponses.ClientID %>");
+     var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+     switch (clickedItemValue) {
+         case "Editer":
+             ShowAddUpdateForm('Frm_JustificationReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+         case "Delete":
+             ShowAddUpdateForm('Frm_JustificationReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+         default:
+             break;
+     }
+ }
 
-            function RowContextMenu(sender, eventArgs) {
-                var menu = $find("<%= ContextMenu.ClientID %>");
+ function RowContextMenu(sender, eventArgs) {
+     var menu = $find("<%= ContextMenu.ClientID %>");
     var evt = eventArgs.get_domEvent();
     if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
     var index = eventArgs.get_itemIndexHierarchical();
@@ -94,13 +94,13 @@ function RowDblClick(sender, eventArgs) {
     var index = eventArgs.get_itemIndexHierarchical();
     document.getElementById("radGridClickedRowIndex").value = index;
     listItemIndex = index;
-    var rdGrid = $find("<%=rdgQuestions.ClientID %>");
-     var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-     ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
- }
+    var rdGrid = $find("<%=rdgJustificationReponses.ClientID %>");
+    var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+    ShowAddUpdateForm('Frm_JustificationReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
+}
 
- function refreshMe() {
-     $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
+function refreshMe() {
+    $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
 }
 
 function closeWindow() {
@@ -130,15 +130,15 @@ function GetRadWindow() {
                     <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="rdgQuestions">
+            <telerik:AjaxSetting AjaxControlID="rdgJustificationReponses">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
-                    <telerik:AjaxUpdatedControl ControlID="rdgQuestions" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="rdgJustificationReponses" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="rbtnClearFilters">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="rdgQuestions" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="rdgJustificationReponses" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>
@@ -150,14 +150,14 @@ function GetRadWindow() {
             <section class="page-head" id="PageHeader" runat="server">
                 <h3>
                     <i class="fa fa-dashboard"></i>
-                    <asp:Label ID="Label_Titre" runat="server" Text=" Questions" />
+                    <asp:Label ID="Label_Titre" runat="server" Text=" Justification Reponses" />
                     <small id="OL_SeeAllData" runat="server">
                         <asp:Label ID="Label_SousTitre" runat="server" />
                     </small>
                 </h3>
                 <!--<ol class="breadcrumb"> 
     <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
-    <li class="active"> Questions</li>
+    <li class="active"> Justification Reponses</li>
 </ol> -->
             </section>
             <section class="content">
@@ -172,8 +172,8 @@ function GetRadWindow() {
                 </asp:Panel>
 
                 <asp:Panel runat="server" ID="Panel_First" Style="margin: 5px;">
-                    <asp:LinkButton ID="Btn_ADD_Questions" runat="server" CssClass="btn btn-primary" CausesValidation="false">
-    <i class="fa fa-plus-circle" ></i>  Ajouter  Questions
+                    <asp:LinkButton ID="Btn_ADD_JustificationReponses" runat="server" CssClass="btn btn-primary" CausesValidation="false">
+    <i class="fa fa-plus-circle" ></i>  Ajouter  Justification Reponses
                     </asp:LinkButton>
                     <span class="pull-right box-tools">
                         <asp:LinkButton ID="rbtnClearFilters" runat="server" CssClass="btn btn-sm btn-default" CausesValidation="false"> 
@@ -182,7 +182,7 @@ function GetRadWindow() {
                     </span>
 
 
-                    <telerik:RadGrid ID="rdgQuestions" AllowPaging="True" AllowSorting="True" PageSize="20"
+                    <telerik:RadGrid ID="rdgJustificationReponses" AllowPaging="True" AllowSorting="True" PageSize="20"
                         runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="true"
                         Culture="fr-FR" ShowGroupPanel="True"
                         EnableViewState="true" AllowMultiRowSelection="false" GroupingSettings-CaseSensitive="false">
@@ -201,59 +201,23 @@ function GetRadWindow() {
                                     <HeaderStyle HorizontalAlign="Center" Width="16px" />
                                     <ItemStyle HorizontalAlign="Center" Width="16px" />
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn DataField="LibelleQuestion" UniqueName="LibelleQuestion" HeaderText=" Libelle Question"
-                                    FilterControlAltText="Filter LibelleQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridBoundColumn DataField="LibelleQuestion" UniqueName="LibelleQuestion" HeaderText="Libelle Question"
+                                    FilterControlAltText="Recherche par LibelleQuestion" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <%--<telerik:GridBoundColumn DataField="DetailsQuestion" UniqueName="DetailsQuestion" HeaderText=" Details Question"
-                                    FilterControlAltText="Filter DetailsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridBoundColumn DataField="LibelleJustification" UniqueName="LibelleJustification" HeaderText=" Libelle Justification"
+                                    FilterControlAltText="Filter LibelleJustification column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="IndicationsQuestion" UniqueName="IndicationsQuestion" HeaderText=" Indications Question"
-                                    FilterControlAltText="Filter IndicationsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>--%>
-                                <telerik:GridTemplateColumn DataField="AvoirJustificationYN" UniqueName="AvoirJustificationYN" HeaderText="Justification Y/N"
-                                    FilterControlAltText="Filter AvoirJustificationYN column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridTemplateColumn DataField="Iscorrect" UniqueName="Iscorrect" HeaderText="Is Correct"
+                                    FilterControlAltText="Filter Iscorrect column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                     <ItemTemplate>
-                                        <asp:Image ID="AvoirJustificationYN_Image" runat="server" ImageUrl='<%#Bind("AvoirJustificationYN_image") %>' />
+                                        <asp:Image ID="EstSautReponse_Image" runat="server" ImageUrl='<%#Bind("Iscorrect_Image") %>' />
                                     </ItemTemplate>
-                                    <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
                                     <ItemStyle HorizontalAlign="Center" Width="16px" />
                                 </telerik:GridTemplateColumn>
-                                <%--                                <telerik:GridBoundColumn DataField="TypeQuestion" UniqueName="TypeQuestion" HeaderText=" Type Question"
-                                    FilterControlAltText="Filter TypeQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="ScoreTotal" UniqueName="ScoreTotal" HeaderText=" Score Total"
-                                    FilterControlAltText="Filter ScoreTotal column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="Commentaire" UniqueName="Commentaire" HeaderText=" Commentaire"
-                                    FilterControlAltText="Filter Commentaire column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CaractereAccepte" UniqueName="CaractereAccepte" HeaderText=" Caractere Accepte"
-                                    FilterControlAltText="Filter CaractereAccepte column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="NbreValeurMinimal" UniqueName="NbreValeurMinimal" HeaderText=" Nbre Valeur Minimal"
-                                    FilterControlAltText="Filter NbreValeurMinimal column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="NbreCaractereMaximal" UniqueName="NbreCaractereMaximal" HeaderText=" Nbre Caractere Maximal"
-                                    FilterControlAltText="Filter NbreCaractereMaximal column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="qPrecedent" UniqueName="qPrecedent" HeaderText="q Precedent"
-                                    FilterControlAltText="Filter qPrecedent column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="qSuivant" UniqueName="qSuivant" HeaderText="q Suivant"
-                                    FilterControlAltText="Filter qSuivant column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer"
                                     DataTextField="ID" ImageUrl="~/images/_edit.png"
                                     HeaderText="" UniqueName="editer">

@@ -1,4 +1,4 @@
-REM Generate By [GENERIC 12] Application *******
+﻿REM Generate By [GENERIC 12] Application *******
 REM  Class Frm_Questions
 
 REM Date:4/4/2018 2:40:24 PM
@@ -10,7 +10,7 @@ Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
-Partial Class Frm_QuestionsADD
+Partial Class GestionQEvaluation_Frm_QuestionsADD
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
 
 
@@ -182,8 +182,14 @@ Partial Class Frm_QuestionsADD
                 txt_CodeQuestions_Hid.Text = _id
                 Dim obj As New Cls_Questions(_id)
                 If obj.ID > 0 Then
+                    PanelChoixReponse.Visible = True
+                    'rbtnAddPossibiliteReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & ", 850, 550)); return false;")
+                    LinkButton_NewReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_Questions_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                    LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionSpecificationControleADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+
                     Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
                     With obj
+                        txt_CodeQuestions_Hid.Text = .ID
                         txt_LibelleQuestion.Text = .LibelleQuestion
                         'txt_DetailsQuestion.Text = .DetailsQuestion
                         'txt_IndicationsQuestion.Text = .IndicationsQuestion
@@ -196,6 +202,15 @@ Partial Class Frm_QuestionsADD
                         'txt_NbreCaractereMaximal.Text = .NbreCaractereMaximal
                         'txt_qPrecedent.Text = .qPrecedent
                         'txt_qSuivant.Text = .qSuivant
+
+                        BindGrid()
+
+                        LI_Justifications.Visible = CB_AvoirJustificationYN.Checked
+                        PanelListeJustifications.Visible = CB_AvoirJustificationYN.Checked
+
+                        If CB_AvoirJustificationYN.Checked Then
+                            BindGrid_Justification()
+                        End If
                     End With
                 End If
             Else
@@ -210,6 +225,47 @@ Partial Class Frm_QuestionsADD
         End Try
     End Sub
 
+    Private Sub BindGrid(Optional ByVal _refresh As Boolean = True)
+        Dim objs As List(Of Cls_Reponses)
+        Dim _ret As Long = 0
+        Try
+            Dim _CodeQuestion As String = TypeSafeConversion.NullSafeString(txt_CodeQuestions_Hid.Text)
+            objs = Cls_Reponses.SearchAllBy_CodeQuestion(_CodeQuestion)
+            rdgQuestions_Reponses.DataSource = objs
+            If _refresh Then
+                rdgQuestions_Reponses.DataBind()
+            End If
+            _ret = objs.Count
+            LabelReponseTitre.Text = " Réponses <small class=""badge badge-primary"">" & _ret & "</small>"
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Private Sub BindGrid_Justification(Optional ByVal _refresh As Boolean = True)
+        Dim objs As List(Of Cls_JustificationReponses)
+        Dim _ret As Long = 0
+        Try
+            Dim _CodeQuestion As String = TypeSafeConversion.NullSafeString(txt_CodeQuestions_Hid.Text)
+            objs = Cls_JustificationReponses.SearchAllBy_CodeQuestion(_CodeQuestion)
+            RadGrid_Justifications.DataSource = objs
+            If _refresh Then
+                RadGrid_Justifications.DataBind()
+            End If
+            _ret = objs.Count
+            Literal_Justifications.Text = " <small class=""badge badge-warning"">" & _ret & "</small>"
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
 #End Region
 
 #Region "METHODES - SAVE"
@@ -237,8 +293,22 @@ Partial Class Frm_QuestionsADD
             txt_CodeQuestions_Hid.Text = obj.ID
             '_message = "Sauvegarde Effectuée"
             MessageToShow([Global].Msg_Enregistrement_Effectue, "S", False)
-            'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeQuestions();")
-            RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+
+            LI_Justifications.Visible = CB_AvoirJustificationYN.Checked
+            PanelListeJustifications.Visible = CB_AvoirJustificationYN.Checked
+
+            ''RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeQuestions();")
+            'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+            Dim id2 As Long = TypeSafeConversion.NullSafeLong(Request.QueryString("ID"))
+            If id2 <= 0 Then
+                Response.Redirect("~/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "")
+            Else
+                PanelChoixReponse.Visible = True
+                LinkButton_NewReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_JustificationADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+            End If
+
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -267,6 +337,151 @@ Partial Class Frm_QuestionsADD
         End If
     End Sub
 #End Region
+
+
+#Region "RADGRID EVENTS"
+
+#Region "RADGRID EVENTS REPONSES"
+    Protected Sub rdgQuestions_Reponses_ItemCommand(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs) Handles rdgQuestions_Reponses.ItemCommand
+        Try
+            Dim _id As Long = TypeSafeConversion.NullSafeLong(e.CommandArgument)
+            Select Case e.CommandName
+                Case "delete"
+                    Dim obj As New Cls_Reponses(_id)
+                    obj.Delete()
+                    User_Connected.Activite_Utilisateur_InRezo("DELETE " & PAGE_TITLE, obj.LogData(obj), Request.UserHostAddress)
+                    'User_Connected.Activite_Utilisateur_InRezo("DELETE Questions_Reponses ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
+                    MessageToShow([Global].Msg_Information_Supprimee_Avec_Succes, "S")
+                    rdgQuestions_Reponses.Rebind()
+            End Select
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub rdgQuestions_Reponses_ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridItemEventArgs) Handles rdgQuestions_Reponses.ItemDataBound
+        Try
+            Dim gridDataItem = TryCast(e.Item, GridDataItem)
+            If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
+                'Dim _lnk As HyperLink = DirectCast(gridDataItem.FindControl("hlk"), HyperLink)
+                'Dim _lbl_ID As Label = DirectCast(gridDataItem.FindControl("lbl_ID"), Label)
+                '_lnk.Attributes.Clear()
+                '_lnk.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CLng(_lbl_ID.Text) & "', 750, 400));")
+            End If
+
+            If (gridDataItem IsNot Nothing) Then
+                Dim item As GridDataItem = gridDataItem
+                CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions_Reponses.PageSize * rdgQuestions_Reponses.CurrentPageIndex + (item.RowIndex / 2)
+
+                Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
+                Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                imagedelete.ToolTip = "Effacer"
+                imageediter.ToolTip = "Editer"
+                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                REM Privilege
+                'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
+                'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub rdgQuestions_Reponses_NeedDataSource(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridNeedDataSourceEventArgs) Handles rdgQuestions_Reponses.NeedDataSource
+        If IsPostBack Then
+            BindGrid(False)
+        End If
+    End Sub
+#End Region
+
+#Region "RADGRID EVENTS JUSTIFICATION"
+    Protected Sub RadGrid_Justifications_ItemCommand(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs) Handles RadGrid_Justifications.ItemCommand
+        Try
+            Dim _id As Long = TypeSafeConversion.NullSafeLong(e.CommandArgument)
+            Select Case e.CommandName
+                Case "delete"
+                    Dim obj As New Cls_JustificationReponses(_id)
+                    obj.Delete()
+                    'User_Connected.Activite_Utilisateur_InRezo("DELETE " & PAGE_TITLE, obj.LogData(obj), Request.UserHostAddress)
+                    'User_Connected.Activite_Utilisateur_InRezo("DELETE Questions_Reponses ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
+                    MessageToShow([Global].Msg_Information_Supprimee_Avec_Succes, "S")
+                    RadGrid_Justifications.Rebind()
+            End Select
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub RadGrid_Justifications_Reponses_ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridItemEventArgs) Handles RadGrid_Justifications.ItemDataBound
+        Try
+            Dim gridDataItem = TryCast(e.Item, GridDataItem)
+            If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
+                'Dim _lnk As HyperLink = DirectCast(gridDataItem.FindControl("hlk"), HyperLink)
+                'Dim _lbl_ID As Label = DirectCast(gridDataItem.FindControl("lbl_ID"), Label)
+                '_lnk.Attributes.Clear()
+                '_lnk.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CLng(_lbl_ID.Text) & "', 750, 400));")
+            End If
+
+            If (gridDataItem IsNot Nothing) Then
+                Dim item As GridDataItem = gridDataItem
+                CType(item.FindControl("lbOrder"), Label).Text = RadGrid_Justifications.PageSize * RadGrid_Justifications.CurrentPageIndex + (item.RowIndex / 2)
+
+                Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
+                Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                imagedelete.ToolTip = "Effacer"
+                imageediter.ToolTip = "Editer"
+                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionSpecificationControleADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                REM Privilege
+                'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
+                'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub RadGrid_Justifications_NeedDataSource(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridNeedDataSourceEventArgs) Handles RadGrid_Justifications.NeedDataSource
+        If IsPostBack Then
+            BindGrid_Justification(False)
+        End If
+    End Sub
+#End Region
+
+#End Region
+
+    Protected Sub RadAjaxManager1_AjaxRequest(ByVal sender As Object, ByVal e As Telerik.Web.UI.AjaxRequestEventArgs) Handles RadAjaxManager1.AjaxRequest
+        Try
+            Select Case e.Argument
+                Case "Reload"
+                    BindGrid(True)
+                Case "refreshListeJustification"
+                    BindGrid_Justification(True)
+            End Select
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
 End Class
-
-

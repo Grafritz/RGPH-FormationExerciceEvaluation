@@ -102,6 +102,12 @@ Public Class Cls_Questions
         End Set
     End Property
 
+    Public ReadOnly Property AvoirJustificationYN_Image As String
+        Get
+            Return Cls_Statut.Statut_Image(_AvoirJustificationYN)
+        End Get
+    End Property
+
     <AttributLogData(True, 6)>
     Public Property TypeQuestion As Integer
         Get
