@@ -1,4 +1,4 @@
-<%@ Page Title=" Question_ Module" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_Question_ModuleADD.aspx.vb" Inherits="Frm_Question_ModuleADD" MaintainScrollPositionOnPostback="true" %>
+<%@ Page Title=" Question Formulaire Exercice" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_QuestionFormulaireExerciceADD.aspx.vb" Inherits="Frm_QuestionFormulaireExerciceADD" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
@@ -62,10 +62,6 @@
                 GetRadWindow().BrowserWindow.refreshMe();
                 GetRadWindow().close();
             }
-
-            function RefreshListe() {
-                GetRadWindow().BrowserWindow.refreshMe();
-            }
             function GetRadWindow() {
                 var oWindow = null;
                 if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
@@ -91,14 +87,14 @@
             <section class="page-head" id="PageHeader" runat="server">
                 <h3>
                     <i class="fa fa-dashboard"></i>
-                    <asp:Label ID="Label_Titre" runat="server" Text="Question_Module" />
+                    <asp:Label ID="Label_Titre" runat="server" Text="QuestionFormulaireExercice" />
                     <small id="OL_SeeAllData" runat="server">
                         <asp:Label ID="Label_SousTitre" runat="server" />
                     </small>
                 </h3>
                 <!--<ol class="breadcrumb"> 
     <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
-    <li class="active">Question_Module</li>
+    <li class="active">QuestionFormulaireExercice</li>
 </ol> -->
             </section>
             <section class="content">
@@ -118,26 +114,26 @@
                     <div id="DIV_Panel" class="form-horizontal group-border-dashed1" style="border-radius: 0px;">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                Code Module
-                               <asp:RequiredFieldValidator ID="RFV_CodeModule" runat="server" ControlToValidate="DDL_CodeModule"
-                                   ErrorMessage="_ Code Module Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
-                                <asp:RequiredFieldValidator ID="RFV1_CodeModule" runat="server" ControlToValidate="DDL_CodeModule"
-                                    ErrorMessage="_ Code Module Obligatoire !" InitialValue="0" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                _ Code Formulaire Exercice
+   <asp:RequiredFieldValidator ID="RFV_CodeFormulaireExercice" runat="server" ControlToValidate="DDL_CodeFormulaireExercice"
+       ErrorMessage="_ Code Formulaire Exercice Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+       ValidationGroup="GPSave" CssClass="text-danger" />
+                                <asp:RequiredFieldValidator ID="RFV1_CodeFormulaireExercice" runat="server" ControlToValidate="DDL_CodeFormulaireExercice"
+                                    ErrorMessage="_ Code Formulaire Exercice Obligatoire !" InitialValue="0" SetFocusOnError="true" Display="Dynamic" Text="*"
                                     ValidationGroup="GPSave" CssClass="text-danger" />
                             </label>
                             <div class="col-sm-6">
-                                <asp:DropDownList ID="DDL_CodeModule" AutoPostBack="true" CssClass="select2" Width="100%" runat="server">
+                                <asp:DropDownList ID="DDL_CodeFormulaireExercice" CssClass="select2" Width="100%" runat="server">
                                 </asp:DropDownList>
                             </div>
 
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                Code Question
-                               <asp:RequiredFieldValidator ID="RFV_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
-                                   ErrorMessage="_ Code Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                _ Code Question
+   <asp:RequiredFieldValidator ID="RFV_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
+       ErrorMessage="_ Code Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+       ValidationGroup="GPSave" CssClass="text-danger" />
                                 <asp:RequiredFieldValidator ID="RFV1_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
                                     ErrorMessage="_ Code Question Obligatoire !" InitialValue="0" SetFocusOnError="true" Display="Dynamic" Text="*"
                                     ValidationGroup="GPSave" CssClass="text-danger" />
@@ -148,38 +144,46 @@
                             </div>
 
                         </div>
-                        <div class="form-group" ID="DIV_EstDebut" runat="server" >
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                Est Debut
+                                Ordre Question
+   <asp:RequiredFieldValidator ID="RFV_OrdreQuestion" runat="server" ControlToValidate="txt_OrdreQuestion"
+       ErrorMessage="Ordre Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+       ValidationGroup="GPSave" CssClass="text-danger" />
+                            </label>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="txt_OrdreQuestion" CssClass="form-control" Width="100%" runat="server" placeholder="Ordre Question..."></asp:TextBox>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                Est Debut Question
                             </label>
                             <div class="col-sm-6">
                                 <label>
-                                    <asp:CheckBox ID="CB_EstDebut" runat="server" Text="EstDebut" /></label>
+                                    <asp:CheckBox ID="CB_EstDebutQuestion" runat="server" Text="EstDebutQuestion" /></label>
                             </div>
 
                         </div>
                         <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
-                                <asp:LinkButton ID="LinkButton_Save" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
-                                    <i class="fa fa-save" ></i> Enregistrer
-                                </asp:LinkButton>
-                            &nbsp;
                             <span id="span_SaveInfo" runat="server">
                                 <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
-                                    <i class="fa fa-save" ></i> Enregistrer et fermer
+            <i class="fa fa-save" ></i> Enregistrer
                                 </asp:LinkButton>
                             </span>
 
                             &nbsp;
-                            <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
-                                <i class="fa  fa-reply-all" ></i> Annuler
-                            </asp:LinkButton>
+    <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
+        <i class="fa  fa-reply-all" ></i> Annuler
+    </asp:LinkButton>
                         </div>
                     </div>
                 </asp:Panel>
                 <!-- FORM LOGIN -->
                 <BRAIN:CULogin2 runat="server" ID="LoginWUC" Visible="false" />
                 <div class="md-overlay"></div>
-                <asp:TextBox ID="txt_CodeQuestion_Module_Hid" runat="server" Text="0" Visible="False" Width="1px"></asp:TextBox>
+                <asp:TextBox ID="txt_CodeQuestionFormulaireExercice_Hid" runat="server" Text="0" Visible="False" Width="1px"></asp:TextBox>
             </section>
 
             <asp:Literal runat="server" ID="LiteralStyleCSS"></asp:Literal>

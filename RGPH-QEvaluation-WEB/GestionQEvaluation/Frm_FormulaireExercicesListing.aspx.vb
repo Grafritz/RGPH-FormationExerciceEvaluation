@@ -28,6 +28,7 @@ Partial Class Frm_FormulaireExercicesListing
     Dim GetOut As Boolean = False           ' LA VARIABLE SERVANT DE TEST POUR REDIRIGER L'UTILISATEUR VERS LA PAGE DE CONNEXION
     Dim PAGE_MERE As Long = 0 ' PAS TROP IMPORTANT...
     Dim PAGE_TITLE As String = ""
+    Dim _EDITER As Boolean = False
 #End Region
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -93,6 +94,7 @@ Partial Class Frm_FormulaireExercicesListing
                     Dim _check As Boolean = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                     Btn_ADD_FormulaireExercices.Visible = _check
                     rdgFormulaireExercices.MasterTableView.Columns.FindByUniqueNameSafe("editer").Visible = _check
+                    _EDITER = _check
                     If Request.QueryString([Global].ACTION) IsNot Nothing Then
                         If Request.QueryString([Global].ACTION).Equals([Global].HideMenuHeader) Then
                             Btn_ADD_FormulaireExercices.Visible = _check
@@ -100,6 +102,7 @@ Partial Class Frm_FormulaireExercicesListing
                     End If
                     _check = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
                     rdgFormulaireExercices.MasterTableView.Columns.FindByUniqueNameSafe("delete").Visible = _check
+
                 End If
             End If
 
@@ -254,10 +257,19 @@ Partial Class Frm_FormulaireExercicesListing
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = _id
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
 
-                Dim LinkButton_ADD_Question As LinkButton = CType(item.FindControl("LinkButton_ADD_Question"), LinkButton)
-                LinkButton_ADD_Question.Attributes.Add("onclick", "javascript:ShowAddUpdateForm('Frm_QuestionsADD.aspx?IDFormulaire=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',950,600); return false;")
+                Dim LinkButton_EDITER As LinkButton = CType(item.FindControl("LinkButton_EDITER"), LinkButton)
+                LinkButton_EDITER.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                LinkButton_EDITER.Visible = _EDITER
+                LinkButton_EDITER.CommandArgument = _id
+
+                Dim LinkButton_OPEN_FORMULAIRE As LinkButton = CType(item.FindControl("LinkButton_OPEN_FORMULAIRE"), LinkButton)
+                LinkButton_OPEN_FORMULAIRE.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_DetailFormulaireExercice.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                'LinkButton_EDITER.Visible = _EDITER
+
+                Dim LinkButton_ADD_QUESTION_DISPONIBLE As LinkButton = CType(item.FindControl("LinkButton_ADD_QUESTION_DISPONIBLE"), LinkButton)
+                LinkButton_ADD_QUESTION_DISPONIBLE.Attributes.Add("onclick", "javascript:ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',950,600); return false;")
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception

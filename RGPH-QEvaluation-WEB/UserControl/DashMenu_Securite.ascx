@@ -144,51 +144,9 @@
         </asp:HyperLink>
         <ul class="treeview-menu">
             <li runat="server" id="LI_HyperLink_DomaineActivite">
-                <asp:HyperLink ID="HyperLink_DomaineActivite" runat="server" NavigateUrl="~/Parametres/Frm_DomaineActiviteListing.aspx">
-                    <i class="fa fa-cogs"></i> Domianes Activités
+                <asp:HyperLink ID="HyperLink_DomaineActivite" runat="server" NavigateUrl="~/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx">
+                    <i class="fa fa-home"></i> Font Office
                 </asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_SousDomaineActivite">
-                <asp:HyperLink ID="HyperLink_SousDomaineActivite" runat="server" NavigateUrl="~/Parametres/Frm_SousDomaineActiviteListing.aspx">
-                    <i class="fa fa-cogs"></i> Sous-Domianes Activités
-                </asp:HyperLink></li>
-            <li runat="server" id="LI_SR_SERVICESListing">
-                <asp:HyperLink ID="HyperLink_SR_SERVICESListing" runat="server" NavigateUrl="~/Administration/Frm_SR_SERVICESListing.aspx">
-                    <i class="fa fa-briefcase"></i> Produits Rezo509
-                </asp:HyperLink></li>
-            <li runat="server" id="LI_SR_PRIVILEGE_SERVICESListing">
-                <asp:HyperLink ID="HyperLink_SR_PRIVILEGE_SERVICESListing" runat="server" NavigateUrl="~/Administration/Frm_SR_PRIVILEGE_SERVICESListing.aspx">
-                    <i class="fa fa-briefcase"></i> Privilège Produits Rezo509
-                </asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_SecteurActivite">
-                <asp:HyperLink ID="HyperLink_Wfrm_SecteurActivite" runat="server" NavigateUrl="~/Parametres/Wfrm_SecteurActivite.aspx">Secteur Activités
-                </asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_SousSecteurActivite">
-                <asp:HyperLink ID="HyperLink_Wfrm_SousSecteurActivite" runat="server" NavigateUrl="~/Parametres/Wfrm_SousSecteurActivite.aspx"><span class="r"></span><span
-                                        class="t">Sous-Secteur Activités</span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_Pays">
-                <asp:HyperLink ID="HyperLink_Wfrm_Pays" runat="server" NavigateUrl="~/Parametres/Wfrm_Pays.aspx"
-                    ToolTip="Pays"><span class="r"></span><span
-                                        class="t">Pays</span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_Departement">
-                <asp:HyperLink ID="HyperLink_Wfrm_Departement" runat="server" NavigateUrl="~/Parametres/Wfrm_Departement.aspx"
-                    ToolTip="Département"><span class="r"></span><span
-                                        class="t">Département</span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_Commune">
-                <asp:HyperLink ID="HyperLink_Wfrm_Commune" runat="server" NavigateUrl="~/Parametres/Wfrm_Commune.aspx"
-                    ToolTip="Commune"><span class="r"></span><span
-                                        class="t">Commune/Ville</span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_SectionCommunale">
-                <asp:HyperLink ID="HyperLink_Wfrm_SectionCommunale" runat="server" Text="<%$ Resources:Resource, SECTION %>"
-                    NavigateUrl="~/Parametres/Wfrm_SectionCommunale.aspx" ToolTip="Section communale"><span class="r"></span><span
-                                        class="t"></span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_Service">
-                <asp:HyperLink ID="HyperLink_Wfrm_Service" runat="server" NavigateUrl="~/Parametres/Wfrm_Service.aspx"
-                    ToolTip="Service"><span class="r"></span><span
-                                        class="t">Services</span></asp:HyperLink></li>
-            <li runat="server" id="LI_HyperLink_Wfrm_InstService">
-                <asp:HyperLink ID="HyperLink_Wfrm_InstService" runat="server" NavigateUrl="~/Parametres/Wfrm_InstService.aspx"
-                    ToolTip="Institution Service"><span class="r"></span><span
-                                        class="t">Institution Services</span></asp:HyperLink></li>
         </ul>
     </li>
     <li class="treeview" runat="server" id="liPANEL_GESTION_SECURITE">

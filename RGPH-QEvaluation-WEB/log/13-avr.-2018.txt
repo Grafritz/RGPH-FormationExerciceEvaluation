@@ -1,0 +1,218 @@
+
+Chemin Erreur : 
+04/13/2018 04:12:06
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ID=1&ACTION=HideMenuHeader&rwndrnd=0.3879333047816762. Message Erreur:[duverseau.jeanfritz@gmail.com ] : DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_QuestionFormulaireExercice' does not contain a property with the name 'ScoreTotal'.System.Web.HttpException (0x80004005): DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_QuestionFormulaireExercice' does not contain a property with the name 'ScoreTotal'.
+   at System.Web.UI.DataBinder.GetPropertyValue(Object container, String propName)
+   at System.Web.UI.DataBinder.Eval(Object container, String[] expressionParts)
+   at ASP.gestionqevaluation_frm_formulaireexercicesadd_aspx.__DataBinding__control89(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx:line 291
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_FormulaireExercicesADD.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 329
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:12:06
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ID=1&ACTION=HideMenuHeader&rwndrnd=0.3879333047816762. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:12:18
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ID=1&ACTION=HideMenuHeader&rwndrnd=0.3879333047816762. Message Erreur:[duverseau.jeanfritz@gmail.com ] : DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_QuestionFormulaireExercice' does not contain a property with the name 'ScoreTotal'.System.Web.HttpException (0x80004005): DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_QuestionFormulaireExercice' does not contain a property with the name 'ScoreTotal'.
+   at System.Web.UI.DataBinder.GetPropertyValue(Object container, String propName)
+   at System.Web.UI.DataBinder.Eval(Object container, String[] expressionParts)
+   at ASP.gestionqevaluation_frm_formulaireexercicesadd_aspx.__DataBinding__control89(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx:line 291
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at Frm_FormulaireExercicesADD.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 329
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:12:18
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ID=1&ACTION=HideMenuHeader&rwndrnd=0.3879333047816762. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:35:24
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.5624641011091233. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 253
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 215
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 235
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 245
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 331
+   at GestionQEvaluation_Frm_QuestionsADD.SAVE_QUESTIONS() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 309
+ClientConnectionId:045ecab8-32f7-4eb5-8ebc-464fb54ec77e
+Error Number:515,State:2,Class:16
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:35:24
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.5624641011091233. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:35:36
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.5624641011091233. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 253
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 215
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 235
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 245
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 331
+   at GestionQEvaluation_Frm_QuestionsADD.SAVE_QUESTIONS() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 309
+ClientConnectionId:045ecab8-32f7-4eb5-8ebc-464fb54ec77e
+Error Number:515,State:2,Class:16
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:35:36
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.5624641011091233. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:37:43
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.23026281036730678. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 253
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 215
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 235
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 245
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 331
+   at GestionQEvaluation_Frm_QuestionsADD.SAVE_QUESTIONS() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 309
+ClientConnectionId:045ecab8-32f7-4eb5-8ebc-464fb54ec77e
+Error Number:515,State:2,Class:16
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:37:43
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.23026281036730678. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:38:03
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.23026281036730678. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'CodeQuestion', table 'RGPH_FormationExercice_db.dbo.Tbl_Questions'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 253
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 215
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 235
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 245
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 331
+   at GestionQEvaluation_Frm_QuestionsADD.SAVE_QUESTIONS() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 309
+ClientConnectionId:045ecab8-32f7-4eb5-8ebc-464fb54ec77e
+Error Number:515,State:2,Class:16
+__________________________
+
+Chemin Erreur : 
+04/13/2018 04:38:03
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.23026281036730678. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
+__________________________
+
+Chemin Erreur : 
+04/13/2018 11:00:33
+Erreur dans: http://127.0.0.1/RGPH-QEvaluation/GestionQEvaluation/Default.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices' does not contain a property with the name 'LibelleExercice_NbrQuestion_STR'.System.Web.HttpException (0x80004005): DataBinding: 'RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices' does not contain a property with the name 'LibelleExercice_NbrQuestion_STR'.
+   at System.Web.UI.DataBinder.GetPropertyValue(Object container, String propName)
+   at System.Web.UI.DataBinder.Eval(Object container, String[] expressionParts)
+   at ASP.gestionqevaluation_default_aspx.__DataBinding__control72(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Default.aspx:line 283
+   at System.Web.UI.Control.OnDataBinding(EventArgs e)
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at Telerik.Web.UI.GridItem.SetupItem(Boolean dataBind, Object dataItem, GridColumn[] columns, ControlCollection rows)
+   at Telerik.Web.UI.GridItemBuilder.InitializeItem(Int32 dataSourceIndex, String& nextItemHierarchicalIndex, Boolean& itemIsInEditMode)
+   at Telerik.Web.UI.GridItemBuilder.CreateItems(GridGroupingContext group)
+   at Telerik.Web.UI.GridTableView.CreateItems(IEnumerator enumerator, GridColumn[] columns, ControlCollection controls)
+   at Telerik.Web.UI.GridTableView.CreateControlHierarchy(Boolean useDataSource)
+   at Telerik.Web.UI.GridTableView.CreateChildControls(IEnumerable dataSource, Boolean useDataSource)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at Telerik.Web.UI.GridTableView.PerformSelect()
+   at Telerik.Web.UI.GridTableView.DataBind()
+   at GestionQuestionnaire_Default.BindGrid_Formulaire(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Default.aspx.vb:line 235
+__________________________
+
+Chemin Erreur : 
+04/13/2018 11:12:03
+Erreur dans: http://127.0.0.1/RGPH-QEvaluation/GestionQEvaluation/Default.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
+   at GestionQuestionnaire_Default.SetAll_DATA_Question_Or_Reponse_From_RadGrid() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Default.aspx.vb:line 328
+__________________________
+
+Chemin Erreur : 
+04/13/2018 11:12:58
+Erreur dans: http://127.0.0.1/RGPH-QEvaluation/GestionQEvaluation/Default.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_Questions_In_QuestionFormulaire_ByIDFormulaire' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_In_QuestionFormulaire_ByIDFormulaire' doesn't exist.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.SearchAll_In_QuestionFormulaire_ByIDFormulaire(Int64 IDFormulaire) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 402
+   at GestionQuestionnaire_Default.SetAll_DATA_Question_Or_Reponse_From_RadGrid() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Default.aspx.vb:line 328
+__________________________

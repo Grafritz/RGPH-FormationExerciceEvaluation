@@ -1,25 +1,8 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_QuestionsADD.aspx.vb" Inherits="GestionQEvaluation_Frm_QuestionsADD" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
-        <script type="text/javascript">
-            function closeWindow() {
-                GetRadWindow().BrowserWindow.refreshMe();
-                GetRadWindow().close();
-            }
-            function CloseAndRefreshListeQuestion() {
-                GetRadWindow().BrowserWindow.refreshMe();
-                GetRadWindow().close();
-            }
-            function GetRadWindow() {
-                var oWindow = null;
-                if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
-                else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
-                return oWindow;
-            }
-            //------------ POSSIBILITE DE REPONSE -----------//
-
             function ShowAddUpdateForm(strPage, tmpW, tmpH) {
                 var oWindow = window.radopen(strPage, "AddUpdateDialog");
                 //oWindow.set_autoSize(true);
@@ -78,63 +61,64 @@
             function refreshMe() {
                 $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
             }
-
-            function refreshListeSpecificationControle() {
-                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("refreshListeSpecificationControle");
+            function refreshReponse() {
+                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("refreshReponse");
+            }
+            function refreshListeJustification() {
+                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("refreshJustificationReponse");
+            }
+            function closeWindow() {
+                GetRadWindow().BrowserWindow.refreshMe();
+                GetRadWindow().close();
+            }
+            function CloseAndRefreshListe() {
+                GetRadWindow().BrowserWindow.refreshMe();
+                GetRadWindow().close();
+            }
+            function CloseAndRefresh_ListeQuestionDisponible() {
+                GetRadWindow().BrowserWindow.refreshMe();
+                GetRadWindow().close();
+            }
+            function GetRadWindow() {
+                var oWindow = null;
+                if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
+                else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
+                return oWindow;
             }
 
 
-            var listItemIndex = null;
-            function MenuItemClicked(sender, eventArgs) {
-                var clickedItemValue = eventArgs.get_item().get_value();
-                var rdGrid = $find("<%=rdgQuestions_Reponses.ClientID %>");
-                var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-                switch (clickedItemValue) {
-                    case "Editer":
-                        ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-                    case "Delete":
-                        ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-                    default:
-                        break;
-                }
+            function Open_Window1(page, _width, _height) {
+                var largeurEcran = (screen.width - _width) / 2;
+                var hauteurEcran = (screen.height - _height) / 2;
+                window.open(page, 'APIDashBord', ' width=' + _width + ', height=' + _height + ', top=' + hauteurEcran + ', left=' + largeurEcran + ', toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=0, copyhistory=0, menuBar=0')
             }
-
-            function RowContextMenu(sender, eventArgs) {
-                var menu = $find("<%= ContextMenu.ClientID %>");
-                var evt = eventArgs.get_domEvent();
-                if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
-                var index = eventArgs.get_itemIndexHierarchical();
-                document.getElementById("radGridClickedRowIndex").value = index;
-                listItemIndex = index;
-                sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
-                menu.show(evt);
-                evt.cancelBubble = true;
-                evt.returnValue = false;
-                if (evt.stopPropagation) {
-                    evt.stopPropagation();
-                    evt.preventDefault();
-                }
+            function Open_Window(page, nomFenetre, _width, _height) {
+                var largeurEcran = (screen.width - _width) / 2;
+                var hauteurEcran = (screen.height - _height) / 2;
+                window.open(page, nomFenetre, ' width=' + _width + ', height=' + _height + ', top=' + hauteurEcran + ', left=' + largeurEcran + ', toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=0, copyhistory=0, menuBar=0')
             }
-
-            function RowDblClick(sender, eventArgs) {
-                var index = eventArgs.get_itemIndexHierarchical();
-                document.getElementById("radGridClickedRowIndex").value = index;
-                listItemIndex = index;
-                var rdGrid = $find("<%=rdgQuestions_Reponses.ClientID %>");
-                 var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-                 ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
-             }
+            function Open_WindowMaximize(page, nomFenetre) {
+                var largeurEcran = (screen.width) / 2;
+                var hauteurEcran = (screen.height) / 2;
+                window.open(page, nomFenetre, ' top=' + hauteurEcran + ', left=' + largeurEcran + ', toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=0, copyhistory=0, menuBar=0')
+            }
         </script>
     </telerik:RadCodeBlock>
     <%--<telerik:RadScriptManager ID="RadScriptManager1"  runat="server"></telerik:RadScriptManager>--%>
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
-           <UpdatedControls>
-               <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
-               <telerik:AjaxUpdatedControl ControlID="PanelChoixReponse" LoadingPanelID="RadAjaxLoadingPanel1" />
-           </UpdatedControls>
-       </telerik:AjaxSetting>
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="PanelChoixReponse" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="Btn_SaveInfo">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="PanelChoixReponse" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" />
@@ -147,11 +131,12 @@
                     <small id="OL_SeeAllData" runat="server">
                         <asp:Label ID="Label_SousTitre" runat="server" />
                     </small>
+                    <span class="pull-right box-tools">
+                        <asp:LinkButton ID="Btn_Annuler2" CausesValidation="false" runat="server" CssClass="btn btn-danger">
+                            <i class="fa  fa-reply-all" ></i> Fermer
+                        </asp:LinkButton>
+                    </span>
                 </h3>
-                <!--<ol class="breadcrumb"> 
-    <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
-    <li class="active">Questions</li>
-</ol> -->
             </section>
             <section class="content">
                 <Msg:msgBox ID="Dialogue" runat="server" />
@@ -166,73 +151,96 @@
 
                 <asp:ValidationSummary ID="ValidationSummary1" ValidationGroup="GPSave" runat="server" CssClass="alert alert-danger alert-dismissable" ShowMessageBox="true" ShowSummary="true" />
 
-                <asp:Panel ID="Panel_First" runat="server" CssClass="panel panel-default panel-body" Style="margin: 5px;">
-                    <div id="DIV_Panel" class="form-horizontal group-border-dashed1" style="border-radius: 0px;">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <label>
-                                    Libelle Question
-                               <asp:RequiredFieldValidator ID="RFV_LibelleQuestion" runat="server" ControlToValidate="txt_LibelleQuestion"
-                                   ErrorMessage="Libelle Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
-                                </label>
-                                <asp:TextBox ID="txt_LibelleQuestion" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Libelle Question..."></asp:TextBox>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <label>
-                                    Score Total
-                               <asp:RequiredFieldValidator ID="RFV_ScoreTotal" runat="server" ControlToValidate="txt_ScoreTotal"
-                                   ErrorMessage="Score Total Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
-                                </label>
-                                <asp:TextBox ID="txt_ScoreTotal" CssClass="form-control" Width="100%" runat="server" placeholder="Score Total..."></asp:TextBox>
-                            </div>
-                            <div class="col-sm-8">
-                                <br />
-                                <br />
-                                <label>
-                                    <asp:CheckBox ID="CB_AvoirJustificationYN" runat="server" Text="Cette question doit être justifié" /></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
-                                    <span id="span_SaveInfo" runat="server">
-                                        <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
-                                    <i class="fa fa-save" ></i> Enregistrer
-                                        </asp:LinkButton>
-                                    </span>
-                                    &nbsp;
-                                    <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
-                                        <i class="fa  fa-reply-all" ></i> Annuler
-                                    </asp:LinkButton>
-                                </div>
-
-                            </div>
-                        </div>
-
+                <asp:Panel ID="Panel_First" runat="server" CssClass="panel1 panel-default1 panel-body1" Style="margin: 5px;">
+                    <div id="DIV_InfoFormExercice" runat="server" visible="false" class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <label>
+                            Libelle Exercice
+                        </label>
+                        <br />
+                        <asp:Literal ID="Literal_LibelleExercice" runat="server" />
+                        <asp:TextBox ID="txt_IDFormulaire_Hide" runat="server" Text="0" Visible="False" Width="1px"></asp:TextBox>
                     </div>
-
-                    <hr />
-                    <asp:Panel runat="server" ID="PanelChoixReponse" Visible="false">
+                    <asp:Panel runat="server" ID="PanelChoixReponse">
                         <div class="tab-container">
                             <ul class="nav nav-tabs">
-                                <li runat="server" id="LI_Reponse" class="active">
-                                    <a href="#Reponses" data-toggle="tab"><i class="fa fa-tasks "></i>
-                                        <asp:Label runat="server" ID="LabelReponseTitre" Text="Réponse"></asp:Label>
-                                    </a>
+                                <li class="active" id="li_Question" runat="server">
+                                    <asp:LinkButton ID="LinkButton_Question" runat="server">
+                                        <i id="i_Question" runat="server" class="fa fa-tasks"></i>
+                                        Questions
+                                    </asp:LinkButton>
                                 </li>
-                                <li runat="server" id="LI_Justifications">
-                                    <a href="#Justifications" data-toggle="tab"><i class="fa fa-tasks "></i>
+                                <li class="active" id="li_Reponse" runat="server">
+                                    <asp:LinkButton ID="LinkButton_Reponse" runat="server">
+                                        <i id="i_Reponse" runat="server" class="fa fa-tasks"></i>
+                                        Réponses
+                                        <asp:Label runat="server" ID="LabelReponseTitre" />
+                                    </asp:LinkButton>
+                                </li>
+                                <li id="li_JustificationReponse" runat="server">
+                                    <asp:LinkButton ID="LinkButton_JustificationReponse" runat="server">
+                                        <i id="i_JustificationReponse" runat="server" class="fa fa-tasks"></i>
                                         Justifications
                                         <asp:Literal runat="server" ID="Literal_Justifications" />
-                                    </a>
+                                    </asp:LinkButton>
                                 </li>
+                                <li id="li_Fermer" runat="server"></li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane cont active" id="Reponses">
+                                <div id="DIV_Content_Question" runat="server" class="tab-pane cont active">
+                                    <div id="DIV_Panel" class="form-horizontalq group-border-dashed1q" style="border-radius: 0px;">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label>
+                                                    Libelle Question
+                                                    <asp:RequiredFieldValidator ID="RFV_LibelleQuestion" runat="server" ControlToValidate="txt_LibelleQuestion"
+                                                        ErrorMessage="Libelle Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                        ValidationGroup="GPSave" CssClass="text-danger" />
+                                                </label>
+                                                <asp:TextBox ID="txt_LibelleQuestion" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Libelle Question..."></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label>
+                                                    Score Total
+                                                   <asp:RequiredFieldValidator ID="RFV_ScoreTotal" runat="server" ControlToValidate="txt_ScoreTotal"
+                                                       ErrorMessage="Score Total Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                       ValidationGroup="GPSave" CssClass="text-danger" />
+                                                </label>
+                                                <telerik:RadNumericTextBox ID="txt_ScoreTotal" runat="server" Skin="MetroTouch" Culture="en-US" NumberFormat-DecimalDigits="2"
+                                                    ShowSpinButtons="false" Value="10" Width="100%" EmptyMessage="0.00" DataType="System.Decimal"
+                                                    MinValue="0.00">
+                                                </telerik:RadNumericTextBox>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <br />
+                                                <br />
+                                                <label>
+                                                    <asp:CheckBox ID="CB_AvoirJustificationYN" runat="server" Text="Cette question doit être justifié" /></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
+                                                    <span id="span_SaveInfo" runat="server">
+                                                        <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
+                                                            <i class="fa fa-save" ></i> Enregistrer
+                                                        </asp:LinkButton>
+                                                    </span>
+                                                    &nbsp;
+                                                    <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
+                                                        <i class="fa  fa-reply-all" ></i> Fermer
+                                                    </asp:LinkButton>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div id="DIV_Content_Reponse" runat="server" class="tab-pane">
                                     <div runat="server" id="divLiteralMsg" visible="false" class="alert alert-warning alert-white rounded">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <div class="icon"><i class="fa fa-info-circle"></i></div>
@@ -301,7 +309,7 @@
                                         </telerik:RadGrid>
                                     </asp:Panel>
                                 </div>
-                                <div class="tab-pane" id="Justifications">
+                                <div id="DIV_Content_JustificationReponse" runat="server" class="tab-pane">
                                     <asp:Panel ID="PanelListeJustifications" runat="server">
                                         <asp:LinkButton ID="LinkButton_NewJustifications" runat="server" CssClass="btn btn-warning" Style="margin-bottom: 5px;">
                                             <i class="fa fa-plus-square-o"></i> Ajouter Justification </asp:LinkButton>

@@ -34,6 +34,10 @@ Public Class Cls_QuestionFormulaireExercice
         Read(_idOne)
     End Sub
 
+    Public Sub New(ByVal IDFormulaire As Long, ByVal _CodeQuestion As Long)
+        Read(IDFormulaire, _CodeQuestion)
+    End Sub
+
 #End Region
 
 #Region "Properties"
@@ -133,6 +137,11 @@ Public Class Cls_QuestionFormulaireExercice
             Return QuestionOBJ.LibelleQuestion
         End Get
     End Property
+    Public ReadOnly Property ScoreTotal As String
+        Get
+            Return QuestionOBJ.ScoreTotal
+        End Get
+    End Property
 
     <AttributLogData(True, 4)>
     Public Property OrdreQuestion As Integer
@@ -190,13 +199,13 @@ Public Class Cls_QuestionFormulaireExercice
 #Region " Db Access "
     Public Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
         _LogData = LogData(Me)
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_QuestionFormulaireExercice", _CodeFormulaireExercice, _CodeQuestion, _OrdreQuestion, _EstDebutQuestion, usr))
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_QuestionFormulaireExercice", _CodeFormulaireExercice, _CodeQuestion, _OrdreQuestion, _EstDebutQuestion)) ', usr))
         Return _id
     End Function
 
     Public Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
         _LogData = GetObjectString()
-        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_QuestionFormulaireExercice", _id, _CodeFormulaireExercice, _CodeQuestion, _OrdreQuestion, _EstDebutQuestion, usr)
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_QuestionFormulaireExercice", _id, _CodeFormulaireExercice, _CodeQuestion, _OrdreQuestion, _EstDebutQuestion) ', usr)
     End Function
 
     Private Sub SetProperties(ByVal dr As DataRow)
@@ -222,6 +231,27 @@ Public Class Cls_QuestionFormulaireExercice
         Try
             If _idpass <> 0 Then
                 Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_QuestionFormulaireExercice_ByID", _idpass)
+
+                If ds.Tables(0).Rows.Count < 1 Then
+                    BlankProperties()
+                    Return False
+                End If
+
+                SetProperties(ds.Tables(0).Rows(0))
+            Else
+                BlankProperties()
+            End If
+            Return True
+
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+    Public Function Read(ByVal IDFormulaire As Long, ByVal _CodeQuestion As Long) As Boolean
+        Try
+            If IDFormulaire <> 0 AndAlso _CodeQuestion <> 0 Then
+                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_QuestionFormulaireExercice_ByAll_ID", IDFormulaire, _CodeQuestion)
 
                 If ds.Tables(0).Rows.Count < 1 Then
                     BlankProperties()
@@ -310,9 +340,7 @@ Public Class Cls_QuestionFormulaireExercice
             Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_QuestionFormulaireExercice_CodeFormulaireExercice", _codeformulaireexercice)
             For Each r In ds.Tables(0).Rows
                 Dim obj As New Cls_QuestionFormulaireExercice
-
                 obj.SetProperties(r)
-
                 objs.Add(obj)
             Next r
             Return objs
@@ -337,6 +365,15 @@ Public Class Cls_QuestionFormulaireExercice
         Catch ex As Exception
             Throw ex
         End Try
+    End Function
+
+    Public Shared Function GetCountQuestion_ByIDFormulaire(IDFormulaire As Long) As String
+        Dim val As Long = 0
+        Try
+            val = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_COUNT_QuestionFormulaireExercice_ByIDFormulaire", IDFormulaire))
+        Catch ex As Exception
+        End Try
+        Return val
     End Function
 
 #End Region

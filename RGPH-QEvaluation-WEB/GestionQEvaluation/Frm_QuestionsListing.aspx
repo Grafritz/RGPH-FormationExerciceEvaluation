@@ -75,50 +75,50 @@
 
             function RowContextMenu(sender, eventArgs) {
                 var menu = $find("<%= ContextMenu.ClientID %>");
-    var evt = eventArgs.get_domEvent();
-    if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
-    var index = eventArgs.get_itemIndexHierarchical();
-    document.getElementById("radGridClickedRowIndex").value = index;
-    listItemIndex = index;
-    sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
-    menu.show(evt);
-    evt.cancelBubble = true;
-    evt.returnValue = false;
-    if (evt.stopPropagation) {
-        evt.stopPropagation();
-        evt.preventDefault();
-    }
-}
+                var evt = eventArgs.get_domEvent();
+                if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
+                var index = eventArgs.get_itemIndexHierarchical();
+                document.getElementById("radGridClickedRowIndex").value = index;
+                listItemIndex = index;
+                sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
+                menu.show(evt);
+                evt.cancelBubble = true;
+                evt.returnValue = false;
+                if (evt.stopPropagation) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                }
+            }
 
-function RowDblClick(sender, eventArgs) {
-    var index = eventArgs.get_itemIndexHierarchical();
-    document.getElementById("radGridClickedRowIndex").value = index;
-    listItemIndex = index;
-    var rdGrid = $find("<%=rdgQuestions.ClientID %>");
-     var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-     ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
- }
+            function RowDblClick(sender, eventArgs) {
+                var index = eventArgs.get_itemIndexHierarchical();
+                document.getElementById("radGridClickedRowIndex").value = index;
+                listItemIndex = index;
+                var rdGrid = $find("<%=rdgQuestions.ClientID %>");
+                var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+                ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
+            }
 
- function refreshMe() {
-     $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
-}
+            function refreshMe() {
+                $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
+            }
 
-function closeWindow() {
-    GetRadWindow().BrowserWindow.refreshMe();
-    GetRadWindow().close();
-}
+            function closeWindow() {
+                GetRadWindow().BrowserWindow.refreshMe();
+                GetRadWindow().close();
+            }
 
-function CloseAndRefreshListe() {
-    GetRadWindow().BrowserWindow.refreshMe();
-    GetRadWindow().close();
-}
+            function CloseAndRefreshListe() {
+                GetRadWindow().BrowserWindow.refreshMe();
+                GetRadWindow().close();
+            }
 
-function GetRadWindow() {
-    var oWindow = null;
-    if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
-    else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
-    return oWindow;
-}
+            function GetRadWindow() {
+                var oWindow = null;
+                if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
+                else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
+                return oWindow;
+            }
 
         </script>
     </telerik:RadCodeBlock>
@@ -127,7 +127,9 @@ function GetRadWindow() {
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="PageHeader" LoadingPanelID="RadAjaxLoadingPanel1" />
                     <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="rdgQuestions">
@@ -156,9 +158,9 @@ function GetRadWindow() {
                     </small>
                 </h3>
                 <!--<ol class="breadcrumb"> 
-    <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
-    <li class="active"> Questions</li>
-</ol> -->
+                    <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
+                    <li class="active"> Questions</li>
+                </ol> -->
             </section>
             <section class="content">
                 <Msg:msgBox ID="Dialogue" runat="server" />
@@ -173,15 +175,13 @@ function GetRadWindow() {
 
                 <asp:Panel runat="server" ID="Panel_First" Style="margin: 5px;">
                     <asp:LinkButton ID="Btn_ADD_Questions" runat="server" CssClass="btn btn-primary" CausesValidation="false">
-    <i class="fa fa-plus-circle" ></i>  Ajouter  Questions
+                        <i class="fa fa-plus-circle" ></i>  Ajouter  Questions
                     </asp:LinkButton>
                     <span class="pull-right box-tools">
                         <asp:LinkButton ID="rbtnClearFilters" runat="server" CssClass="btn btn-sm btn-default" CausesValidation="false"> 
-        <i class="fa fa-ban on fa-filter" ></i> Clear Filters
+                            <i class="fa fa-ban on fa-filter" ></i> Clear Filters
                         </asp:LinkButton>
                     </span>
-
-
                     <telerik:RadGrid ID="rdgQuestions" AllowPaging="True" AllowSorting="True" PageSize="20"
                         runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="true"
                         Culture="fr-FR" ShowGroupPanel="True"
@@ -205,14 +205,12 @@ function GetRadWindow() {
                                     FilterControlAltText="Filter LibelleQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <%--<telerik:GridBoundColumn DataField="DetailsQuestion" UniqueName="DetailsQuestion" HeaderText=" Details Question"
-                                    FilterControlAltText="Filter DetailsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridBoundColumn DataField="ScoreTotal" UniqueName="ScoreTotal" HeaderText=" Score Total"
+                                    FilterControlAltText="Filter ScoreTotal column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                    <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
+                                    <ItemStyle HorizontalAlign="Center" Width="16px" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="IndicationsQuestion" UniqueName="IndicationsQuestion" HeaderText=" Indications Question"
-                                    FilterControlAltText="Filter IndicationsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
-                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridTemplateColumn DataField="AvoirJustificationYN" UniqueName="AvoirJustificationYN" HeaderText="Justification Y/N"
                                     FilterControlAltText="Filter AvoirJustificationYN column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
@@ -222,12 +220,16 @@ function GetRadWindow() {
                                     <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
                                     <ItemStyle HorizontalAlign="Center" Width="16px" />
                                 </telerik:GridTemplateColumn>
-                                <%--                                <telerik:GridBoundColumn DataField="TypeQuestion" UniqueName="TypeQuestion" HeaderText=" Type Question"
-                                    FilterControlAltText="Filter TypeQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <%--<telerik:GridBoundColumn DataField="DetailsQuestion" UniqueName="DetailsQuestion" HeaderText=" Details Question"
+                                    FilterControlAltText="Filter DetailsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="ScoreTotal" UniqueName="ScoreTotal" HeaderText=" Score Total"
-                                    FilterControlAltText="Filter ScoreTotal column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridBoundColumn DataField="IndicationsQuestion" UniqueName="IndicationsQuestion" HeaderText=" Indications Question"
+                                    FilterControlAltText="Filter IndicationsQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                    AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                </telerik:GridBoundColumn>--%>
+                                <%--                                <telerik:GridBoundColumn DataField="TypeQuestion" UniqueName="TypeQuestion" HeaderText=" Type Question"
+                                    FilterControlAltText="Filter TypeQuestion column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Commentaire" UniqueName="Commentaire" HeaderText=" Commentaire"

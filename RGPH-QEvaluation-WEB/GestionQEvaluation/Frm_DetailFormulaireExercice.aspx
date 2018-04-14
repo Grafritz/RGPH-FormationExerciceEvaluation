@@ -1,6 +1,6 @@
-<%@ Page Title=" Formulaire Exercices" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_FormulaireExercicesADD.aspx.vb" Inherits="Frm_FormulaireExercicesADD" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_DetailFormulaireExercice.aspx.vb" Inherits="GestionQEvaluation_Frm_DetailFormulaireExercice" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
             function ShowAddUpdateForm(strPage, tmpW, tmpH) {

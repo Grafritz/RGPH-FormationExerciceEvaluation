@@ -1,16 +1,16 @@
-REM Generate By [GENERIC 12] Application *******
-REM  Class Frm_Question_Module
+﻿REM Generate By [GENERIC 12] Application *******
+REM  Class Frm_Questions
 
-REM Date:19-Jan-2018 12:26 PM
+REM Date:04-Apr-2018 02:40 PM
 Imports Microsoft
 Imports System.Data
 Imports System.Collections.Generic
 Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
-Imports RGPH_QCOLLECTE_Library
+Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
-Partial Class Frm_Question_ModuleListing
+Partial Class GestionQEvaluation_Frm_QuestionDisponible
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
 
 
@@ -18,10 +18,10 @@ Partial Class Frm_Question_ModuleListing
     Private _message As String  ' VARIABLE SERVANT A LA RECUPERATION DE TOUS LES MESSAGES D'ECHECS OU DE SUCCES
 
     REM DEFINITION ET INITIALISATION DES CONSTANTE POUR LA SECURITE
-    Private Const Nom_page As String = "PAGE-LISTING-STATUT"  ' POUR LA PAGE
-    Private Const Btn_Save As String = "Bouton-SAVE-STATUT"       ' POUR LE BOUTON D'ENREGISTREMENT
-    Private Const Btn_Edit As String = "Bouton-EDIT-STATUT"       ' POUR LE BOUTON DE MODIFICATION
-    Private Const Btn_Delete As String = "Bouton-DELETE-STATUT"   ' POUR LE BOUTON DE SUPPRESSION
+    Private Const Nom_page As String = "PAGE-LISTING-QUESTIONS"  ' POUR LA PAGE
+    Private Const Btn_Save As String = "Bouton-SAVE-QUESTIONS"       ' POUR LE BOUTON D'ENREGISTREMENT
+    Private Const Btn_Edit As String = "Bouton-EDIT-QUESTIONS"       ' POUR LE BOUTON DE MODIFICATION
+    Private Const Btn_Delete As String = "Bouton-DELETE-QUESTIONS"   ' POUR LE BOUTON DE SUPPRESSION
 
     Dim User_Connected As Cls_User          ' INSTANCE DE LA CLASSE UTILISATEUR - UTILISER POUR L'UTILISATEUR EN SESSION 
     Dim Is_Acces_Page As Boolean = True     ' LA VARIABLE SERVANT DE TEST POUR DONNEER L'ACCES A LA PAGE
@@ -34,7 +34,7 @@ Partial Class Frm_Question_ModuleListing
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
         Response.Expires = -1
         Panel_Msg.Visible = False
-        PAGE_TITLE = " Question Module"
+        PAGE_TITLE = "Questions Disponible"
         Page.Title = [Global].Global_APP_NAME_SIGLE & " | " & PAGE_TITLE
 
         SYSTEME_SECURITE()  ' APPEL A LA METHODE SERVANT A TESTER LES COMPOSANTS DE LA PAGE Y COMPRIS LA PAGE ELLE MEME 
@@ -43,9 +43,9 @@ Partial Class Frm_Question_ModuleListing
         If Is_Acces_Page Then
             If Not IsPostBack Then
                 Label_Titre.Text = PAGE_TITLE
-                Btn_ADD_Question_Module.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Question_ModuleADD.aspx?" & [Global].ACTION & "=" & [Global].HideMenuHeader & "', 950, 650)); return false;")
-                'Btn_ADD_Question_Module.Attributes.Add("onclick", "javascript:Open_Window('Frm_Question_ModuleADD.aspx', '_self',500,400); return false;") 
-                BindGrid()
+                LinkButton_NewQuestions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionsADD.aspx?" & [Global].ACTION & "=" & [Global].HideMenuHeader & "', 950, 650)); return false;")
+                'Btn_ADD_Questions.Attributes.Add("onclick", "javascript:Open_Window('Frm_QuestionsADD.aspx', '_self',500,400); return false;") 
+                LOAD_FORMULAIREEXERCICES()
             End If
         End If
     End Sub
@@ -56,13 +56,12 @@ Partial Class Frm_Question_ModuleListing
         Try
             User_Connected = [Global].KeepUserContinuesToWork(User_Connected)
 
-            'CType(Page.Master.FindControl("li_Question_Module"), HtmlControl).Attributes.Add("class", "active ")
-            'CType(Page.Master.FindControl("i_Question_Module"), HtmlControl).Attributes.Add("class", "fa fa-folder-open fa-lg ")
+            'CType(Page.Master.FindControl("li_Questions"), HtmlControl).Attributes.Add("class", "active ")
+            'CType(Page.Master.FindControl("i_Questions"), HtmlControl).Attributes.Add("class", "fa fa-folder-open fa-lg ")
             'CType(Page.Master.FindControl("DashMenu_2").FindControl("liGROUPE_PARAMETRES"), HtmlControl).Attributes.Add("class", "active treeview")
             'CType(Page.Master.FindControl("DashMenu_2").FindControl("liCentreDeDetentionListe"), HtmlControl).Attributes.Add("class", "active")
-
             CType(Page.Master.FindControl("LIAPP_MOBILE"), HtmlControl).Attributes.Add("class", "active parent open")
-            CType(Page.Master.FindControl("li_FormulaireCollecteListing"), HtmlControl).Attributes.Add("class", "active")
+            CType(Page.Master.FindControl("li_QuestionsListing"), HtmlControl).Attributes.Add("class", "active")
 
             LiteralStyleCSS.Text = ""
             If Request.QueryString([Global].ACTION) IsNot Nothing Then
@@ -92,15 +91,15 @@ Partial Class Frm_Question_ModuleListing
                 Else    ' SI L'UTILISATEUR A ACCES A LA PAGE ON VERIFIE POUR LES BOUTONS ET LES LIENS
                     '---  Okey vous avez acces a la page ---'
                     Dim _check As Boolean = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
-                    Btn_ADD_Question_Module.Visible = _check
-                    rdgQuestion_Module.MasterTableView.Columns.FindByUniqueNameSafe("editer").Visible = _check
+                    LinkButton_NewQuestions.Visible = _check
+                    'rdgQuestions.MasterTableView.Columns.FindByUniqueNameSafe("editer").Visible = _check
                     If Request.QueryString([Global].ACTION) IsNot Nothing Then
                         If Request.QueryString([Global].ACTION).Equals([Global].HideMenuHeader) Then
-                            Btn_ADD_Question_Module.Visible = _check
+                            LinkButton_NewQuestions.Visible = _check
                         End If
                     End If
-                    _check = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
-                    rdgQuestion_Module.MasterTableView.Columns.FindByUniqueNameSafe("delete").Visible = _check
+                    '_check = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+                    'rdgQuestions.MasterTableView.Columns.FindByUniqueNameSafe("delete").Visible = _check
                 End If
             End If
 
@@ -174,14 +173,42 @@ Partial Class Frm_Question_ModuleListing
 #End Region
 
 #Region "Load DATA"
+    Private Sub LOAD_FORMULAIREEXERCICES()
+        Try
+            If Request.QueryString("IDFormulaire") IsNot Nothing Then
+                Dim _id As Long = TypeSafeConversion.NullSafeLong(Request.QueryString("IDFormulaire"))
+                txt_CodeFormulaireExercices_Hide.Text = _id
+                Dim obj As New Cls_FormulaireExercices(_id)
+                If obj.ID > 0 Then
+                    LinkButton_NewQuestions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionsADD.aspx?" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                    'Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+                    With obj
+                        txt_OrdreQuestion.Text = Cls_QuestionFormulaireExercice.GetCountQuestion_ByIDFormulaire(.ID)
+                        txt_CodeFormulaireExercices_Hide.Text = .ID
+                        Literal_LibelleExercice.Text = .LibelleExercice & " (<b>" & .DureeEnSeconde & "</b>)"
+                    End With
+                    BindGrid()
+                End If
+            Else
+
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
     Private Sub BindGrid(Optional ByVal _refresh As Boolean = True)
-        Dim objs As List(Of Cls_Question_Module)
+        Dim objs As List(Of Cls_Questions)
         Dim _ret As Long = 0
         Try
-            objs = Cls_Question_Module.SearchAll
-            rdgQuestion_Module.DataSource = objs
+            objs = Cls_Questions.SearchAll_NotIn_QuestionFormulaire_ByIDFormulaire(TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hide.Text))
+            rdgQuestions.DataSource = objs
             If _refresh Then
-                rdgQuestion_Module.DataBind()
+                rdgQuestions.DataBind()
             End If
             _ret = objs.Count
             Label_Titre.Text = PAGE_TITLE & "  <small class=""badge badge-primary"">" & _ret & "</small>"
@@ -197,6 +224,49 @@ Partial Class Frm_Question_ModuleListing
 
 #Region "EVENTS CONTROLS"
 
+    Private Sub LinkButton_ADDQuestionsToFormExo_Click(sender As Object, e As EventArgs) Handles LinkButton_ADDQuestionsToFormExo.Click
+        Try
+            Dim CodeFormulaireExercice = TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hide.Text)
+            For Each item As GridDataItem In rdgQuestions.Items
+                Dim _CheckItems = CType(item.FindControl("CheckBox_CheckItems"), CheckBox)
+                Dim CodeQuestion = TypeSafeConversion.NullSafeLong(CType(item.FindControl("TextBox_CodeQuestion"), TextBox).Text)
+                Dim OrdreQuestion = TypeSafeConversion.NullSafeInteger(CType(item.FindControl("TextBox_OrdreQuestion"), TextBox).Text)
+
+                If _CheckItems.Checked Then
+                    Dim obj As New Cls_QuestionFormulaireExercice(CodeFormulaireExercice, CodeQuestion)
+                    With obj
+                        .CodeFormulaireExercice = CodeFormulaireExercice
+                        .CodeQuestion = CodeQuestion
+                        .OrdreQuestion = OrdreQuestion
+
+                        .Save(User_Connected.Username)
+                    End With
+                End If
+            Next
+            BindGrid()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Private Sub LinkButton_Fermer_Click(sender As Object, e As EventArgs) Handles LinkButton_Fermer.Click
+        PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
+        If Request.QueryString([Global].ACTION) IsNot Nothing Then
+            Select Case Request.QueryString([Global].ACTION)
+                Case [Global].HideMenuHeader
+                    RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+                Case Else
+                    Response.Redirect([Global].GetPath_PageMere(PAGE_MERE))
+            End Select
+        Else
+            Response.Redirect([Global].GetPath_PageMere(PAGE_MERE))
+        End If
+    End Sub
+
 #End Region
 
 #Region "ACTIONS / METHODES"
@@ -204,27 +274,45 @@ Partial Class Frm_Question_ModuleListing
 #End Region
 
 #Region "RADGRID EVENTS"
-    Protected Sub rdgQuestion_Module_ItemCommand(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs) Handles rdgQuestion_Module.ItemCommand
+    Protected Sub rdgQuestions_ItemCommand(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs) Handles rdgQuestions.ItemCommand
         Try
             If e.CommandName = Telerik.Web.UI.RadGrid.ExportToExcelCommandName Then
-                rdgQuestion_Module.ExportSettings.ExportOnlyData = True
-                rdgQuestion_Module.GridLines = GridLines.Both
-                rdgQuestion_Module.ExportSettings.IgnorePaging = True
-                rdgQuestion_Module.ExportSettings.OpenInNewWindow = False
-                rdgQuestion_Module.ExportSettings.FileName = "Liste des Question_Module"
-                rdgQuestion_Module.MasterTableView.Columns(0).Visible = False
-                rdgQuestion_Module.MasterTableView.ExportToExcel()
+                rdgQuestions.ExportSettings.ExportOnlyData = True
+                rdgQuestions.GridLines = GridLines.Both
+                rdgQuestions.ExportSettings.IgnorePaging = True
+                rdgQuestions.ExportSettings.OpenInNewWindow = False
+                rdgQuestions.ExportSettings.FileName = "Liste des Questions"
+                rdgQuestions.MasterTableView.Columns(0).Visible = False
+                rdgQuestions.MasterTableView.ExportToExcel()
             End If
 
             Dim _id As Long = TypeSafeConversion.NullSafeLong(e.CommandArgument)
             Select Case e.CommandName
+                Case "CHOIX_QUESTION"
+                    Dim gridDataItem = TryCast(e.Item, GridDataItem)
+                    If (gridDataItem IsNot Nothing) Then
+                        Dim item As GridDataItem = gridDataItem
+                        Dim ImageButton_CHOIX_QUESTION As ImageButton = CType(item.FindControl("ImageButton_CHOIX_QUESTION"), ImageButton)
+                        Dim CheckChoix As CheckBox = CType(item.FindControl("CheckBox_CheckItems"), CheckBox)
+                        CheckChoix.Checked = Not CheckChoix.Checked
+                        If CheckChoix.Checked Then
+                            txt_OrdreQuestion.Text = TypeSafeConversion.NullSafeLong(txt_OrdreQuestion.Text) + 1
+                        Else
+                            txt_OrdreQuestion.Text = TypeSafeConversion.NullSafeLong(txt_OrdreQuestion.Text) - 1
+                        End If
+
+                        ImageButton_CHOIX_QUESTION.ImageUrl = IIf(CheckChoix.Checked, "~/images/img_succes.png", "~/images/cancel.png")
+                        Dim _OrdreQuestion As TextBox = CType(item.FindControl("TextBox_OrdreQuestion"), TextBox)
+                        _OrdreQuestion.Text = txt_OrdreQuestion.Text
+                    End If
+                    GetCountQuestionSelected()
                 Case "delete"
-                    Dim obj As New Cls_Question_Module(_id)
+                    Dim obj As New Cls_Questions(_id)
                     obj.Delete()
                     User_Connected.Activite_Utilisateur_InRezo("DELETE " & PAGE_TITLE, obj.LogData(obj), Request.UserHostAddress)
-                    'User_Connected.Activite_Utilisateur_InRezo("DELETE Question_Module ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
+                    'User_Connected.Activite_Utilisateur_InRezo("DELETE Questions ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
                     MessageToShow([Global].Msg_Information_Supprimee_Avec_Succes, "S")
-                    rdgQuestion_Module.Rebind()
+                    rdgQuestions.Rebind()
             End Select
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
@@ -235,26 +323,45 @@ Partial Class Frm_Question_ModuleListing
         End Try
     End Sub
 
-    Protected Sub rdgQuestion_Module_ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridItemEventArgs) Handles rdgQuestion_Module.ItemDataBound
+    Private Sub GetCountQuestionSelected()
+        Try
+            Dim count As Long = 0
+            For Each item As GridDataItem In rdgQuestions.Items
+                Dim _CheckItems = CType(item.FindControl("CheckBox_CheckItems"), CheckBox)
+                If _CheckItems.Checked Then
+                    count += 1
+                End If
+            Next
+            Literal_CountQuestionSelected.Text = IIf(count <= 0, " Sélectionner Questions", " [" & count & "] Questions Sélectionner")
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub rdgQuestions_ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridItemEventArgs) Handles rdgQuestions.ItemDataBound
         Try
             Dim gridDataItem = TryCast(e.Item, GridDataItem)
             If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
                 'Dim _lnk As HyperLink = DirectCast(gridDataItem.FindControl("hlk"), HyperLink)
                 'Dim _lbl_ID As Label = DirectCast(gridDataItem.FindControl("lbl_ID"), Label)
                 '_lnk.Attributes.Clear()
-                '_lnk.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Question_ModuleADD.aspx?ID=" & CLng(_lbl_ID.Text) & "', 750, 400));")
+                '_lnk.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=" & CLng(_lbl_ID.Text) & "', 750, 400));")
             End If
 
             If (gridDataItem IsNot Nothing) Then
                 Dim item As GridDataItem = gridDataItem
-                CType(item.FindControl("lbOrder"), Label).Text = rdgQuestion_Module.PageSize * rdgQuestion_Module.CurrentPageIndex + (item.RowIndex / 2)
+                'CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions.PageSize * rdgQuestions.CurrentPageIndex + (item.RowIndex / 2)
 
-                Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
-                Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
-                imagedelete.ToolTip = "Effacer"
-                imageediter.ToolTip = "Editer"
-                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Question_ModuleADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                'Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
+                'Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                'imagedelete.ToolTip = "Effacer"
+                'imageediter.ToolTip = "Editer"
+                'imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
+                'imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionsADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
                 REM Privilege
                 'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                 'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
@@ -268,7 +375,7 @@ Partial Class Frm_Question_ModuleListing
         End Try
     End Sub
 
-    Protected Sub rdgQuestion_Module_NeedDataSource(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridNeedDataSourceEventArgs) Handles rdgQuestion_Module.NeedDataSource
+    Protected Sub rdgQuestions_NeedDataSource(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridNeedDataSourceEventArgs) Handles rdgQuestions.NeedDataSource
         If IsPostBack Then
             BindGrid(False)
         End If
@@ -276,12 +383,12 @@ Partial Class Frm_Question_ModuleListing
 
     Protected Sub rbtnClearFilters_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles rbtnClearFilters.Click
         Try
-            For Each column As GridColumn In rdgQuestion_Module.MasterTableView.Columns
+            For Each column As GridColumn In rdgQuestions.MasterTableView.Columns
                 column.CurrentFilterFunction = GridKnownFunction.NoFilter
                 column.CurrentFilterValue = String.Empty
             Next
-            rdgQuestion_Module.MasterTableView.FilterExpression = String.Empty
-            rdgQuestion_Module.MasterTableView.Rebind()
+            rdgQuestions.MasterTableView.FilterExpression = String.Empty
+            rdgQuestions.MasterTableView.Rebind()
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -308,6 +415,29 @@ Partial Class Frm_Question_ModuleListing
 
 #End Region
 
+
+    'Protected Sub CheckBox_CheckItems_CheckedChanged(sender As Object, e As EventArgs)
+    '    Try
+    '        Dim CheckBox_CheckItems As CheckBox = CType(sender, CheckBox)
+    '        Dim CodeQuestion = CType(CType(CType(sender, CheckBox).NamingContainer, GridDataItem).Cells(2).Text, String)
+    '        Dim TextBox_CodeQuestion = CType(CType(CType(sender, CheckBox).NamingContainer, GridDataItem).Cells(4).Text, String)
+
+    '        'Dim gridDataItem = TryCast(e.Item, GridDataItem)
+    '        For Each item As GridDataItem In rdgQuestions.Items
+
+    '        Next
+
+    '        If CheckBox_CheckItems.Checked Then
+    '            _message = "Checked: " & CheckBox_CheckItems.Checked & " | CodeQuestion:" & CodeQuestion & " | TextBox_CodeQuestion:" & TextBox_CodeQuestion
+    '            MessageToShow(_message, "S", False)
+    '        End If
+
+    '    Catch ex As Threading.ThreadAbortException
+    '    Catch ex As Rezo509Exception
+    '        MessageToShow(ex.Message)
+    '    Catch ex As Exception
+    '        MessageToShow(ex.Message)
+    '        [Global].WriteError(ex, User_Connected)
+    '    End Try
+    'End Sub
 End Class
-
-

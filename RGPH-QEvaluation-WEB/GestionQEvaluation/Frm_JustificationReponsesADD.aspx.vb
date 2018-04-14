@@ -1,4 +1,4 @@
-REM Generate By [GENERIC 12] Application *******
+﻿REM Generate By [GENERIC 12] Application *******
 REM  Class Frm_JustificationReponses
 
 REM Date:4/5/2018 12:58:02 PM
@@ -10,7 +10,7 @@ Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
-Partial Class Frm_JustificationReponsesADD
+Partial Class GestionQEvaluation_Frm_JustificationReponsesADD
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
 
 
@@ -93,10 +93,12 @@ Partial Class Frm_JustificationReponsesADD
                     Dim _check As Boolean = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                     'Btn_ADD_JustificationReponses.Visible = _check
                     Btn_SaveInfo.Visible = _check
+                    Btn_SaveInfo_AndContinuous.Visible = _check
                     'rdgJustificationReponses.MasterTableView.Columns.FindByUniqueNameSafe("editer").Visible = _check
                     If Request.QueryString([Global].ACTION) IsNot Nothing Then
                         If Request.QueryString([Global].ACTION).Equals([Global].HideMenuHeader) Then
                             Btn_SaveInfo.Visible = _check
+                            Btn_SaveInfo_AndContinuous.Visible = _check
                         End If
                     End If
                 End If
@@ -183,15 +185,24 @@ Partial Class Frm_JustificationReponsesADD
                 txt_CodeJustificationReponses_Hid.Text = _id
                 Dim obj As New Cls_JustificationReponses(_id)
                 If obj.ID > 0 Then
-                    Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+
+                    Dim _Check = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+                    Btn_SaveInfo.Visible = _Check
+                    Btn_SaveInfo_AndContinuous.Visible = _Check
                     With obj
                         DDL_CodeQuestion.SelectedIndex = DDL_CodeQuestion.Items.IndexOf(DDL_CodeQuestion.Items.FindByValue(.CodeQuestion))
                         txt_LibelleJustification.Text = .LibelleJustification
                         CB_Iscorrect.Checked = .Iscorrect
                     End With
                 End If
-            Else
-
+            ElseIf Request.QueryString("IDQuestion") IsNot Nothing Then
+                Dim obj As New Cls_Questions(TypeSafeConversion.NullSafeLong(Request.QueryString("IDQuestion")))
+                If obj.ID > 0 Then
+                    DDL_CodeQuestion.SelectedIndex = DDL_CodeQuestion.Items.IndexOf(DDL_CodeQuestion.Items.FindByValue(obj.ID))
+                    DDL_CodeQuestion.Enabled = False
+                    'rem Selectionner la reponse identifier comme etant la bonne
+                    CheckIsSaveBonneReponse(obj.ID)
+                End If
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
@@ -229,7 +240,7 @@ Partial Class Frm_JustificationReponsesADD
 #End Region
 
 #Region "METHODES - SAVE"
-    Private Sub SAVE_JUSTIFICATIONREPONSES()
+    Private Sub SAVE_JUSTIFICATIONREPONSES(Optional isClose As Boolean = True)
         Try
             Dim _id As Long = TypeSafeConversion.NullSafeLong(txt_CodeJustificationReponses_Hid.Text)
             Dim obj As New Cls_JustificationReponses(_id)
@@ -239,13 +250,53 @@ Partial Class Frm_JustificationReponsesADD
                 .Iscorrect = CB_Iscorrect.Checked
             End With
             obj.Save(User_Connected.Username)
+
+            If CB_Iscorrect.Checked Then
+                obj.Set_Iscorrect_ForOnly_ThisID()
+            End If
             REM TRACE UTILUSATEUR / Trace Transaction
             User_Connected.Activite_Utilisateur_InRezo(IIf(_id <= 0, "ADD ", "EDIT ") & " JustificationReponses", obj.LogData(obj), Request.UserHostAddress)
             txt_CodeJustificationReponses_Hid.Text = obj.ID
             '_message = "Sauvegarde Effectuée"
             MessageToShow([Global].Msg_Enregistrement_Effectue, "S", False)
             'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeJustificationReponses();")
-            RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+            If isClose Then
+                If Request.QueryString("IDQuestion") IsNot Nothing Then
+                    RadAjaxManager1.ResponseScripts.Add("CloseAndrefreshJustification();")
+                Else
+                    RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+                End If
+            Else
+                txt_CodeJustificationReponses_Hid.Text = "0"
+                txt_LibelleJustification.Text = String.Empty
+                CB_Iscorrect.Checked = False
+                CheckIsSaveBonneReponse(obj.CodeQuestion)
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Private Sub CheckIsSaveBonneReponse(ByVal CodeQuestion As Long)
+        Try
+            CB_Iscorrect.Enabled = True
+            Dim brep As New Cls_JustificationReponses(CodeQuestion, [Global].BONNE_REPONSE)
+            If brep.ID > 0 Then
+                LiteralBonneReponse.Text = "<span style='color:green;'>Bonne Justification:</span>" & brep.LibelleJustification
+                Dim CodeReponse As Long = TypeSafeConversion.NullSafeLong(txt_CodeJustificationReponses_Hid.Text)
+                If CodeReponse > 0 Then
+                    If brep.ID = CodeReponse Then
+
+                    Else
+                        CB_Iscorrect.Checked = False
+                        'CB_Iscorrect.Enabled = False
+                    End If
+                End If
+            End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -260,7 +311,12 @@ Partial Class Frm_JustificationReponsesADD
     Protected Sub Btn_SaveInfo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo.Click
         SAVE_JUSTIFICATIONREPONSES()
     End Sub
-    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click
+
+    Protected Sub Btn_SaveInfo_AndContinuous_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo_AndContinuous.Click
+        SAVE_JUSTIFICATIONREPONSES(False)
+    End Sub
+
+    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click, Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
         If Request.QueryString([Global].ACTION) IsNot Nothing Then
             Select Case Request.QueryString([Global].ACTION)
@@ -273,6 +329,10 @@ Partial Class Frm_JustificationReponsesADD
             Response.Redirect([Global].GetPath_PageMere(PAGE_MERE))
         End If
     End Sub
-#End Region
-End Class
 
+    Private Sub DDL_CodeQuestion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_CodeQuestion.SelectedIndexChanged
+        CheckIsSaveBonneReponse(TypeSafeConversion.NullSafeLong(DDL_CodeQuestion.SelectedValue))
+    End Sub
+#End Region
+
+End Class

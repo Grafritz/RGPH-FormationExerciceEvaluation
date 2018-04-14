@@ -28,6 +28,12 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
     Dim GetOut As Boolean = False           ' LA VARIABLE SERVANT DE TEST POUR REDIRIGER L'UTILISATEUR VERS LA PAGE DE CONNEXION
     Dim PAGE_MERE As Long = 0 ' PAS TROP IMPORTANT...
     Dim PAGE_TITLE As String = ""
+
+    Private Const Question As String = "Question"
+    Private Const Reponse As String = "Reponse"
+    Private Const JustificationReponse As String = "JustificationReponse"
+
+    Private Const SESSION_PAGE_TAB_1 As String = "SESSION_PAGE_REPONSE_TAB_1"
 #End Region
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -43,11 +49,19 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
         If Is_Acces_Page Then
             If Not IsPostBack Then
                 Label_Titre.Text = PAGE_TITLE
-                'btnCancel.Attributes.Add("onclick", "javascript:void(closeWindow());")
+                LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(alert('Entrer la question en premier'););")
                 'rbtnAddQuestions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionsADD.aspx', 950, 650)); return false;")
                 'BtnADDNew.Attributes.Add("onclick", "javascript:Open_Window('Frm_QuestionsADD.aspx', '_self',500,400); return false;") 
                 LOAD_ALL_DATA()
+                Me.Session(SESSION_PAGE_TAB_1) = Question
             End If
+        End If
+
+        If Session(SESSION_PAGE_TAB_1) IsNot Nothing Then
+            ShowOrHidePlaceHolder(Session(SESSION_PAGE_TAB_1).ToString)
+        Else
+            Me.Session(SESSION_PAGE_TAB_1) = Question
+            ShowOrHidePlaceHolder(Question)
         End If
     End Sub
 
@@ -182,10 +196,10 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
                 txt_CodeQuestions_Hid.Text = _id
                 Dim obj As New Cls_Questions(_id)
                 If obj.ID > 0 Then
-                    PanelChoixReponse.Visible = True
+                    'PanelChoixReponse.Visible = True
                     'rbtnAddPossibiliteReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & ", 850, 550)); return false;")
-                    LinkButton_NewReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_Questions_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
-                    LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionSpecificationControleADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                    LinkButton_NewReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                    LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_JustificationReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
 
                     Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
                     With obj
@@ -205,7 +219,7 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
 
                         BindGrid()
 
-                        LI_Justifications.Visible = CB_AvoirJustificationYN.Checked
+                        li_JustificationReponse.Visible = CB_AvoirJustificationYN.Checked
                         PanelListeJustifications.Visible = CB_AvoirJustificationYN.Checked
 
                         If CB_AvoirJustificationYN.Checked Then
@@ -213,8 +227,13 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
                         End If
                     End With
                 End If
-            Else
-
+            ElseIf Request.QueryString("IDFormulaire") IsNot Nothing Then
+                Dim obj As New Cls_FormulaireExercices(TypeSafeConversion.NullSafeLong(Request.QueryString("IDFormulaire")))
+                If obj.ID > 0 Then
+                    DIV_InfoFormExercice.Visible = True
+                    Literal_LibelleExercice.Text = obj.LibelleExercice
+                    txt_IDFormulaire_Hide.Text = obj.ID
+                End If
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
@@ -236,7 +255,7 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
                 rdgQuestions_Reponses.DataBind()
             End If
             _ret = objs.Count
-            LabelReponseTitre.Text = " Réponses <small class=""badge badge-primary"">" & _ret & "</small>"
+            LabelReponseTitre.Text = " <small class=""badge badge-primary"">" & _ret & "</small>"
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -294,20 +313,22 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
             '_message = "Sauvegarde Effectuée"
             MessageToShow([Global].Msg_Enregistrement_Effectue, "S", False)
 
-            LI_Justifications.Visible = CB_AvoirJustificationYN.Checked
+            li_JustificationReponse.Visible = CB_AvoirJustificationYN.Checked
             PanelListeJustifications.Visible = CB_AvoirJustificationYN.Checked
 
             ''RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeQuestions();")
             'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
-            Dim id2 As Long = TypeSafeConversion.NullSafeLong(Request.QueryString("ID"))
-            If id2 <= 0 Then
-                Response.Redirect("~/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "")
-            Else
-                PanelChoixReponse.Visible = True
+            'Dim id2 As Long = TypeSafeConversion.NullSafeLong(Request.QueryString("ID"))
+            'If id2 <= 0 Then
+            '    'Response.Redirect("~/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "")
+            'Else
+            Me.Session(SESSION_PAGE_TAB_1) = Reponse
+                ShowOrHidePlaceHolder(Reponse)
+                'PanelChoixReponse.Visible = True
                 LinkButton_NewReponse.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_ReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
-                LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_JustificationADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
-                Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
-            End If
+            LinkButton_NewJustifications.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_JustificationReponsesADD.aspx?IDQuestion=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+            Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+            'End If
 
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
@@ -323,7 +344,7 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
     Protected Sub Btn_SaveInfo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo.Click
         SAVE_QUESTIONS()
     End Sub
-    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click
+    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click, Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
         If Request.QueryString([Global].ACTION) IsNot Nothing Then
             Select Case Request.QueryString([Global].ACTION)
@@ -382,7 +403,7 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
                 REM Privilege
                 'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                 'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
@@ -444,7 +465,7 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_QuestionSpecificationControleADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_JustificationReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
                 REM Privilege
                 'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                 'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
@@ -467,10 +488,71 @@ Partial Class GestionQEvaluation_Frm_QuestionsADD
 
 #End Region
 
+
+#Region "TABULATION /  ONGLETS / EVENTS"
+    Private Sub ShowOrHidePlaceHolder(ByVal _placeHolderName As String)
+
+        li_Question.Attributes.Add("class", "")
+        i_Question.Attributes.Add("class", "fa fa-folder")
+        DIV_Content_Question.Attributes.Add("class", "tab-pane cont")
+        DIV_Content_Question.Visible = False
+
+        li_Reponse.Attributes.Add("class", "")
+        i_Reponse.Attributes.Add("class", "fa fa-folder")
+        DIV_Content_Reponse.Attributes.Add("class", "tab-pane cont")
+        DIV_Content_Reponse.Visible = False
+
+        li_JustificationReponse.Attributes.Add("class", "")
+        i_JustificationReponse.Attributes.Add("class", "fa fa-folder")
+        DIV_Content_JustificationReponse.Attributes.Add("class", "tab-pane cont")
+        DIV_Content_JustificationReponse.Visible = False
+
+
+        Select Case _placeHolderName
+            Case Question
+                li_Question.Attributes.Add("class", "active")
+                i_Question.Attributes.Add("class", "fa fa-folder-open")
+                DIV_Content_Question.Attributes.Add("class", "tab-pane active cont")
+                DIV_Content_Question.Visible = True
+
+            Case Reponse
+                li_Reponse.Attributes.Add("class", "active")
+                i_Reponse.Attributes.Add("class", "fa fa-folder-open")
+                DIV_Content_Reponse.Attributes.Add("class", "tab-pane active cont")
+                DIV_Content_Reponse.Visible = True
+
+            Case JustificationReponse
+                li_JustificationReponse.Attributes.Add("class", "active")
+                i_JustificationReponse.Attributes.Add("class", "fa fa-folder-open")
+                DIV_Content_JustificationReponse.Attributes.Add("class", "tab-pane active cont")
+                DIV_Content_JustificationReponse.Visible = True
+
+        End Select
+    End Sub
+
+    Protected Sub LinkButton_Question_Click(sender As Object, e As EventArgs) Handles LinkButton_Question.Click
+        Me.Session(SESSION_PAGE_TAB_1) = Question
+        ShowOrHidePlaceHolder(Question)
+    End Sub
+
+    Protected Sub LinkButton_Reponse_Click(sender As Object, e As EventArgs) Handles LinkButton_Reponse.Click
+        Me.Session(SESSION_PAGE_TAB_1) = Reponse
+        ShowOrHidePlaceHolder(Reponse)
+    End Sub
+
+    Protected Sub LinkButton_JustificationReponse_Click(sender As Object, e As EventArgs) Handles LinkButton_JustificationReponse.Click
+        Me.Session(SESSION_PAGE_TAB_1) = JustificationReponse
+        ShowOrHidePlaceHolder(JustificationReponse)
+    End Sub
+#End Region
+
     Protected Sub RadAjaxManager1_AjaxRequest(ByVal sender As Object, ByVal e As Telerik.Web.UI.AjaxRequestEventArgs) Handles RadAjaxManager1.AjaxRequest
         Try
             Select Case e.Argument
                 Case "Reload"
+                    BindGrid(True)
+                    BindGrid_Justification(True)
+                Case "refreshReponse"
                     BindGrid(True)
                 Case "refreshListeJustification"
                     BindGrid_Justification(True)

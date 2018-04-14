@@ -1,0 +1,128 @@
+
+Chemin Erreur : 
+04/11/2018 10:08:40
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.System.Data.SqlClient.SqlException (0x80131904): Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 148
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 172
+   at BRAIN_DEVLOPMENT.Cls_Privilege.VerifyRightOnObject(String ObjectRequested, Int64 _grpUser) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\Securite\Cls_Privilege.vb:line 476
+   at Frm_QuestionsListing.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsListing.aspx.vb:line 85
+ClientConnectionId:3bc7e87c-425b-4720-878e-a4d2a9ebb511
+Error Number:4060,State:1,Class:11
+__________________________
+
+Chemin Erreur : 
+04/11/2018 10:09:12
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.System.Data.SqlClient.SqlException (0x80131904): Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Questions.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Questions.vb:line 361
+   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsListing.aspx.vb:line 180
+ClientConnectionId:af3c9e07-eb82-4917-b4b6-88295b489426
+Error Number:4060,State:1,Class:11
+__________________________
+
+Chemin Erreur : 
+04/11/2018 10:10:24
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.System.Data.SqlClient.SqlException (0x80131904): Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 148
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 172
+   at BRAIN_DEVLOPMENT.Cls_Privilege.VerifyRightOnObject(String ObjectRequested, Int64 _grpUser) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\Securite\Cls_Privilege.vb:line 476
+   at Frm_QuestionsListing.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsListing.aspx.vb:line 85
+ClientConnectionId:eac5bd4b-d8f7-4624-9180-a1b2900cf79d
+Error Number:4060,State:1,Class:11
+__________________________
+
+Chemin Erreur : 
+04/11/2018 10:12:06
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.System.Data.SqlClient.SqlException (0x80131904): Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 148
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 172
+   at BRAIN_DEVLOPMENT.Cls_Privilege.VerifyRightOnObject(String ObjectRequested, Int64 _grpUser) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\Securite\Cls_Privilege.vb:line 476
+   at Frm_QuestionsListing.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsListing.aspx.vb:line 85
+ClientConnectionId:94bd9f13-9da3-40fe-b525-22efc7354a3b
+Error Number:4060,State:1,Class:11
+__________________________
+
+Chemin Erreur : 
+04/11/2018 10:26:13
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.System.Data.SqlClient.SqlException (0x80131904): Cannot open database "RGPH_FormationExercice_db" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 148
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 172
+   at BRAIN_DEVLOPMENT.Cls_Privilege.VerifyRightOnObject(String ObjectRequested, Int64 _grpUser) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\Securite\Cls_Privilege.vb:line 476
+   at Frm_FormulaireExercicesListing.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesListing.aspx.vb:line 85
+ClientConnectionId:ebe7efd7-3f00-45f6-a97f-4256d9344ad8
+Error Number:4060,State:1,Class:11
+__________________________
+
+Chemin Erreur : 
+04/11/2018 12:41:03
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_JustificationReponsesADD.aspx?IDQuestion=2&ACTION=HideMenuHeader&rwndrnd=0.850743072848565. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_JustificationReponses.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_JustificationReponses.vb:line 163
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_JustificationReponses.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_JustificationReponses.vb:line 253
+   at GestionQEvaluation_Frm_JustificationReponsesADD.SAVE_JUSTIFICATIONREPONSES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_JustificationReponsesADD.aspx.vb:line 247
+__________________________
+
+Chemin Erreur : 
+04/11/2018 12:57:11
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=2&ACTION=HideMenuHeader&rwndrnd=0.20971614052847143. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Conversion from string "10.23" to type 'Decimal' is not valid.System.InvalidCastException: Conversion from string "10.23" to type 'Decimal' is not valid.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDecimal(String Value, NumberFormatInfo NumberFormat)
+   at GestionQEvaluation_Frm_QuestionsADD.SAVE_QUESTIONS() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 296
+__________________________

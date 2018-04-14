@@ -62,11 +62,13 @@ Public Class [Global]
     'Public Shared PathImageCalendrier As String = "<img src='" & LinkSite & "images/schedule32.png' alt='' border='0' style='width:30px;' />"
 
 #Region "VARIABLE MESSAGED"
-    Public Const DATA_MODULE = "DATA_MODULE"
-    Public Const DATA_QUESTION_MODULE = "DATA_QUESTION_MODULE"
-    Public Const DATA_QUESTION = "DATA_QUESTION"
-    Public Const DATA_REPONSE = "DATA_REPONSE"
-    Public Const DATA_CATEGORIE_QUESTION = "DATA_CATEGORIE_QUESTION"
+    Public Const BONNE_REPONSE = True
+
+    Public Const DATA_FORMULAIRE_SESSION = "DATA_FORMULAIRE_SESSION"
+    Public Const DATA_QUESTION_FORMULAIRE_SESSION = "DATA_QUESTION_FORMULAIRE_SESSION"
+    Public Const DATA_QUESTION_SESSION = "DATA_QUESTION_SESSION"
+    Public Const DATA_REPONSES_SESSION = "DATA_REPONSES_SESSION"
+    Public Const DATA_JUSTIFICATION_REPONSES_SESSION = "DATA_JUSTIFICATION_REPONSES_SESSION"
 
 
 

@@ -50,6 +50,12 @@ Public Class Cls_Questions
         End Get
     End Property
 
+    Public ReadOnly Property codeQuestion As Long
+        Get
+            Return _id
+        End Get
+    End Property
+
     <AttributLogData(True, 2)>
     Public Property LibelleQuestion As String
         Get
@@ -105,6 +111,12 @@ Public Class Cls_Questions
     Public ReadOnly Property AvoirJustificationYN_Image As String
         Get
             Return Cls_Statut.Statut_Image(_AvoirJustificationYN)
+        End Get
+    End Property
+
+    Public ReadOnly Property AvoirJustificationYN_OuiNon As String
+        Get
+            Return Cls_Statut.ConvertBool_To_OuiNon(_AvoirJustificationYN)
         End Get
     End Property
 
@@ -271,8 +283,8 @@ Public Class Cls_Questions
         _ScoreTotal = 0
         _Commentaire = ""
         _CaractereAccepte = 0
-        _NbreValeurMinimal = 0
-        _NbreCaractereMaximal = 0
+        _NbreValeurMinimal = -1
+        _NbreCaractereMaximal = -1
         _qPrecedent = ""
         _qSuivant = ""
         _isdirty = False
@@ -350,13 +362,42 @@ Public Class Cls_Questions
             Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Questions")
             For Each r In ds.Tables(0).Rows
                 Dim obj As New Cls_Questions
-
                 obj.SetProperties(r)
-
                 objs.Add(obj)
             Next r
             Return objs
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
 
+    Public Shared Function SearchAll_NotIn_QuestionFormulaire_ByIDFormulaire(ByVal IDFormulaire As Long) As List(Of Cls_Questions)
+        Try
+            Dim objs As New List(Of Cls_Questions)
+            Dim r As Data.DataRow
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Questions_NotIn_QuestionFormulaire_ByIDFormulaire", IDFormulaire)
+            For Each r In ds.Tables(0).Rows
+                Dim obj As New Cls_Questions
+                obj.SetProperties(r)
+                objs.Add(obj)
+            Next r
+            Return objs
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+    Public Shared Function SearchAll_In_QuestionFormulaire_ByIDFormulaire(ByVal IDFormulaire As Long) As List(Of Cls_Questions)
+        Try
+            Dim objs As New List(Of Cls_Questions)
+            Dim r As Data.DataRow
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_ListAll_Questions_In_QuestionFormulaire_ByIDFormulaire", IDFormulaire)
+            For Each r In ds.Tables(0).Rows
+                Dim obj As New Cls_Questions
+                obj.SetProperties(r)
+                objs.Add(obj)
+            Next r
+            Return objs
         Catch ex As Exception
             Throw ex
         End Try
@@ -436,8 +477,32 @@ Public Class Cls_Questions
         'Throw (New Rezo509Exception(" Trop de caractères insérés pour q Suivant  (la longueur doit être inférieure a 200 caractères.  )"))
         'End If
 
-
+        If FoundName() Then
+            Throw (New Rezo509Exception("Cette question  [ " & _LibelleQuestion & " ] est déjà enregistrée."))
+        End If
     End Sub
+
+    Private Function FoundName() As Boolean
+        Try
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_Questions_ByLibelleQuestion", _LibelleQuestion)
+            If ds.Tables(0).Rows.Count < 1 Then
+                Return False
+            Else
+                If _id = 0 Then
+                    Return True
+                Else
+                    If ds.Tables(0).Rows(0).Item("CodeQuestion") <> _id Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            'ErreurLog.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
 
     Public Function Encode(ByVal str As Byte()) As String
         Return Convert.ToBase64String(str)

@@ -44,7 +44,8 @@ Public Class Cls_FormulaireExercices
             Return _id
         End Get
     End Property
-    Public ReadOnly Property CodeExercise() As Long
+
+    Public ReadOnly Property CodeExercice() As Long
         Get
             Return _id
         End Get
@@ -139,6 +140,30 @@ Public Class Cls_FormulaireExercices
                 _DureeEnSeconde = Value
             End If
         End Set
+    End Property
+
+    Public ReadOnly Property NbrQuestion As Long
+        Get
+            Dim val As Long = 0
+            Try
+                val = Cls_QuestionFormulaireExercice.GetCountQuestion_ByIDFormulaire(_id)
+            Catch ex As Exception
+            End Try
+            Return val
+        End Get
+    End Property
+
+    Public ReadOnly Property LibelleExercice_NbrQuestion_STR As String
+        Get
+            Dim col As Long = NbrQuestion
+            Dim Qte As String = " ( <span style='color:" & IIf(col > 0, "green", "red") & ";' > " & col & " Questions</span> ) "
+
+            If _Statut = 1 Then
+                Return _LibelleExercice & " [ <span style='color:gray;'>" & _DureeEnSeconde & " Sec.</span> ] " & Qte
+            Else
+                Return "<span style='text-decoration: line-through;color:gray;'>" & _LibelleExercice & " [ <span style=''>" & _DureeEnSeconde & " Sec.</span> ] </span>" & Qte
+            End If
+        End Get
     End Property
 
     <AttributLogData(True, 9)>

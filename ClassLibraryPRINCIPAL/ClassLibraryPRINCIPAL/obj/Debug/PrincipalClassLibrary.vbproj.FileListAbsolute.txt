@@ -230,4 +230,3 @@ C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPA
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\BRAINDClassLibrary.dll
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\BRAINDClassLibrary.xml
 C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\BRAINDClassLibrary.pdb
-C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\obj\Debug\PrincipalClassLibrary.vbprojResolveAssemblyReference.cache

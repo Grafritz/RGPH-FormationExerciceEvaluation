@@ -113,16 +113,16 @@
     <%--<telerik:RadScriptManager ID="RadScriptManager1"  runat="server"> </telerik:RadScriptManager>--%>
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
-            <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+            <%--<telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="rbtnClearFilters">
+            </telerik:AjaxSetting>--%>
+            <%--<telerik:AjaxSetting AjaxControlID="rbtnClearFilters">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rdgQuestions_Reponses" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" />
@@ -151,9 +151,63 @@
 
                 <asp:Panel runat="server" ID="Panel_First" Style="margin: 5px;">
 
-                    <div class="stats_bar">
+                    <div class="stats_bar" id="Section_DIVSession" runat="server">
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_ModuleSession">
+                            <div class="sub">
+                                <h2>FORMULAIRE EXERCICE</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_ModuleSession" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_ModuleSession2" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
+                        <div class="butpro butstyle" runat="server" id="DIV_Question_Module_Session">
+                            <div class="sub">
+                                <h2>QUESTION / EXERCICE</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_Question_ModuleSession" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_Question_ModuleSession2" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_QuestionSession">
+                            <div class="sub stat-blue">
+                                <h2>QUESTIONS</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_QuestionSession" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_QuestionSession2" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
 
-                        <div class="butpro butstyle" runat="server" id="DIV_Module_JSON_DATA" >
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_ReponseSession">
+                            <div class="sub">
+                                <h2>RÉPONSES</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_ReponseSession" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_ReponseSessionq" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
+
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_JustificationReponseSession">
+                            <div class="sub">
+                                <h2>JUSTIFICATION RÉPONSES</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_JustificationReponseSession" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_JustificationReponseSessionq" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="stats_bar" id="Section0" runat="server" visible="false">
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_JSON_DATA">
                             <div class="sub">
                                 <span id="total_clientes">Module</span>
                             </div>
@@ -162,7 +216,7 @@
                             </div>
                         </div>
 
-                        <div class="butpro butstyle" runat="server" id="DIV_CategorieQuestion" >
+                        <div class="butpro butstyle" runat="server" id="DIV_CategorieQuestion">
                             <div class="sub">
                                 <span>Catégorie Question</span>
                             </div>
@@ -171,7 +225,7 @@
                             </div>
                         </div>
 
-                        <div class="butpro butstyle" runat="server" id="DIV_Questions" >
+                        <div class="butpro butstyle stat-blue" runat="server" id="DIV_Questions">
                             <div class="sub">
                                 <span>Questions</span>
                             </div>
@@ -180,7 +234,7 @@
                             </div>
                         </div>
 
-                        <div class="butpro butstyle" runat="server" id="DIV_Reponses" >
+                        <div class="butpro butstyle" runat="server" id="DIV_Reponses">
                             <div class="sub">
                                 <span>Réponses</span>
                             </div>
@@ -189,7 +243,7 @@
                             </div>
                         </div>
 
-                        <div class="butpro butstyle" runat="server" id="DIV_FormulaireCollecte" >
+                        <div class="butpro butstyle" runat="server" id="DIV_FormulaireCollecte">
                             <div class="sub">
                                 <span>Formulaire Collecte</span>
                             </div>
@@ -197,17 +251,62 @@
                                 Export JSON data
                             </div>
                         </div>
-
-
                     </div>
+                    -->
                     <section class="page-head" id="Section1" runat="server">
                         <h3>
                             <i class="fa fa-dashboard"></i>
-                            <asp:Label ID="Label1" runat="server" Text=" Questions  Reponses" />
+                            <asp:CheckBox runat="server" ID="CBX_Questions" Text="Questions" AutoPostBack="true" Checked="true" />
+                            <asp:CheckBox runat="server" ID="CBX_Reponse" Text="Réponses" AutoPostBack="true" Checked="true" />
                             <small id="Small1" runat="server">
                                 <asp:Label ID="Label2" runat="server" />
                             </small>
                         </h3>
+                        <br />
+                        <div class="col-sm-12 col-md-12">
+                            <asp:LinkButton ID="LinkButton_ExporterQuestionsEtReponses2" runat="server" CssClass="btn btn-success" ValidationGroup="GPSave">
+                                <i class="fa fa-save"></i>
+                                <asp:Literal ID="Literal_ExporterQuestionsEtReponses2" runat="server" Text="Exporter" />
+                            </asp:LinkButton>
+                            <telerik:RadGrid ID="RadGrid1" AllowPaging="false" AllowSorting="false" PageSize="50"
+                                runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="false"
+                                Culture="fr-FR" ShowGroupPanel="false"
+                                EnableViewState="true" AllowMultiRowSelection="false" GroupingSettings-CaseSensitive="false">
+                                <ExportSettings HideStructureColumns="true" />
+                                <MasterTableView CommandItemDisplay="None" GridLines="None" DataKeyNames="ID" NoDetailRecordsText="Pas d'enregistrement"
+                                    NoMasterRecordsText="Pas d'enregistrement">
+                                    <CommandItemSettings ShowAddNewRecordButton="false" ShowRefreshButton="false" ShowExportToExcelButton="true"
+                                        ExportToExcelText="Exporter en excel" />
+                                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="ID" UniqueName="ID" Display="false" />
+                                        <telerik:GridTemplateColumn HeaderText="Libelle Exercice" UniqueName="LibelleExercice">
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CheckBox_FormulaireExercice" runat="server" Text='<%#Bind("LibelleExercice_NbrQuestion_STR") %>' />
+                                                <asp:TextBox ID="txt_CodeExercice" runat="server" Text='<%#Bind("ID") %>' Visible="false"></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                    </Columns>
+                                    <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column"></RowIndicatorColumn>
+                                    <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column"></ExpandCollapseColumn>
+                                </MasterTableView>
+                                <GroupingSettings CaseSensitive="False" />
+                                <ClientSettings AllowDragToGroup="false" AllowColumnsReorder="false">
+                                    <%--<ClientEvents OnRowContextMenu="RowContextMenu" OnRowDblClick="RowDblClick" />--%>
+                                    <Selecting AllowRowSelect="true" />
+                                </ClientSettings>
+                                <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Default" />
+                                <PagerStyle PageSizeControlType="RadComboBox" />
+                                <FilterMenu EnableImageSprites="False"></FilterMenu>
+                            </telerik:RadGrid>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <br />
+                        <asp:LinkButton ID="LinkButton_ExporterQuestionsEtReponses" runat="server" CssClass="btn btn-success" ValidationGroup="GPSave">
+                            <i class="fa fa-save"></i>
+                            <asp:Literal ID="Literal_ExporterQuestionsEtReponses" runat="server" Text="Exporter" />
+                        </asp:LinkButton><asp:Label ID="label_Module" runat="server"></asp:Label>
                     </section>
                 </asp:Panel>
                 <!-- FORM LOGIN -->
@@ -232,5 +331,37 @@
         </Items>
     </telerik:RadContextMenu>
     <input id="txtWindowPage" type="hidden" />
+    <style type="text/css">
+        .colorprimary, .colorinfo, .colorwarning, .colorsuccess, .colordanger {
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            color: #FFF;
+        }
+
+        .colorprimary {
+            background-color: #4e9dff;
+            border-color: #357ebd;
+        }
+
+        .colorinfo {
+            background-color: #5BC0DE;
+            border-color: #28a1c4;
+        }
+
+        .colorwarning {
+            border-color: #D68000;
+            background: #FC9700;
+        }
+
+        .colorsuccess {
+            border-color: #54A754;
+            background: #60C060;
+        }
+
+        .colordanger {
+            border-color: #ca452e;
+            background: #da4932;
+        }
+    </style>
 </asp:Content>
 

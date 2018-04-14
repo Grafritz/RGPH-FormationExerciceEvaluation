@@ -32,11 +32,21 @@ Public Class Cls_JustificationReponses
         Read(_idOne)
     End Sub
 
+    Public Sub New(ByVal _idOne As Long, ByVal IsBonneReponse As Boolean)
+        ReadBonneJustificationReponses(_idOne)
+    End Sub
+
 #End Region
 
 #Region "Properties"
     <AttributLogData(True, 1)>
     Public ReadOnly Property ID() As Long Implements IGeneral.ID
+        Get
+            Return _id
+        End Get
+    End Property
+
+    Public ReadOnly Property CodeJustification As Long
         Get
             Return _id
         End Get
@@ -156,13 +166,17 @@ Public Class Cls_JustificationReponses
 #Region " Db Access "
     Public Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
         _LogData = LogData(Me)
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_JustificationReponses", _CodeQuestion, _LibelleJustification, _Iscorrect, usr))
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_JustificationReponses", _CodeQuestion, _LibelleJustification, _Iscorrect))
         Return _id
     End Function
 
     Public Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
         _LogData = GetObjectString()
-        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_JustificationReponses", _id, _CodeQuestion, _LibelleJustification, _Iscorrect, usr)
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_JustificationReponses", _id, _CodeQuestion, _LibelleJustification, _Iscorrect)
+    End Function
+
+    Public Function Set_Iscorrect_ForOnly_ThisID() As Integer
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_JustificationReponses_Iscorrect", _id, _CodeQuestion)
     End Function
 
     Private Sub SetProperties(ByVal dr As DataRow)
@@ -185,18 +199,35 @@ Public Class Cls_JustificationReponses
         Try
             If _idpass <> 0 Then
                 Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_JustificationReponses_ByID", _idpass)
-
                 If ds.Tables(0).Rows.Count < 1 Then
                     BlankProperties()
                     Return False
                 End If
-
                 SetProperties(ds.Tables(0).Rows(0))
             Else
                 BlankProperties()
             End If
             Return True
 
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+    Public Function ReadBonneJustificationReponses(ByVal _idpass As Long) As Boolean
+        Try
+            If _idpass <> 0 Then
+                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_JustificationReponses_Bonne_ByCodeQuestion", _idpass)
+
+                If ds.Tables(0).Rows.Count < 1 Then
+                    BlankProperties()
+                    Return False
+                End If
+                SetProperties(ds.Tables(0).Rows(0))
+            Else
+                BlankProperties()
+            End If
+            Return True
         Catch ex As Exception
             Throw ex
         End Try
@@ -301,8 +332,32 @@ Public Class Cls_JustificationReponses
         'Throw (New Rezo509Exception(" Trop de caractères insérés pour  Libelle Justification  (la longueur doit être inférieure a -1 caractères.  )"))
         'End If
 
-
+        If FoundName() Then
+            Throw (New Rezo509Exception("Cette Justification  [ " & _LibelleJustification & " ] est déjà enregistrée pour cette question."))
+        End If
     End Sub
+
+    Private Function FoundName() As Boolean
+        Try
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_JustificationReponses_ByLibelleJustification", _CodeQuestion, _LibelleJustification)
+            If ds.Tables(0).Rows.Count < 1 Then
+                Return False
+            Else
+                If _id = 0 Then
+                    Return True
+                Else
+                    If ds.Tables(0).Rows(0).Item("CodeJustificationReponse") <> _id Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            'ErreurLog.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
 
     Public Function Encode(ByVal str As Byte()) As String
         Return Convert.ToBase64String(str)

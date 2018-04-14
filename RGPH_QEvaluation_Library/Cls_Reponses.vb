@@ -35,11 +35,21 @@ Public Class Cls_Reponses
         Read(_idOne)
     End Sub
 
+    Public Sub New(ByVal _idOne As Long, ByVal IsBonneReponse As Boolean)
+        ReadBonneReponse(_idOne)
+    End Sub
+
 #End Region
 
 #Region "Properties"
     <AttributLogData(True, 1)>
     Public ReadOnly Property ID() As Long Implements IGeneral.ID
+        Get
+            Return _id
+        End Get
+    End Property
+
+    Public ReadOnly Property CodeReponse As Long
         Get
             Return _id
         End Get
@@ -194,6 +204,10 @@ Public Class Cls_Reponses
         Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses", _id, _CodeQuestion, _LibelleReponse, _Iscorrect, _estEnfant, _avoirEnfant, _CodeParent) ', usr)
     End Function
 
+    Public Function Set_Iscorrect_ForOnly_ThisID() As Integer
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses_Iscorrect", _id, _CodeQuestion)
+    End Function
+
     Private Sub SetProperties(ByVal dr As DataRow)
         _id = TypeSafeConversion.NullSafeLong(dr("CodeReponse"))
         _CodeQuestion = TypeSafeConversion.NullSafeLong(dr("CodeQuestion"))
@@ -225,13 +239,30 @@ Public Class Cls_Reponses
                     BlankProperties()
                     Return False
                 End If
-
                 SetProperties(ds.Tables(0).Rows(0))
             Else
                 BlankProperties()
             End If
             Return True
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
 
+    Public Function ReadBonneReponse(ByVal _idpass As Long) As Boolean
+        Try
+            If _idpass <> 0 Then
+                Dim ds As DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_Reponses_Bonne_ByCodeQuestion", _idpass)
+
+                If ds.Tables(0).Rows.Count < 1 Then
+                    BlankProperties()
+                    Return False
+                End If
+                SetProperties(ds.Tables(0).Rows(0))
+            Else
+                BlankProperties()
+            End If
+            Return True
         Catch ex As Exception
             Throw ex
         End Try
@@ -344,8 +375,32 @@ Public Class Cls_Reponses
         'Throw (New Rezo509Exception(" Trop de caractères insérés pour  Code Parent  (la longueur doit être inférieure a 140 caractères.  )"))
         'End If
 
-
+        If FoundName() Then
+            Throw (New Rezo509Exception("Cette Réponse  [ " & _LibelleReponse & " ] est déjà enregistrée pour cette question."))
+        End If
     End Sub
+
+    Private Function FoundName() As Boolean
+        Try
+            Dim ds As Data.DataSet = SqlHelper.ExecuteDataset(SqlHelperParameterCache.BuildConfigDB(), "SP_Select_Reponse_ByLibelleReponse", _CodeQuestion, _LibelleReponse)
+            If ds.Tables(0).Rows.Count < 1 Then
+                Return False
+            Else
+                If _id = 0 Then
+                    Return True
+                Else
+                    If ds.Tables(0).Rows(0).Item("CodeReponse") <> _id Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            'ErreurLog.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
 
     Public Function Encode(ByVal str As Byte()) As String
         Return Convert.ToBase64String(str)

@@ -1,6 +1,6 @@
-<%@ Page Title=" Justification Reponses" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_JustificationReponsesADD.aspx.vb" Inherits="Frm_JustificationReponsesADD" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_JustificationReponsesADD.aspx.vb" Inherits="GestionQEvaluation_Frm_JustificationReponsesADD" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
             function ShowAddUpdateForm(strPage, tmpW, tmpH) {
@@ -62,6 +62,11 @@
                 GetRadWindow().BrowserWindow.refreshMe();
                 GetRadWindow().close();
             }
+
+            function CloseAndrefreshJustification() {
+                GetRadWindow().BrowserWindow.refreshListeJustification();
+                GetRadWindow().close();
+            }
             function GetRadWindow() {
                 var oWindow = null;
                 if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
@@ -91,6 +96,11 @@
                     <small id="OL_SeeAllData" runat="server">
                         <asp:Label ID="Label_SousTitre" runat="server" />
                     </small>
+                    <span class="pull-right box-tools">
+                        <asp:LinkButton ID="Btn_Annuler2" CausesValidation="false" runat="server" CssClass="btn btn-danger">
+                            <i class="fa  fa-reply-all" ></i> Fermer
+                        </asp:LinkButton>
+                    </span>
                 </h3>
                 <!--<ol class="breadcrumb"> 
     <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
@@ -113,50 +123,54 @@
                 <asp:Panel ID="Panel_First" runat="server" CssClass="panel panel-default panel-body" Style="margin: 5px;">
                     <div id="DIV_Panel" class="form-horizontal group-border-dashed1" style="border-radius: 0px;">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                _ Code Question
-   <asp:RequiredFieldValidator ID="RFV_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
-       ErrorMessage="_ Code Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-       ValidationGroup="GPSave" CssClass="text-danger" />
+                            <div class="col-sm-12">
+                            <label>
+                                Question
+                               <asp:RequiredFieldValidator ID="RFV_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
+                                   ErrorMessage="_ Code Question Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                   ValidationGroup="GPSave" CssClass="text-danger" />
                                 <asp:RequiredFieldValidator ID="RFV1_CodeQuestion" runat="server" ControlToValidate="DDL_CodeQuestion"
                                     ErrorMessage="_ Code Question Obligatoire !" InitialValue="0" SetFocusOnError="true" Display="Dynamic" Text="*"
                                     ValidationGroup="GPSave" CssClass="text-danger" />
                             </label>
-                            <div class="col-sm-6">
-                                <asp:DropDownList ID="DDL_CodeQuestion" CssClass="select2" Width="100%" runat="server">
+                                <asp:DropDownList ID="DDL_CodeQuestion" AutoPostBack="true" CssClass="select2" Width="100%" runat="server">
                                 </asp:DropDownList>
                             </div>
-
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label>
                                     Libelle Justification
-   <asp:RequiredFieldValidator ID="RFV_LibelleJustification" runat="server" ControlToValidate="txt_LibelleJustification"
-       ErrorMessage="Libelle Justification Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-       ValidationGroup="GPSave" CssClass="text-danger" />
+                                   <asp:RequiredFieldValidator ID="RFV_LibelleJustification" runat="server" ControlToValidate="txt_LibelleJustification"
+                                       ErrorMessage="Libelle Justification Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                       ValidationGroup="GPSave" CssClass="text-danger" />
                                 </label>
-                                <asp:TextBox ID="txt_LibelleJustification" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Libelle Justification..."></asp:TextBox>
+                                <asp:TextBox ID="txt_LibelleJustification" TextMode="MultiLine" Height="100px" 
+                                    CssClass="form-control" Width="100%" runat="server" placeholder="Libelle Justification..."></asp:TextBox>
+                                <asp:CheckBox ID="CB_Iscorrect" runat="server" Text="Cette justification est la bonne (Oui/Non)" />
+                                &nbsp;  &nbsp;
+                                <i class="text-danger">
+                                    <asp:Literal ID="LiteralBonneReponse" runat="server" />
+                                </i>
+                                <br />
+                                    <label for="ctl00_ContentPlaceHolder1_CB_Iscorrect" class="text-danger">
+                                        <i>(NB:.Il ne peut y avoir deux justification de réponses correcte)</i> </label>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <label>
-                                    <asp:CheckBox ID="CB_Iscorrect" runat="server" Text="Cette justification est la bonne (Oui/Non)" /></label>
-                            </div>
-
                         </div>
                         <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
                             <span id="span_SaveInfo" runat="server">
                                 <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
-            <i class="fa fa-save" ></i> Enregistrer
+                                    <i class="fa fa-save" ></i> Enregistrer et Fermer
+                                </asp:LinkButton>
+                            &nbsp;
+                                <asp:LinkButton ID="Btn_SaveInfo_AndContinuous" runat="server" CssClass="btn btn-success" ValidationGroup="GPSave">
+                                    <i class="fa fa-save" ></i> Enregistrer et Continuer
                                 </asp:LinkButton>
                             </span>
-
                             &nbsp;
-    <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
-        <i class="fa  fa-reply-all" ></i> Annuler
-    </asp:LinkButton>
+                            <asp:LinkButton ID="Btn_Annuler" CausesValidation="false" runat="server" CssClass="btn btn-danger">
+                                <i class="fa  fa-reply-all" ></i> Fermer
+                            </asp:LinkButton>
                         </div>
                     </div>
                 </asp:Panel>

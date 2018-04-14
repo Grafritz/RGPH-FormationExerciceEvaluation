@@ -156,7 +156,7 @@
                                     <ul class="sub-menu">
                                         <li id="LI_Default" runat="server">
                                             <asp:HyperLink ID="HyperLink_MyAccount" runat="server"
-                                                NavigateUrl="~/GestionQuestionnaire/Default.aspx"><i class="fa fa-home"></i>
+                                                NavigateUrl="~/GestionQEvaluation/Default.aspx"><i class="fa fa-home"></i>
                                             Accueil</asp:HyperLink></li>
                                         <li>
                                             <asp:HyperLink ID="HyperLinkWfrm_User" runat="server"

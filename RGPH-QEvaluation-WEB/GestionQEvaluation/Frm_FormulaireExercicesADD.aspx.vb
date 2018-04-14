@@ -28,6 +28,11 @@ Partial Class Frm_FormulaireExercicesADD
     Dim GetOut As Boolean = False           ' LA VARIABLE SERVANT DE TEST POUR REDIRIGER L'UTILISATEUR VERS LA PAGE DE CONNEXION
     Dim PAGE_MERE As Long = 0 ' PAS TROP IMPORTANT...
     Dim PAGE_TITLE As String = ""
+
+    Private Const FormulaireExercice As String = "FormulaireExercice"
+    Private Const Question As String = "Question"
+
+    Private Const SESSION_PAGE_TAB_1 As String = "SESSION_PAGE_FORM_TAB_1"
 #End Region
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -47,7 +52,15 @@ Partial Class Frm_FormulaireExercicesADD
                 'rbtnAddFormulaireExercices.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx', 950, 650)); return false;")
                 'BtnADDNew.Attributes.Add("onclick", "javascript:Open_Window('Frm_FormulaireExercicesADD.aspx', '_self',500,400); return false;") 
                 LOAD_ALL_DATA()
+                Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
             End If
+        End If
+
+        If Session(SESSION_PAGE_TAB_1) IsNot Nothing Then
+            ShowOrHidePlaceHolder(Session(SESSION_PAGE_TAB_1).ToString)
+        Else
+            Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
+            ShowOrHidePlaceHolder(FormulaireExercice)
         End If
     End Sub
 
@@ -182,8 +195,10 @@ Partial Class Frm_FormulaireExercicesADD
                 txt_CodeFormulaireExercices_Hid.Text = _id
                 Dim obj As New Cls_FormulaireExercices(_id)
                 If obj.ID > 0 Then
+                    Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
                     Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
                     With obj
+                        txt_CodeFormulaireExercices_Hid.Text = .id
                         txt_LibelleExercice.Text = .LibelleExercice
                         txt_Descriptions.Text = .Descriptions
                         txt_Instructions.Text = .Instructions
@@ -192,6 +207,7 @@ Partial Class Frm_FormulaireExercicesADD
                         txt_Statut.Text = .Statut
                         txt_DureeEnSeconde.Text = .DureeEnSeconde
                     End With
+                    BindGrid()
                 End If
             Else
 
@@ -222,13 +238,19 @@ Partial Class Frm_FormulaireExercicesADD
                 .DureeEnSeconde = TypeSafeConversion.NullSafeInteger(txt_DureeEnSeconde.Text, 3600)
             End With
             obj.Save(User_Connected.Username)
+
+            Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
             REM TRACE UTILUSATEUR / Trace Transaction
             User_Connected.Activite_Utilisateur_InRezo(IIf(_id <= 0, "ADD ", "EDIT ") & " FormulaireExercices", obj.LogData(obj), Request.UserHostAddress)
             txt_CodeFormulaireExercices_Hid.Text = obj.ID
             '_message = "Sauvegarde Effectuée"
             MessageToShow([Global].Msg_Enregistrement_Effectue, "S", False)
             'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeFormulaireExercices();")
-            RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+            'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
+
+            Me.Session(SESSION_PAGE_TAB_1) = Question
+            ShowOrHidePlaceHolder(Question)
+
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -243,7 +265,7 @@ Partial Class Frm_FormulaireExercicesADD
     Protected Sub Btn_SaveInfo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo.Click
         SAVE_FORMULAIREEXERCICES()
     End Sub
-    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click
+    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click, Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
         If Request.QueryString([Global].ACTION) IsNot Nothing Then
             Select Case Request.QueryString([Global].ACTION)
@@ -256,6 +278,135 @@ Partial Class Frm_FormulaireExercicesADD
             Response.Redirect([Global].GetPath_PageMere(PAGE_MERE))
         End If
     End Sub
+#End Region
+
+#Region "TABULATION /  ONGLETS / EVENTS"
+    Private Sub ShowOrHidePlaceHolder(ByVal _placeHolderName As String)
+
+        li_FormulaireExercice.Attributes.Add("class", "")
+        i_FormulaireExercice.Attributes.Add("class", "fa fa-folder")
+        DIV_Content_FormulaireExercice.Attributes.Add("class", "tab-pane cont")
+        DIV_Content_FormulaireExercice.Visible = False
+
+        li_Question.Attributes.Add("class", "")
+        i_Question.Attributes.Add("class", "fa fa-folder")
+        DIV_Content_Question.Attributes.Add("class", "tab-pane cont")
+        DIV_Content_Question.Visible = False
+
+
+        Select Case _placeHolderName
+            Case FormulaireExercice
+                li_FormulaireExercice.Attributes.Add("class", "active")
+                i_FormulaireExercice.Attributes.Add("class", "fa fa-folder-open")
+                DIV_Content_FormulaireExercice.Attributes.Add("class", "tab-pane active cont")
+                DIV_Content_FormulaireExercice.Visible = True
+
+            Case Question
+                li_Question.Attributes.Add("class", "active")
+                i_Question.Attributes.Add("class", "fa fa-folder-open")
+                DIV_Content_Question.Attributes.Add("class", "tab-pane active cont")
+                DIV_Content_Question.Visible = True
+
+        End Select
+    End Sub
+
+    Protected Sub LinkButton_FormulaireExercice_Click(sender As Object, e As EventArgs) Handles LinkButton_FormulaireExercice.Click
+        Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
+        ShowOrHidePlaceHolder(FormulaireExercice)
+    End Sub
+
+    Protected Sub LinkButton_Question_Click(sender As Object, e As EventArgs) Handles LinkButton_Question.Click
+        Me.Session(SESSION_PAGE_TAB_1) = Question
+        ShowOrHidePlaceHolder(Question)
+    End Sub
+#End Region
+
+#Region "QUESTIONS"
+
+#Region "Load DATA"
+    Private Sub BindGrid(Optional ByVal _refresh As Boolean = True)
+        Dim objs As List(Of Cls_QuestionFormulaireExercice)
+        Dim _ret As Long = 0
+        Try
+            objs = Cls_QuestionFormulaireExercice.SearchAllBy_CodeFormulaireExercice(TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hid.Text))
+            rdgQuestions.DataSource = objs
+            If _refresh Then
+                rdgQuestions.DataBind()
+            End If
+            _ret = objs.Count
+            Literal_Question.Text = " <small class=""badge badge-primary"">" & _ret & "</small>"
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+#End Region
+
+#Region "RADGRID EVENTS REPONSES"
+    Protected Sub rdgQuestions_ItemCommand(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridCommandEventArgs) Handles rdgQuestions.ItemCommand
+        Try
+            Dim _id As Long = TypeSafeConversion.NullSafeLong(e.CommandArgument)
+            Select Case e.CommandName
+                Case "delete"
+                    Dim obj As New Cls_QuestionFormulaireExercice(_id)
+                    obj.Delete()
+                    User_Connected.Activite_Utilisateur_InRezo("DELETE " & PAGE_TITLE, obj.LogData(obj), Request.UserHostAddress)
+                    'User_Connected.Activite_Utilisateur_InRezo("DELETE Questions_Reponses ", obj.ID & " - Code:" & obj.Titrerapport & " Prop:", Request.UserHostAddress)
+                    MessageToShow([Global].Msg_Information_Supprimee_Avec_Succes, "S")
+                    rdgQuestions.Rebind()
+            End Select
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub rdgQuestions_ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridItemEventArgs) Handles rdgQuestions.ItemDataBound
+        Try
+            Dim gridDataItem = TryCast(e.Item, GridDataItem)
+            If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
+                'Dim _lnk As HyperLink = DirectCast(gridDataItem.FindControl("hlk"), HyperLink)
+                'Dim _lbl_ID As Label = DirectCast(gridDataItem.FindControl("lbl_ID"), Label)
+                '_lnk.Attributes.Clear()
+                '_lnk.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_Questions_ReponsesADD.aspx?ID=" & CLng(_lbl_ID.Text) & "', 750, 400));")
+            End If
+
+            If (gridDataItem IsNot Nothing) Then
+                Dim item As GridDataItem = gridDataItem
+                CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions.PageSize * rdgQuestions.CurrentPageIndex + (item.RowIndex / 2)
+
+                Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
+                'Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                imagedelete.ToolTip = "Effacer"
+                'imageediter.ToolTip = "Editer"
+                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
+                'imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                REM Privilege
+                'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
+                'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
+    Protected Sub rdgQuestions_NeedDataSource(ByVal sender As Object, ByVal e As Telerik.Web.UI.GridNeedDataSourceEventArgs) Handles rdgQuestions.NeedDataSource
+        If IsPostBack Then
+            BindGrid(False)
+        End If
+    End Sub
+#End Region
+
 #End Region
 End Class
 

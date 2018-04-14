@@ -62,63 +62,63 @@
             function MenuItemClicked(sender, eventArgs) {
                 var clickedItemValue = eventArgs.get_item().get_value();
                 var rdGrid = $find("<%=rdgFormulaireExercices.ClientID %>");
-    var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-    switch (clickedItemValue) {
-        case "Editer":
-            ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-        case "Delete":
-            ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
-        default:
-            break;
+                var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+                switch (clickedItemValue) {
+                    case "Editer":
+                        ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+                    case "Delete":
+                        ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550); break;
+                    default:
+                        break;
+                }
+            }
+
+            function RowContextMenu(sender, eventArgs) {
+                var menu = $find("<%= ContextMenu.ClientID %>");
+                var evt = eventArgs.get_domEvent();
+                if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
+                var index = eventArgs.get_itemIndexHierarchical();
+                document.getElementById("radGridClickedRowIndex").value = index;
+                listItemIndex = index;
+                sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
+                menu.show(evt);
+                evt.cancelBubble = true;
+                evt.returnValue = false;
+                if (evt.stopPropagation) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                }
+            }
+
+            function RowDblClick(sender, eventArgs) {
+                var index = eventArgs.get_itemIndexHierarchical();
+                document.getElementById("radGridClickedRowIndex").value = index;
+                listItemIndex = index;
+                var rdGrid = $find("<%=rdgFormulaireExercices.ClientID %>");
+                var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
+                ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
+            }
+
+                function refreshMe() {
+                    $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
     }
-}
 
-function RowContextMenu(sender, eventArgs) {
-    var menu = $find("<%= ContextMenu.ClientID %>");
-     var evt = eventArgs.get_domEvent();
-     if (evt.target.tagName == "INPUT" || evt.target.tagName == "A") { return; }
-     var index = eventArgs.get_itemIndexHierarchical();
-     document.getElementById("radGridClickedRowIndex").value = index;
-     listItemIndex = index;
-     sender.get_masterTableView().selectItem(sender.get_masterTableView().get_dataItems()[index].get_element(), true);
-     menu.show(evt);
-     evt.cancelBubble = true;
-     evt.returnValue = false;
-     if (evt.stopPropagation) {
-         evt.stopPropagation();
-         evt.preventDefault();
-     }
- }
+    function closeWindow() {
+        GetRadWindow().BrowserWindow.refreshMe();
+        GetRadWindow().close();
+    }
 
- function RowDblClick(sender, eventArgs) {
-     var index = eventArgs.get_itemIndexHierarchical();
-     document.getElementById("radGridClickedRowIndex").value = index;
-     listItemIndex = index;
-     var rdGrid = $find("<%=rdgFormulaireExercices.ClientID %>");
-    var _id = rdGrid.get_masterTableView().get_dataItems()[listItemIndex].get_element().cells[0].innerHTML
-    ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx?ID=' + _id + '&ACTION=HideMenuHeader', 950, 550);
-}
+    function CloseAndRefreshListe() {
+        GetRadWindow().BrowserWindow.refreshMe();
+        GetRadWindow().close();
+    }
 
-function refreshMe() {
-    $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Reload");
-}
-
-function closeWindow() {
-    GetRadWindow().BrowserWindow.refreshMe();
-    GetRadWindow().close();
-}
-
-function CloseAndRefreshListe() {
-    GetRadWindow().BrowserWindow.refreshMe();
-    GetRadWindow().close();
-}
-
-function GetRadWindow() {
-    var oWindow = null;
-    if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
-    else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
-    return oWindow;
-}
+    function GetRadWindow() {
+        var oWindow = null;
+        if (window.radWindow) oWindow = window.radWindow; //Will work in Moz in all cases, including clasic dialog
+        else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow; //IE (and Moz as well)
+        return oWindow;
+    }
 
         </script>
     </telerik:RadCodeBlock>
@@ -180,8 +180,7 @@ function GetRadWindow() {
                             <i class="fa fa-ban on fa-filter" ></i> Clear Filters
                         </asp:LinkButton>
                     </span>
-
-
+                    
                     <telerik:RadGrid ID="rdgFormulaireExercices" AllowPaging="True" AllowSorting="True" PageSize="20"
                         runat="server" AutoGenerateColumns="False" GridLines="None" AllowFilteringByColumn="true"
                         Culture="fr-FR" ShowGroupPanel="True"
@@ -217,27 +216,52 @@ function GetRadWindow() {
                                     FilterControlAltText="Filter RappelExercice column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="TypeEvaluation" UniqueName="TypeEvaluation" HeaderText=" Type Evaluation"
+                                <%--<telerik:GridBoundColumn DataField="TypeEvaluation" UniqueName="TypeEvaluation" HeaderText=" Type Evaluation"
                                     FilterControlAltText="Filter TypeEvaluation column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Statut" UniqueName="Statut" HeaderText=" Statut"
                                     FilterControlAltText="Filter Statut column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridBoundColumn DataField="DureeEnSeconde" UniqueName="DureeEnSeconde" HeaderText=" Duree En Seconde"
                                     FilterControlAltText="Filter DureeEnSeconde column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <telerik:GridTemplateColumn Visible="true" ShowFilterIcon="false" 
-                                    AllowFiltering="false" HeaderText="" UniqueName="ADD_Question">
+                                <telerik:GridBoundColumn DataField="NbrQuestion" UniqueName="NbrQuestion" HeaderText="Nbr Questions"
+                                    ShowFilterIcon="false" AllowFiltering="false">
+                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                    <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                </telerik:GridBoundColumn>
+
+                                <telerik:GridTemplateColumn HeaderText="" UniqueName="Actions" ShowFilterIcon="false" AllowFiltering="false">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="LinkButton_ADD_Question" runat="server" CssClass=" btn-warning">
-                                        <%--<i class="fa fa-plus-circle" ></i>--%> Ajouter Question
-                                        </asp:LinkButton>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <asp:LinkButton ID="LinkButton_ADD_QUESTION_DISPONIBLE" runat="server">
+                                                        <i class="fa fa-plus-circle" ></i> Ajouter Questions
+                                                    </asp:LinkButton>
+                                                </li>
+                                                <li>
+                                                    <asp:LinkButton ID="LinkButton_EDITER" runat="server">                                        
+                                                        <i class="fa fa-edit"></i>                                         
+                                                        Afficher / Modifier 
+                                                    </asp:LinkButton>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <asp:LinkButton ID="LinkButton_OPEN_FORMULAIRE" runat="server">  
+                                                        <i class="fa fa-folder-open text-primary"></i>
+                                                        Visualiser Formulaire
+                                                    </asp:LinkButton>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </ItemTemplate>
-                                    <HeaderStyle HorizontalAlign="Center" />
-                                    <ItemStyle HorizontalAlign="Center" />
+                                    <HeaderStyle Width="110px" />
+                                    <ItemStyle />
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer"
                                     DataTextField="ID" ImageUrl="~/images/_edit.png"
@@ -283,8 +307,8 @@ function GetRadWindow() {
     </telerik:RadWindowManager>
     <telerik:RadContextMenu ID="ContextMenu" runat="server" OnClientItemClicked="MenuItemClicked" EnableRoundedCorners="true" EnableShadows="true">
         <Items>
-            <telerik:RadMenuItem Visible="true" Value="Editer" Text="Editer" ImageUrl="~/images/_edit.png" HoveredImageUrl="~/images/_edit.png" />
-            <telerik:RadMenuItem Visible="true" Value="Delete" Text="Supprimer" ImageUrl="~/images/delete.png" HoveredImageUrl="~/images/delete.png" />
+            <telerik:RadMenuItem Visible="true" Value="Editer" Text="Modifier" ImageUrl="~/images/_edit.png" HoveredImageUrl="~/images/_edit.png" />
+            <%--<telerik:RadMenuItem Visible="true" Value="Delete" Text="Supprimer" ImageUrl="~/images/delete.png" HoveredImageUrl="~/images/delete.png" />--%>
         </Items>
     </telerik:RadContextMenu>
     <input id="txtWindowPage" type="hidden" />
