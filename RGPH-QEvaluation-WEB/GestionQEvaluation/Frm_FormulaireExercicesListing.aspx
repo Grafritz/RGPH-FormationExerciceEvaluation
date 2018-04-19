@@ -257,6 +257,13 @@
                                                         Visualiser Formulaire
                                                     </asp:LinkButton>
                                                 </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <asp:LinkButton ID="LinkButton_PRINT" runat="server">  
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Imprimer Formulaire
+                                                    </asp:LinkButton>
+                                                </li>
                                             </ul>
                                         </div>
                                     </ItemTemplate>

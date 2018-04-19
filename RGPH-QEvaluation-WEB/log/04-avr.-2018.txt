@@ -1,223 +1,0 @@
-
-Chemin Erreur : 
-04/04/2018 08:56:15
-Erreur dans: http://localhost/QEvaluation/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Could not find stored procedure 'SP_ListAll_TypeModule'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_TypeModule'.
-   at RGPH_QCOLLECTE_Library.Cls_TypeModule.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeModule.vb:line 172
-   at Frm_QuestionsListing.FillCombo_TypeModule() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 181
-ClientConnectionId:e0e37477-76de-4529-a299-07c4457f5063
-Error Number:2812,State:62,Class:16
-__________________________
-
-Chemin Erreur : 
-04/04/2018 08:56:17
-Erreur dans: http://localhost/QEvaluation/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions.SearchAll(Int64 IDModule) in C:\_Travaux\IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 563
-   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 208
-__________________________
-
-Chemin Erreur : 
-04/04/2018 08:56:55
-Erreur dans: http://localhost/QEvaluation/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : Could not find stored procedure 'SP_ListAll_TypeModule'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_TypeModule'.
-   at RGPH_QCOLLECTE_Library.Cls_TypeModule.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeModule.vb:line 172
-   at Frm_QuestionsListing.FillCombo_TypeModule() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 181
-ClientConnectionId:e0e37477-76de-4529-a299-07c4457f5063
-Error Number:2812,State:62,Class:16
-__________________________
-
-Chemin Erreur : 
-04/04/2018 08:56:57
-Erreur dans: http://localhost/QEvaluation/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions.SearchAll(Int64 IDModule) in C:\_Travaux\IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions.vb:line 563
-   at Frm_QuestionsListing.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQuestionnaire\Frm_QuestionsListing.aspx.vb:line 208
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:21:15
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[... ] : Column 'ID_Ecole' does not belong to table Table.System.ArgumentException: Column 'ID_Ecole' does not belong to table Table.
-   at System.Data.DataRow.GetDataColumn(String columnName)
-   at System.Data.DataRow.get_Item(String columnName)
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_User.SetProperties(DataRow dr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_User.vb:line 891
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_User.Read(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_User.vb:line 1041
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_User..ctor(String usr, String Pass) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_User.vb:line 84
-   at UserControl_WUC_Login2.Connexion(String txt_UserName, String txt_MotdePasse) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\UserControl\WUC_Login2.ascx.vb:line 106
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:40:37
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_Pays' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Pays' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Pays.SearchAll(String Statut) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Pays.vb:line 339
-   at Parametres_Administration_Wfrm_User.LoadAll_Pays() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 535
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:40:41
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Could not find stored procedure 'SP_ListAll_Departement'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_Departement'.
-   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
-   at System.Data.SqlClient.SqlDataReader.get_MetaData()
-   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
-   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 195
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 151
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 175
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Departement.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Departement.vb:line 223
-   at Parametres_Administration_Wfrm_User.LoadAll_Departement() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 556
-ClientConnectionId:0429d288-6cf0-4ab6-a0ad-a4ffe9367b49
-Error Number:2812,State:62,Class:16
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:41:04
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_Commune_ByDepartement' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Commune_ByDepartement' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Commune.SearchAll_Commune_Bydepartement(Int64 Dep) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Commune.vb:line 290
-   at Parametres_Administration_Wfrm_User.Load_Commune_ByDepartement(Int64 IDDepartement) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 578
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:41:12
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_SR_PRIVILEGE_SERVICES.SearchAllByUser(Int64 _id_user) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_SR_PRIVILEGE_SERVICES.vb:line 377
-   at Parametres_Administration_Wfrm_User.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 1098
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:48:30
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_Pays' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Pays' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Pays.SearchAll(String Statut) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Pays.vb:line 339
-   at Parametres_Administration_Wfrm_User.LoadAll_Pays() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 535
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:48:33
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Could not find stored procedure 'SP_ListAll_Departement'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_Departement'.
-   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
-   at System.Data.SqlClient.SqlDataReader.get_MetaData()
-   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
-   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 195
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 151
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 175
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Departement.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Departement.vb:line 223
-   at Parametres_Administration_Wfrm_User.LoadAll_Departement() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 556
-ClientConnectionId:8f58caea-3437-48ef-840a-eb8f1e38d09e
-Error Number:2812,State:62,Class:16
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:48:54
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_Commune_ByDepartement' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Commune_ByDepartement' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Commune.SearchAll_Commune_Bydepartement(Int64 Dep) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Localisation\Cls_Commune.vb:line 290
-   at Parametres_Administration_Wfrm_User.Load_Commune_ByDepartement(Int64 IDDepartement) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 578
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:48:59
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_SR_PRIVILEGE_SERVICES.SearchAllByUser(Int64 _id_user) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_SR_PRIVILEGE_SERVICES.vb:line 377
-   at Parametres_Administration_Wfrm_User.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 1098
-__________________________
-
-Chemin Erreur : 
-04/04/2018 11:50:29
-Erreur dans: http://localhost/RGPH-QEvaluation/Administration/Wfrm_User.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_SR_PRIVILEGE_SERVICES_ID_User' doesn't exist.
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_SR_PRIVILEGE_SERVICES.SearchAllByUser(Int64 _id_user) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_SR_PRIVILEGE_SERVICES.vb:line 377
-   at Parametres_Administration_Wfrm_User.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\Administration\Wfrm_User.aspx.vb:line 1098
-__________________________
-
-Chemin Erreur : 
-04/04/2018 12:53:28
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Could not find stored procedure 'SP_ListAll_FormulaireExercices'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_FormulaireExercices'.
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 293
-   at GestionQEvaluation_Frm_FormulaireExercicesListing.BindGrid(Boolean _refresh) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesListing.aspx.vb:line 177
-ClientConnectionId:cca5a224-a6b9-4478-8fc8-74a2371ad50b
-Error Number:2812,State:62,Class:16
-__________________________
-
-Chemin Erreur : 
-04/04/2018 14:14:34
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.29219016345887194. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 181
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 257
-   at GestionQEvaluation_Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 213
-__________________________
-
-Chemin Erreur : 
-04/04/2018 14:41:03
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.4581135604583353. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 181
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 257
-   at Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 221
-__________________________
-
-Chemin Erreur : 
-04/04/2018 14:49:13
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9258584593275199. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Conversion from string "" to type 'Integer' is not valid.System.InvalidCastException: Conversion from string "" to type 'Integer' is not valid. ---> System.FormatException: Input string was not in a correct format.
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
-   --- End of inner exception stack trace ---
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
-   at Frm_FormulaireExercicesADD.SAVE_FORMULAIREEXERCICES() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 220
-__________________________

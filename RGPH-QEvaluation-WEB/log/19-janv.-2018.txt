@@ -1,136 +1,0 @@
-
-Chemin Erreur : 
-01/19/2018 08:59:50
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?ACTION=HideMenuHeader&rwndrnd=0.9420101228163882. Message Erreur:[Admin ] : The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tbl_Questions_Reponses_Tbl_Questions". The conflict occurred in database "RGPH_QCollecte_db", table "dbo.Tbl_Questions", column 'CodeQuestion'.
-The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Tbl_Questions_Reponses_Tbl_Questions". The conflict occurred in database "RGPH_QCollecte_db", table "dbo.Tbl_Questions", column 'CodeQuestion'.
-The statement has been terminated.
-   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
-   at System.Data.SqlClient.SqlDataReader.get_MetaData()
-   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 253
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 215
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 235
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.Insert(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 281
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.Save(String usr) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 386
-   at Frm_Questions_ReponsesADD.SAVE_QUESTIONS_REPONSES() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesADD.aspx.vb:line 300
-ClientConnectionId:2ef36072-3aa6-4299-8d5b-9a65b7b1667b
-Error Number:547,State:0,Class:16
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:18:58
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAllBy_CodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 441
-   at GestionQuestionnaire_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsADD.aspx.vb:line 297
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:18:58
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:18:58
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAllBy_CodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 441
-   at GestionQuestionnaire_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsADD.aspx.vb:line 297
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:18:58
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:22:57
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAllBy_CodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 441
-   at GestionQuestionnaire_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsADD.aspx.vb:line 297
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:22:57
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:22:57
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_Reponses_CodeQuestion' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAllBy_CodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 441
-   at GestionQuestionnaire_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_QuestionsADD.aspx.vb:line 297
-__________________________
-
-Chemin Erreur : 
-01/19/2018 11:22:57
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsADD.aspx?ID=3&ACTION=HideMenuHeader&rwndrnd=0.10065597412575289. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:11:01
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.6858715000038283. Message Erreur:[Admin ] : The stored procedure 'SP_ListAll_Questions_Reponses_Parent_CodeQuestion' doesn't exist.System.InvalidOperationException: The stored procedure 'SP_ListAll_Questions_Reponses_Parent_CodeQuestion' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAll_ReponseParent_ByCodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 475
-   at GestionQuestionnaire_Frm_Questions_ReponsesADD.FillCombo_CodeParent() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesADD.aspx.vb:line 258
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:11:01
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.6858715000038283. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:12:41
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.21828410570860957. Message Erreur:[Admin ] : Failed to convert parameter value from a String to a Int64.System.FormatException: Failed to convert parameter value from a String to a Int64. ---> System.FormatException: Input string was not in a correct format.
-   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   at System.Number.ParseInt64(String value, NumberStyles options, NumberFormatInfo numfmt)
-   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
-   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
-   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
-   --- End of inner exception stack trace ---
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAll_ReponseParent_ByCodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 475
-   at GestionQuestionnaire_Frm_Questions_ReponsesADD.FillCombo_CodeParent() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesADD.aspx.vb:line 258
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:12:41
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.21828410570860957. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:13:34
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.9399657089303992. Message Erreur:[Admin ] : Failed to convert parameter value from a String to a Int64.System.FormatException: Failed to convert parameter value from a String to a Int64. ---> System.FormatException: Input string was not in a correct format.
-   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   at System.Number.ParseInt64(String value, NumberStyles options, NumberFormatInfo numfmt)
-   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
-   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
-   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
-   --- End of inner exception stack trace ---
-   at RGPH_QCOLLECTE_Library.Cls_Questions_Reponses.SearchAll_ReponseParent_ByCodeQuestion(String _codequestion) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_Questions_Reponses.vb:line 475
-   at GestionQuestionnaire_Frm_Questions_ReponsesADD.FillCombo_CodeParent() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesADD.aspx.vb:line 258
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:13:34
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.9399657089303992. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:22:25
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.23140377877301854. Message Erreur:[Admin ] : Conversion from string "" to type 'Integer' is not valid.System.InvalidCastException: Conversion from string "" to type 'Integer' is not valid. ---> System.FormatException: Input string was not in a correct format.
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
-   --- End of inner exception stack trace ---
-   at Microsoft.VisualBasic.CompilerServices.Conversions.ToInteger(String Value)
-   at GestionQuestionnaire_Frm_Questions_ReponsesADD.FillCombo_QSuivant() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_Questions_ReponsesADD.aspx.vb:line 292
-__________________________
-
-Chemin Erreur : 
-01/19/2018 13:22:25
-Erreur dans: http://192.168.30.30/RGPH-Questionnaire/GestionQuestionnaire/Frm_Questions_ReponsesADD.aspx?IDQuestion=4&ACTION=HideMenuHeader&rwndrnd=0.23140377877301854. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________

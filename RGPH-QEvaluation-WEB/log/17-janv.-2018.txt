@@ -1,28 +1,0 @@
-
-Chemin Erreur : 
-01/17/2018 12:50:00
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_TypeModuleListing.aspx. Message Erreur:[... ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at Frm_TypeModuleListing.SYSTEME_SECURITE() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_TypeModuleListing.aspx.vb:line 127
-__________________________
-
-Chemin Erreur : 
-01/17/2018 12:51:42
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_TypeModuleListing.aspx. Message Erreur:[... ] : The stored procedure 'SR_Select_User_ByUserName' doesn't exist.System.InvalidOperationException: The stored procedure 'SR_Select_User_ByUserName' doesn't exist.
-   at RGPH_QCOLLECTE_Library.Cls_User.Read(String _idpass) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Securite\Cls_User.vb:line 1227
-   at RGPH_QCOLLECTE_Library.Cls_User..ctor(String usr, String Pass) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Securite\Cls_User.vb:line 85
-   at UserControl_WUC_Login2.Connexion(String txt_UserName, String txt_MotdePasse) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\UserControl\WUC_Login2.ascx.vb:line 106
-__________________________
-
-Chemin Erreur : 
-01/17/2018 13:16:28
-Erreur dans: http://localhost/RGPH-Questionnaire/Administration/Wfrm_UserConnected.aspx. Message Erreur:[ Admin ] Methode -> [ LoadData_GridView_List Utilisateur ] Property accessor 'Lastlogin' on object 'RGPH_QCOLLECTE_Library.Cls_User' threw the following exception:'String was not recognized as a valid DateTime.'
-__________________________
-
-Chemin Erreur : 
-01/17/2018 13:19:07
-Erreur dans: http://localhost/RGPH-Questionnaire/GestionQuestionnaire/Frm_TypeModuleListing.aspx. Message Erreur:[Admin ] : Could not find stored procedure 'SP_ListAll_TypeModule'.System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'SP_ListAll_TypeModule'.
-   at RGPH_QCOLLECTE_Library.Cls_TypeModule.SearchAll() in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Questionnaire\Cls_TypeModule.vb:line 166
-   at Frm_TypeModuleListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\GestionQuestionnaire\Frm_TypeModuleListing.aspx.vb:line 177
-ClientConnectionId:4481ef81-3429-41a9-a199-6314e003503f
-Error Number:2812,State:62,Class:16
-__________________________

@@ -188,9 +188,9 @@
                                         <div class="col-sm-12">
                                             <label>
                                                 Descriptions
-                               <asp:RequiredFieldValidator ID="RFV_Descriptions" runat="server" ControlToValidate="txt_Descriptions"
+                               <%--<asp:RequiredFieldValidator ID="RFV_Descriptions" runat="server" ControlToValidate="txt_Descriptions"
                                    ErrorMessage="Descriptions Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                   ValidationGroup="GPSave" CssClass="text-danger" />--%>
                                             </label>
                                             <asp:TextBox ID="txt_Descriptions" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Descriptions..."></asp:TextBox>
                                         </div>

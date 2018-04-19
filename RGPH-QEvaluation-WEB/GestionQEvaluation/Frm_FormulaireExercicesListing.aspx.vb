@@ -182,6 +182,8 @@ Partial Class Frm_FormulaireExercicesListing
         Try
             objs = Cls_FormulaireExercices.SearchAll
             rdgFormulaireExercices.DataSource = objs
+
+            Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE) = objs
             If _refresh Then
                 rdgFormulaireExercices.DataBind()
             End If
@@ -249,7 +251,9 @@ Partial Class Frm_FormulaireExercicesListing
 
             If (gridDataItem IsNot Nothing) Then
                 Dim item As GridDataItem = gridDataItem
-                CType(item.FindControl("lbOrder"), Label).Text = rdgFormulaireExercices.PageSize * rdgFormulaireExercices.CurrentPageIndex + (item.RowIndex / 2)
+                Dim RowIndex As Integer = rdgFormulaireExercices.PageSize * rdgFormulaireExercices.CurrentPageIndex + (item.RowIndex / 2)
+                CType(item.FindControl("lbOrder"), Label).Text = RowIndex
+                'CType(item.FindControl("lbOrder"), Label).Text = rdgFormulaireExercices.PageSize * rdgFormulaireExercices.CurrentPageIndex + (item.RowIndex / 2)
                 Dim _id As Long = CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long)
 
                 Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
@@ -257,19 +261,22 @@ Partial Class Frm_FormulaireExercicesListing
                 imagedelete.ToolTip = "Effacer"
                 imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = _id
-                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "&ri=" & RowIndex & "',900,650));")
 
                 Dim LinkButton_EDITER As LinkButton = CType(item.FindControl("LinkButton_EDITER"), LinkButton)
-                LinkButton_EDITER.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                LinkButton_EDITER.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_FormulaireExercicesADD.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "&ri=" & RowIndex & "',900,650));")
                 LinkButton_EDITER.Visible = _EDITER
                 LinkButton_EDITER.CommandArgument = _id
 
                 Dim LinkButton_OPEN_FORMULAIRE As LinkButton = CType(item.FindControl("LinkButton_OPEN_FORMULAIRE"), LinkButton)
-                LinkButton_OPEN_FORMULAIRE.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_DetailFormulaireExercice.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                LinkButton_OPEN_FORMULAIRE.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_DetailFormulaireExercice.aspx?ID=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "&ri=" & RowIndex & "',900,650));")
+
+                Dim LinkButton_PRINT As LinkButton = CType(item.FindControl("LinkButton_PRINT"), LinkButton)
+                LinkButton_PRINT.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('../_reports/Fen_Report/ShowReport.aspx?ID=" & _id & "',800,650)); return false;")
                 'LinkButton_EDITER.Visible = _EDITER
 
                 Dim LinkButton_ADD_QUESTION_DISPONIBLE As LinkButton = CType(item.FindControl("LinkButton_ADD_QUESTION_DISPONIBLE"), LinkButton)
-                LinkButton_ADD_QUESTION_DISPONIBLE.Attributes.Add("onclick", "javascript:ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',950,600); return false;")
+                LinkButton_ADD_QUESTION_DISPONIBLE.Attributes.Add("onclick", "javascript:ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & _id & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "&ri=" & RowIndex & "',950,600); return false;")
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception

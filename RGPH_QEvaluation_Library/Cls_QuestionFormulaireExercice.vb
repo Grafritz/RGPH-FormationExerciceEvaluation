@@ -137,9 +137,28 @@ Public Class Cls_QuestionFormulaireExercice
             Return QuestionOBJ.LibelleQuestion
         End Get
     End Property
+
     Public ReadOnly Property ScoreTotal As String
         Get
             Return QuestionOBJ.ScoreTotal
+        End Get
+    End Property
+
+    Public ReadOnly Property ScoreTotalStr As String
+        Get
+            Return QuestionOBJ.ScoreTotalStr
+        End Get
+    End Property
+
+    Public ReadOnly Property ReponsesListe As String
+        Get
+            Return QuestionOBJ.ReponsesListe
+        End Get
+    End Property
+
+    Public ReadOnly Property JustificationReponseListe As String
+        Get
+            Return QuestionOBJ.JustificationReponseListe
         End Get
     End Property
 

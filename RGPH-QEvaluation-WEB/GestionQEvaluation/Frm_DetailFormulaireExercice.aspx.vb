@@ -31,13 +31,16 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
     Private Const Question As String = "Question"
 
     Private Const SESSION_PAGE_TAB_1 As String = "SESSION_PAGE_FORM_TAB_1"
+
+    Public countRowIndex As Integer = 0
+    Public objFormulaireExercice_List As List(Of Cls_FormulaireExercices)
 #End Region
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
         Response.Expires = -1
         Panel_Msg.Visible = False
-        PAGE_TITLE = " Formulaire Exercices"
+        PAGE_TITLE = " Exercices"
         Page.Title = [Global].Global_APP_NAME_SIGLE & " | " & PAGE_TITLE
 
         SYSTEME_SECURITE()  ' APPEL A LA METHODE SERVANT A TESTER LES COMPOSANTS DE LA PAGE Y COMPRIS LA PAGE ELLE MEME 
@@ -50,15 +53,8 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
                 'rbtnAddFormulaireExercices.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_FormulaireExercicesADD.aspx', 950, 650)); return false;")
                 'BtnADDNew.Attributes.Add("onclick", "javascript:Open_Window('Frm_FormulaireExercicesADD.aspx', '_self',500,400); return false;") 
                 LOAD_ALL_DATA()
-                Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
+                ' Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
             End If
-        End If
-
-        If Session(SESSION_PAGE_TAB_1) IsNot Nothing Then
-            ShowOrHidePlaceHolder(Session(SESSION_PAGE_TAB_1).ToString)
-        Else
-            Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
-            ShowOrHidePlaceHolder(FormulaireExercice)
         End If
     End Sub
 
@@ -101,13 +97,13 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
                     Panel_First.Visible = False
                 Else    ' SI L'UTILISATEUR A ACCES A LA PAGE ON VERIFIE POUR LES BOUTONS ET LES LIENS
                     '---  Okey vous avez acces a la page ---'
-                    Dim _check As Boolean = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
-                    'Btn_ADD_FormulaireExercices.Visible = _check
-                    Btn_SaveInfo.Visible = _check
+                    'Dim _check As Boolean = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
+                    ''Btn_ADD_FormulaireExercices.Visible = _check
+                    'Btn_SaveInfo.Visible = _check
                     'rdgFormulaireExercices.MasterTableView.Columns.FindByUniqueNameSafe("editer").Visible = _check
                     If Request.QueryString([Global].ACTION) IsNot Nothing Then
                         If Request.QueryString([Global].ACTION).Equals([Global].HideMenuHeader) Then
-                            Btn_SaveInfo.Visible = _check
+                            'Btn_SaveInfo.Visible = _check
                         End If
                     End If
                 End If
@@ -184,6 +180,56 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
 #Region "Load DATA"
     Private Sub LOAD_ALL_DATA()
         LOAD_FORMULAIREEXERCICES()
+
+        If Request.QueryString("ri") IsNot Nothing Then
+            Session("countRowIndex") = TypeSafeConversion.NullSafeInteger(Request.QueryString("ri")) - 1
+            countRowIndex = Session("countRowIndex")
+        End If
+
+
+        REM GESTION BOUTON NEXT ANS FORWARD
+        If (countRowIndex) = 0 Then
+            LinkButtonPrecedent1.Visible = False
+            'LinkButtonPrecedent2.Visible = False
+            'LinkButtonPrecedent3.Visible = False
+        End If
+
+        If Request.QueryString("ID") IsNot Nothing Then
+            If Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE) IsNot Nothing Then
+                objFormulaireExercice_List = CType(Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE), List(Of Cls_FormulaireExercices))
+            End If
+
+            If objFormulaireExercice_List IsNot Nothing Then
+                If (countRowIndex + 1) = objFormulaireExercice_List.Count Then
+                    LinkButtonSuivant1.Visible = False
+                    'LinkButtonSuivant2.Visible = False
+                    'LinkButtonSuivant3.Visible = False
+                End If
+            Else
+                LinkButtonSuivant1.Visible = False
+                'LinkButtonSuivant2.Visible = False
+                'LinkButtonSuivant3.Visible = False
+            End If
+
+            'ElseIf Request.QueryString([Global].TAG_NOCHANT_USER) IsNot Nothing AndAlso Request.QueryString([Global].TAG_IDUSER_CHANT) IsNot Nothing Then
+
+            '    If Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE) IsNot Nothing Then
+            '        objChantUser_MobileList = CType(Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE), List(Of Cls_CCG_ChantUser_Mobile))
+            '    End If
+
+            '    If objChantUser_MobileList IsNot Nothing Then
+            '        If (countRowIndex + 1) = objChantUser_MobileList.Count Then
+            '            LinkButtonSuivant1.Visible = False
+            '            LinkButtonSuivant2.Visible = False
+            '            LinkButtonSuivant3.Visible = False
+            '        End If
+            '    Else
+            '        LinkButtonSuivant1.Visible = False
+            '        LinkButtonSuivant2.Visible = False
+            '        LinkButtonSuivant3.Visible = False
+            '    End If
+        End If
+
     End Sub
 
     Private Sub LOAD_FORMULAIREEXERCICES()
@@ -192,21 +238,7 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
                 Dim _id As Long = TypeSafeConversion.NullSafeLong(Request.QueryString("ID"))
                 txt_CodeFormulaireExercices_Hid.Text = _id
                 Dim obj As New Cls_FormulaireExercices(_id)
-                If obj.ID > 0 Then
-                    Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
-                    Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
-                    With obj
-                        txt_CodeFormulaireExercices_Hid.Text = .ID
-                        txt_LibelleExercice.Text = .LibelleExercice
-                        txt_Descriptions.Text = .Descriptions
-                        txt_Instructions.Text = .Instructions
-                        txt_RappelExercice.Text = .RappelExercice
-                        txt_TypeEvaluation.Text = .TypeEvaluation
-                        txt_Statut.Text = .Statut
-                        txt_DureeEnSeconde.Text = .DureeEnSeconde
-                    End With
-                    BindGrid()
-                End If
+                SetDataFormulaireExercice(obj)
             Else
 
             End If
@@ -222,48 +254,10 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
 #End Region
 
 #Region "METHODES - SAVE"
-    Private Sub SAVE_FORMULAIREEXERCICES()
-        Try
-            Dim _id As Long = TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hid.Text)
-            Dim obj As New Cls_FormulaireExercices(_id)
-            With obj
-                .LibelleExercice = txt_LibelleExercice.Text
-                .Descriptions = txt_Descriptions.Text
-                .Instructions = txt_Instructions.Text
-                .RappelExercice = txt_RappelExercice.Text
-                .TypeEvaluation = TypeSafeConversion.NullSafeInteger(txt_TypeEvaluation.Text, 1)
-                .Statut = TypeSafeConversion.NullSafeInteger(txt_Statut.Text, 1)
-                .DureeEnSeconde = TypeSafeConversion.NullSafeInteger(txt_DureeEnSeconde.Text, 3600)
-            End With
-            obj.Save(User_Connected.Username)
-
-            Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
-            REM TRACE UTILUSATEUR / Trace Transaction
-            User_Connected.Activite_Utilisateur_InRezo(IIf(_id <= 0, "ADD ", "EDIT ") & " FormulaireExercices", obj.LogData(obj), Request.UserHostAddress)
-            txt_CodeFormulaireExercices_Hid.Text = obj.ID
-            '_message = "Sauvegarde Effectuée"
-            MessageToShow([Global].Msg_Enregistrement_Effectue, "S", False)
-            'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListeFormulaireExercices();")
-            'RadAjaxManager1.ResponseScripts.Add("CloseAndRefreshListe();")
-
-            Me.Session(SESSION_PAGE_TAB_1) = Question
-            ShowOrHidePlaceHolder(Question)
-
-        Catch ex As Threading.ThreadAbortException
-        Catch ex As Rezo509Exception
-            MessageToShow(ex.Message)
-        Catch ex As Exception
-            MessageToShow(ex.Message)
-            [Global].WriteError(ex, User_Connected)
-        End Try
-    End Sub
 #End Region
 
 #Region "EVENTS BUTTON"
-    Protected Sub Btn_SaveInfo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo.Click
-        SAVE_FORMULAIREEXERCICES()
-    End Sub
-    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click, Btn_Annuler2.Click
+    Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
         If Request.QueryString([Global].ACTION) IsNot Nothing Then
             Select Case Request.QueryString([Global].ACTION)
@@ -276,47 +270,135 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
             Response.Redirect([Global].GetPath_PageMere(PAGE_MERE))
         End If
     End Sub
-#End Region
 
-#Region "TABULATION /  ONGLETS / EVENTS"
-    Private Sub ShowOrHidePlaceHolder(ByVal _placeHolderName As String)
+    Protected Sub LinkButtonPrecedent1_Click(sender As Object, e As EventArgs) Handles LinkButtonPrecedent1.Click ', LinkButtonPrecedent2.Click, LinkButtonPrecedent3.Click
+        Try
+            GoToRecordSong([Global].RECORD_PRECEDENT)
 
-        li_FormulaireExercice.Attributes.Add("class", "")
-        i_FormulaireExercice.Attributes.Add("class", "fa fa-folder")
-        DIV_Content_FormulaireExercice.Attributes.Add("class", "tab-pane cont")
-        DIV_Content_FormulaireExercice.Visible = False
-
-        li_Question.Attributes.Add("class", "")
-        i_Question.Attributes.Add("class", "fa fa-folder")
-        DIV_Content_Question.Attributes.Add("class", "tab-pane cont")
-        DIV_Content_Question.Visible = False
-
-
-        Select Case _placeHolderName
-            Case FormulaireExercice
-                li_FormulaireExercice.Attributes.Add("class", "active")
-                i_FormulaireExercice.Attributes.Add("class", "fa fa-folder-open")
-                DIV_Content_FormulaireExercice.Attributes.Add("class", "tab-pane active cont")
-                DIV_Content_FormulaireExercice.Visible = True
-
-            Case Question
-                li_Question.Attributes.Add("class", "active")
-                i_Question.Attributes.Add("class", "fa fa-folder-open")
-                DIV_Content_Question.Attributes.Add("class", "tab-pane active cont")
-                DIV_Content_Question.Visible = True
-
-        End Select
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
     End Sub
 
-    Protected Sub LinkButton_FormulaireExercice_Click(sender As Object, e As EventArgs) Handles LinkButton_FormulaireExercice.Click
-        Me.Session(SESSION_PAGE_TAB_1) = FormulaireExercice
-        ShowOrHidePlaceHolder(FormulaireExercice)
+    Protected Sub LinkButtonSuivant1_Click(sender As Object, e As EventArgs) Handles LinkButtonSuivant1.Click ', LinkButtonSuivant2.Click, LinkButtonSuivant3.Click
+        Try
+            GoToRecordSong([Global].RECORD_NEXT)
+
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
     End Sub
 
-    Protected Sub LinkButton_Question_Click(sender As Object, e As EventArgs) Handles LinkButton_Question.Click
-        Me.Session(SESSION_PAGE_TAB_1) = Question
-        ShowOrHidePlaceHolder(Question)
+    Private Sub GoToRecordSong(ACTION_RECORD As String)
+        Try
+            If Request.QueryString("ID") IsNot Nothing Then
+                If Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE) IsNot Nothing Then
+                    objFormulaireExercice_List = CType(Session([Global].GLOBAL_SESSION_DS_FORMULAIRE_EXERCICE), List(Of Cls_FormulaireExercices))
+                End If
+            End If
+
+
+
+            If ACTION_RECORD.Equals([Global].RECORD_NEXT) Then
+                Session("countRowIndex") = (TypeSafeConversion.NullSafeInteger(Session("countRowIndex").ToString) + 1)
+
+            ElseIf ACTION_RECORD.Equals([Global].RECORD_PRECEDENT) Then
+                Session("countRowIndex") = (TypeSafeConversion.NullSafeInteger(Session("countRowIndex").ToString) - 1)
+            End If
+            countRowIndex = Session("countRowIndex")
+
+            If Request.QueryString("ID") IsNot Nothing Then
+                If objFormulaireExercice_List IsNot Nothing Then
+                    countRowIndex = Session("countRowIndex")
+                    ' _message &= Chr(13) & " countRowIndex:" & Session("countRowIndex")
+
+                    Dim Obj As Cls_FormulaireExercices = objFormulaireExercice_List(countRowIndex)
+                    If Obj.ID > 0 Then
+                        '  _message &= Chr(13) & "  Obj.ID:" & Obj.ID
+                        SetDataFormulaireExercice(Obj)
+
+                        If countRowIndex > 1 Then
+                            LinkButtonPrecedent1.Visible = True
+                            'LinkButtonPrecedent2.Visible = True
+                            'LinkButtonPrecedent3.Visible = True
+                        End If
+                    End If
+
+                    REM GESTION BOUTON NEXT ANS FORWARD
+                    If (countRowIndex) = 0 Then
+                        LinkButtonPrecedent1.Visible = False
+                        'LinkButtonPrecedent2.Visible = False
+                        'LinkButtonPrecedent3.Visible = False
+                    Else
+                        LinkButtonPrecedent1.Visible = True
+                        'LinkButtonPrecedent2.Visible = True
+                        'LinkButtonPrecedent3.Visible = True
+                    End If
+
+                    If (countRowIndex + 1) >= objFormulaireExercice_List.Count Then
+                        LinkButtonSuivant1.Visible = False
+                        'LinkButtonSuivant2.Visible = False
+                        'LinkButtonSuivant3.Visible = False
+                    Else
+                        LinkButtonSuivant1.Visible = True
+                        'LinkButtonSuivant2.Visible = True
+                        'LinkButtonSuivant3.Visible = True
+                    End If
+                End If
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
     End Sub
+
+    Private Sub SetDataFormulaireExercice(obj As Cls_FormulaireExercices)
+        Try
+            If obj.ID > 0 Then
+                'Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
+                'Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
+                LinkButtonPrint.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('../_reports/Fen_Report/ShowReport.aspx?ID=" & obj.ID & "',800,650)); return false;")
+                With obj
+                    txt_CodeFormulaireExercices_Hid.Text = .ID
+                    Label_LibelleExercice.Text = "<h4 style='color:red;font-weight: bold;'>" & .LibelleExercice & "</h3>" & "<br />"
+                    Label_LibelleExercice.Visible = IIf(.LibelleExercice.Trim.Equals(""), False, True)
+                    Label_SousTitre.Text = .LibelleExercice
+
+                    Label_Descriptions.Text = "<h4 style='color:green;'>Descriptions:</h4>" & .Descriptions & "<br /><br />"
+                    Label_Descriptions.Visible = IIf(.Descriptions.Trim.Equals(""), False, True)
+
+                    Label_Instructions.Text = "<h4 style='color:green;'>Instructions:</h4>" & .Instructions & "<br /><br />"
+                    Label_Instructions.Visible = IIf(.Instructions.Trim.Equals(""), False, True)
+
+                    Label_RappelExercice.Text = "<h4 style='color:green;'>Rappel:</h4>" & .RappelExercice & "<br /><br />"
+                    Label_RappelExercice.Visible = IIf(.RappelExercice.Trim.Equals(""), False, True)
+
+                    'txt_TypeEvaluation.Text = .TypeEvaluation
+                    'txt_Statut.Text = .Statut
+                    'txt_DureeEnSeconde.Text = .DureeEnSeconde
+                End With
+                BindGrid()
+            End If
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "QUESTIONS"
@@ -332,7 +414,7 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
                 rdgQuestions.DataBind()
             End If
             _ret = objs.Count
-            Literal_Question.Text = " <small class=""badge badge-primary"">" & _ret & "</small>"
+            'Literal_Question.Text = " <small class=""badge badge-primary"">" & _ret & "</small>"
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)
@@ -377,17 +459,17 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
 
             If (gridDataItem IsNot Nothing) Then
                 Dim item As GridDataItem = gridDataItem
-                CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions.PageSize * rdgQuestions.CurrentPageIndex + (item.RowIndex / 2)
+                'CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions.PageSize * rdgQuestions.CurrentPageIndex + (item.RowIndex / 2)
 
-                Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
-                'Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
-                imagedelete.ToolTip = "Effacer"
-                'imageediter.ToolTip = "Editer"
-                imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                'imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
-                REM Privilege
-                'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
-                'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
+                'Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
+                ''Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                'imagedelete.ToolTip = "Effacer"
+                ''imageediter.ToolTip = "Editer"
+                'imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
+                ''imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                'REM Privilege
+                ''imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
+                ''imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
             End If
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception

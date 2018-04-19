@@ -145,6 +145,11 @@ Public Class Cls_Questions
             End If
         End Set
     End Property
+    Public ReadOnly Property ScoreTotalStr As String
+        Get
+            Return " [" & _ScoreTotal & " Pts]"
+        End Get
+    End Property
 
     <AttributLogData(True, 8)>
     Public Property Commentaire As String
@@ -222,6 +227,46 @@ Public Class Cls_Questions
                 _qSuivant = Trim(Value)
             End If
         End Set
+    End Property
+
+    Public ReadOnly Property ReponsesListe As String
+        Get
+            Dim result = ""
+            Dim objlist As List(Of Cls_Reponses) = Cls_Reponses.SearchAllBy_CodeQuestion(_id)
+            If objlist IsNot Nothing Then
+                For Each _elem As Cls_Reponses In objlist
+                    Dim Iscorrect = "" 'IIf(_elem.Iscorrect, " <i class='fa fa-thumbs-up'></i> ", "")
+                    Dim color = IIf(_elem.Iscorrect, " style='color:green; font-weight: bold;' ", "")
+
+                    If result.Equals("") Then
+                        result &= "<span " & color & ">" & Iscorrect & _elem.LibelleReponse & "</span>"
+                    Else
+                        result &= "<br />" & "<span " & color & ">" & Iscorrect & _elem.LibelleReponse & "</span>"
+                    End If
+                Next
+            End If
+            Return result
+        End Get
+    End Property
+
+    Public ReadOnly Property JustificationReponseListe As String
+        Get
+            Dim result = ""
+            Dim objlist As List(Of Cls_JustificationReponses) = Cls_JustificationReponses.SearchAllBy_CodeQuestion(_id)
+            If objlist IsNot Nothing Then
+                For Each _elem As Cls_JustificationReponses In objlist
+                    Dim Iscorrect = "" 'IIf(_elem.Iscorrect, " <i class='fa fa-thumbs-up'></i> ", "")
+                    Dim color = IIf(_elem.Iscorrect, " style='color:green; font-weight: bold;' ", "")
+
+                    If result.Equals("") Then
+                        result &= "<span " & color & ">" & Iscorrect & _elem.LibelleJustification & "</span>"
+                    Else
+                        result &= "<br />" & "<span " & color & ">" & Iscorrect & _elem.LibelleJustification & "</span>"
+                    End If
+                Next
+            End If
+            Return result
+        End Get
     End Property
 
     <AttributLogData(True, 14)>

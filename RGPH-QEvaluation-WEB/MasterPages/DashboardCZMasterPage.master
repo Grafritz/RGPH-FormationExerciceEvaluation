@@ -167,7 +167,7 @@
                                 </li>
                                 <li id="LIAPP_MOBILE" runat="server">
                                     <asp:HyperLink ID="HyperLink2" runat="server"
-                                        NavigateUrl="~/GestionQuestionnaire/Frm_QuestionsListing.aspx"><i class="fa fa-gears"></i>
+                                        NavigateUrl="~/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx"><i class="fa fa-gears"></i>
                                     <span> App Mobile</span></asp:HyperLink>
                                     <ul class="sub-menu">
                                         <li runat="server" id="li_FormulaireCollecteListing">

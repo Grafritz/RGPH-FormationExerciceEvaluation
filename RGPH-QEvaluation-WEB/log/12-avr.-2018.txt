@@ -1,182 +1,0 @@
-
-Chemin Erreur : 
-04/12/2018 14:13:59
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesADD.aspx?ID=1&ACTION=HideMenuHeader&rwndrnd=0.3879333047816762. Message Erreur:[... ] : There is insufficient system memory in resource pool 'internal' to run this query.System.Data.SqlClient.SqlException (0x80131904): There is insufficient system memory in resource pool 'internal' to run this query.
-   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
-   at System.Data.SqlClient.SqlDataReader.get_MetaData()
-   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteReader()
-   at System.Data.SqlClient.SqlCommand.DeriveParameters()
-   at System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(SqlCommand command)
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.DiscoverSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 283
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName, Boolean includeReturnValueParameter) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 351
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelperParameterCache.GetSpParameterSet(String connectionString, String spName) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 333
-   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteDataset(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 166
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_User.Read(Int64 idval) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_User.vb:line 1018
-   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_User..ctor(Int64 _idOne) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Securite\Cls_User.vb:line 76
-   at Global.KeepUserContinuesToWork(Cls_User User_Connected) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\App_Code\Global.asax.vb:line 230
-   at Frm_FormulaireExercicesADD.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesADD.aspx.vb:line 70
-ClientConnectionId:36f62ec4-6040-4209-8e2f-b31844b7330f
-Error Number:701,State:123,Class:17
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:06:17
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:06:17
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:07:49
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:07:49
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:23
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:23
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:31
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:31
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:41
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:41
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:54
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:08:54
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:09:14
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:09:14
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:10:34
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:10:34
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:11:04
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:11:04
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:11:29
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Object reference not set to an instance of an object.System.NullReferenceException: Object reference not set to an instance of an object.
-   at GestionQEvaluation_Frm_QuestionDisponible.SYSTEME_SECURITE() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 95
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:11:29
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:15:21
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.
-   at GestionQEvaluation_Frm_QuestionDisponible.CheckBox_CheckItems_CheckedChanged(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 384
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:15:21
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:27:54
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.
-   at GestionQEvaluation_Frm_QuestionDisponible.CheckBox_CheckItems_CheckedChanged(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 385
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:27:54
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:52:06
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.
-   at GestionQEvaluation_Frm_QuestionDisponible.CheckBox_CheckItems_CheckedChanged(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 385
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:52:06
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:53:06
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.CheckBox' to type 'System.Web.UI.WebControls.TextBox'.
-   at GestionQEvaluation_Frm_QuestionDisponible.CheckBox_CheckItems_CheckedChanged(Object sender, EventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionDisponible.aspx.vb:line 385
-__________________________
-
-Chemin Erreur : 
-04/12/2018 17:53:07
-Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionDisponible.aspx?IDFormulaire=1&ACTION=HideMenuHeader&rwndrnd=0.518043066687024. Message Erreur:Une erreur est survenue [Send_Mail_Erreur] --> Failure sending mail.
-__________________________

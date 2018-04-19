@@ -1,7 +1,0 @@
-
-Chemin Erreur : 
-02/26/2018 12:39:56
-Erreur dans: http://192.168.1.137/RGPH-Questionnaire/GestionQuestionnaire/Frm_QuestionsListing.aspx. Message Erreur:[... ] : Utilisateur ou Mot de Passe incorrects.System.Exception: Utilisateur ou Mot de Passe incorrects.
-   at RGPH_QCOLLECTE_Library.Cls_User..ctor(String usr, String Pass) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-Library\Securite\Cls_User.vb:line 92
-   at UserControl_WUC_Login2.Connexion(String txt_UserName, String txt_MotdePasse) in P:\_Travaux_IHSI\ProjetWEB\RGPH-Questionnaire\RGPH-QCOLLECTE-WEB\UserControl\WUC_Login2.ascx.vb:line 106
-__________________________
