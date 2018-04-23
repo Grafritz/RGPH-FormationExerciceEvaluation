@@ -116,6 +116,12 @@ Public Class Cls_FormulaireExercices
         End Set
     End Property
 
+    Public ReadOnly Property TypeEvaluationSTR As String
+        Get
+            Return Cls_Enumeration.Get_TypeEvaluation_String(_TypeEvaluation)
+        End Get
+    End Property
+
     <AttributLogData(True, 7)>
     Public Property Statut As Integer
         Get

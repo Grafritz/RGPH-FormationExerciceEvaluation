@@ -325,7 +325,7 @@ Partial Class GestionQuestionnaire_ExportJsonData
         Result &= Chr(13)
         Result &= """codeFormulaireExercice"":" & item.CodeFormulaireExercice & ""
         Result &= Chr(13)
-        Result &= """codeQuestion"":" & item.CodeQuestion & ""
+        Result &= ",""codeQuestion"":" & item.CodeQuestion & ""
         Result &= Chr(13)
         Result &= ",""ordreQuestion"":""" & item.OrdreQuestion & """"
         Result &= Chr(13)

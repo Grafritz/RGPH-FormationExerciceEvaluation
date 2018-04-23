@@ -36,10 +36,11 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div>
+        <!---->
         <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="100%" Width="100%"
             ZoomMode="PageWidth" ShowCredentialPrompts="true" ShowDocumentMapButton="true"
             ShowExportControls="true" ShowRefreshButton="true" ShowToolBar="true" ShowBackButton="true"
-            SizeToReportContent="true" ShowFindControls="true" ShowPrintButton="true">
+            SizeToReportContent="true" ShowFindControls="true" ShowPrintButton="true" >
         </rsweb:ReportViewer>
     </div>
     </form>

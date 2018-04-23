@@ -89,6 +89,7 @@
     <Compile Include="Securite\Cls_SR_PRIVILEGE_SERVICES.vb" />
     <Compile Include="Securite\Cls_User.vb" />
     <Compile Include="Utilitaire\Cls_Enumeration.vb" />
+    <Compile Include="Utilitaire\Cls_KeyValue.vb" />
     <Compile Include="Utilitaire\Cls_Rezo509Logs.vb" />
     <Compile Include="Utilitaire\Cls_SendMail.vb" />
     <Compile Include="Utilitaire\Cls_Statut.vb" />

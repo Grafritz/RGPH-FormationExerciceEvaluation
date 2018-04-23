@@ -7,6 +7,7 @@ Imports BRAIN_DEVLOPMENT
 Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports RGPH_QUETIONNAIRE_EXERCICE_Library
+Imports SelectPdf
 
 Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
@@ -253,9 +254,6 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
 
 #End Region
 
-#Region "METHODES - SAVE"
-#End Region
-
 #Region "EVENTS BUTTON"
     Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
@@ -368,7 +366,7 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
             If obj.ID > 0 Then
                 'Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
                 'Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
-                LinkButtonPrint.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('../_reports/Fen_Report/ShowReport.aspx?ID=" & obj.ID & "',800,650)); return false;")
+                LinkButtonPrintPreviews.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('../_reports/Fen_Report/ShowReport.aspx?ID=" & obj.ID & "',800,650)); return false;")
                 With obj
                     txt_CodeFormulaireExercices_Hid.Text = .ID
                     Label_LibelleExercice.Text = "<h4 style='color:red;font-weight: bold;'>" & .LibelleExercice & "</h3>" & "<br />"
@@ -399,6 +397,95 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
         End Try
     End Sub
 
+    Private Sub LinkButtonExportToPdf_Click(sender As Object, e As EventArgs) Handles LinkButtonExportToPdf.Click
+        Dim UrlContentHTML As String = [Global].URL_QEVALUATION & "/_Print/PrintExerciceHTML.aspx?ID=" & txt_CodeFormulaireExercices_Hid.Text.Trim
+        Generate_HtmlToPdfFile("Exercice" & "-" & txt_CodeFormulaireExercices_Hid.Text, UrlContentHTML)
+    End Sub
+    Private Sub LinkButton_PRINTIDCOREC_Click(sender As Object, e As EventArgs) Handles LinkButton_PRINTIDCOREC.Click
+        Dim UrlContentHTML As String = [Global].URL_QEVALUATION & "/_Print/PrintExerciceHTML.aspx?IDCOREC=" & txt_CodeFormulaireExercices_Hid.Text.Trim
+        Generate_HtmlToPdfFile("Exercice" & "-" & txt_CodeFormulaireExercices_Hid.Text & "_Correctum", UrlContentHTML)
+    End Sub
+#End Region
+
+#Region "PDF-HTML"
+
+    Public Sub Generate_HtmlToPdfFile(ByVal _FileName As String, ByVal UrlContentHTML As String)
+        Try
+            Dim headerUrl As String = "" ' Server.MapPath("~/ModelCVTemplate/header_cv.html") '
+            Dim footerUrl As String = "" 'Server.MapPath("~/ModelCVTemplate/footer_cv.html") '
+            Dim showHeaderOnFirstPage As Boolean = False
+            Dim showHeaderOnOddPages As Boolean = False
+            Dim showHeaderOnEvenPages As Boolean = False
+
+            Dim headerHeight As Integer = 250
+            'Try
+            '    headerHeight = Convert.ToInt32(TxtHeaderHeight.Text)
+            'Catch
+            'End Try
+
+
+            Dim showFooterOnFirstPage As Boolean = False
+            Dim showFooterOnOddPages As Boolean = False
+            Dim showFooterOnEvenPages As Boolean = False
+
+            Dim footerHeight As Integer = 230
+            'Try
+            '    footerHeight = Convert.ToInt32(TxtFooterHeight.Text)
+            'Catch
+            'End Try
+            ' instantiate a html to pdf converter object
+            Dim converter As New HtmlToPdf()
+            ' header settings
+            converter.Options.DisplayHeader = showHeaderOnFirstPage OrElse
+                showHeaderOnOddPages OrElse showHeaderOnEvenPages
+            converter.Header.DisplayOnFirstPage = showHeaderOnFirstPage
+            converter.Header.DisplayOnOddPages = showHeaderOnOddPages
+            converter.Header.DisplayOnEvenPages = showHeaderOnEvenPages
+            converter.Header.Height = headerHeight
+
+            'Dim headerHtml As New PdfHtmlSection(headerUrl)
+            'headerHtml.AutoFitHeight = HtmlToPdfPageFitMode.AutoFit
+            'converter.Header.Add(headerHtml)
+
+            ' footer settings
+            converter.Options.DisplayFooter = showFooterOnFirstPage OrElse
+                showFooterOnOddPages OrElse showFooterOnEvenPages
+            converter.Footer.DisplayOnFirstPage = showFooterOnFirstPage
+            converter.Footer.DisplayOnOddPages = showFooterOnOddPages
+            converter.Footer.DisplayOnEvenPages = showFooterOnEvenPages
+            converter.Footer.Height = footerHeight
+
+            'Dim footerHtml As New PdfHtmlSection(footerUrl)
+            'footerHtml.AutoFitHeight = HtmlToPdfPageFitMode.AutoFit
+            'converter.Footer.Add(footerHtml)
+
+            '' add page numbering element to the footer
+            ''If ChkPageNumbering.Checked Then
+            '' page numbers can be added using a PdfTextSection object
+            'Dim text As New PdfTextSection(0, 10, "Page: {page_number} of {total_pages}  ", _
+            '                               New System.Drawing.Font("Arial", 8))
+            'text.HorizontalAlign = PdfTextHorizontalAlign.Right
+            'converter.Footer.Add(text)
+            ''End If
+
+            ' create a new pdf document converting an url
+            Dim doc As PdfDocument = converter.ConvertUrl(UrlContentHTML)
+
+            ' save pdf document
+            doc.Save(Response, False, "" & _FileName.Trim.Replace(" ", "_") & ".pdf")
+
+            ' close pdf document
+            doc.Close()
+        Catch ex As Threading.ThreadAbortException
+            'MessageToShow(ex.Message)
+            '[Global].WriteError(ex, User_Connected)
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
 #End Region
 
 #Region "QUESTIONS"
@@ -485,6 +572,8 @@ Partial Class GestionQEvaluation_Frm_DetailFormulaireExercice
             BindGrid(False)
         End If
     End Sub
+
+
 #End Region
 
 #End Region

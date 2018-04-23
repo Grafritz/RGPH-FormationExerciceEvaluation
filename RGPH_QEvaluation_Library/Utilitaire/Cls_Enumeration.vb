@@ -204,4 +204,41 @@ Public Class Cls_Enumeration
         End Select
         Return val
     End Function
+
+
+    Public Enum TypeEvaluation
+        Entrainement_1 = 1
+        Formative_2 = 2
+        Sommative_3 = 3
+        Observation_4 = 4
+    End Enum
+
+    Public Shared Function Get_TypeEvaluation() As List(Of Cls_KeyValue)
+        Try
+            Dim objs As New List(Of Cls_KeyValue)
+            objs.Add(New Cls_KeyValue("Entraînement", "" & TypeEvaluation.Entrainement_1))
+            objs.Add(New Cls_KeyValue("Formative", "" & TypeEvaluation.Formative_2))
+            objs.Add(New Cls_KeyValue("Sommative", "" & TypeEvaluation.Sommative_3))
+            objs.Add(New Cls_KeyValue("Observation", "" & TypeEvaluation.Observation_4))
+            Return objs
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+    Public Shared Function Get_TypeEvaluation_String(ByVal IDTypeEvaluation As Long) As String
+        Try
+            Dim val As String = ""
+            Dim objs As List(Of Cls_KeyValue) = Get_TypeEvaluation()
+            For Each elem As Cls_KeyValue In objs
+                If elem.FieldValue.Equals("" & IDTypeEvaluation) Then
+                    val = elem.FieldName
+                    Exit For
+                End If
+            Next
+            Return val
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
 End Class

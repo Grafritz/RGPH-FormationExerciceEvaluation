@@ -10,6 +10,7 @@ Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 Public Class [Global]
     Inherits System.Web.HttpApplication
     Public Const Global_APP_NAME_SIGLE = "RGPH - QUESTIONNAIRE"
+    Public Const Global_SERVER_IP = "RGPH - QUESTIONNAIRE"
 
     Public Const GLOBAL_Langue_Preferer = "Langue_Preferer"
     Public Const GLOBAL_Francais = "fr-FR"
@@ -107,7 +108,22 @@ Public Class [Global]
     Public Const GestionProfesseurListing = 4
 
     Public Shared URL_PCH As String = getServerName_ForOnline("PCH")
+    Public Shared URL_QEVALUATION As String = getHostServerName()
 #End Region
+
+    Public Shared Function getHostServerName() As String
+        Dim Host As String = HttpContext.Current.Request.Url.Host
+        Dim strUrl As String = ""
+        Dim VirtualPath As String = HttpRuntime.AppDomainAppVirtualPath
+        If Not VirtualPath.Trim.Equals("") Then
+            strUrl = Host
+            strUrl &= VirtualPath
+        Else
+            strUrl = Host
+            strUrl &= VirtualPath
+        End If
+        Return strUrl
+    End Function
 
     Public Shared Function getServerName_ForOnline(ByVal _APP As String) As String
         Dim strPathAndQuery As String = HttpContext.Current.Request.Url.PathAndQuery

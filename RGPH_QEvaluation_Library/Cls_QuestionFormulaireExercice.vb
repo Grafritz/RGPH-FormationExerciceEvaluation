@@ -156,9 +156,33 @@ Public Class Cls_QuestionFormulaireExercice
         End Get
     End Property
 
+    Public ReadOnly Property ReponsesListeCorectum As String
+        Get
+            Return QuestionOBJ.ReponsesListe
+        End Get
+    End Property
+
+    Public ReadOnly Property ReponsesListeNormal As String
+        Get
+            Return QuestionOBJ.ReponsesListeNormal
+        End Get
+    End Property
+
+    Public ReadOnly Property JustificationReponseListeCorectum As String
+        Get
+            Return QuestionOBJ.JustificationReponseListe
+        End Get
+    End Property
+
     Public ReadOnly Property JustificationReponseListe As String
         Get
             Return QuestionOBJ.JustificationReponseListe
+        End Get
+    End Property
+
+    Public ReadOnly Property JustificationReponseListeNormal As String
+        Get
+            Return QuestionOBJ.JustificationReponseListeNormal
         End Get
     End Property
 
@@ -408,9 +432,9 @@ Public Class Cls_QuestionFormulaireExercice
             Throw (New Rezo509Exception("  Code Question Obligatoire"))
         End If
 
-        If _OrdreQuestion = 0 Then
-            Throw (New Rezo509Exception("  Ordre Question Obligatoire."))
-        End If
+        'If _OrdreQuestion = 0 Then
+        '    Throw (New Rezo509Exception("  Ordre Question Obligatoire."))
+        'End If
 
 
     End Sub

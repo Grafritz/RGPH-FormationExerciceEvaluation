@@ -6,13 +6,13 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.77778in</Width>
+              <Width>2.875in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.85417in</Width>
+              <Width>2.77084in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.07639in</Width>
+              <Width>2.65278in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -156,7 +156,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -246,7 +245,7 @@
         </TablixRowHierarchy>
         <DataSetName>DS_QRJ</DataSetName>
         <Height>0.5in</Height>
-        <Width>9.70834in</Width>
+        <Width>8.29862in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -257,7 +256,7 @@
     <Height>1.16667in</Height>
     <Style />
   </Body>
-  <Width>9.70834in</Width>
+  <Width>8.29862in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

@@ -216,14 +216,14 @@
                                     FilterControlAltText="Filter RappelExercice column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
-                                <%--<telerik:GridBoundColumn DataField="TypeEvaluation" UniqueName="TypeEvaluation" HeaderText=" Type Evaluation"
-                                    FilterControlAltText="Filter TypeEvaluation column" FilterControlWidth="95%" ShowFilterIcon="false"
+                                <telerik:GridBoundColumn DataField="TypeEvaluationSTR" UniqueName="TypeEvaluationSTR" HeaderText=" Type Evaluation"
+                                    FilterControlAltText="Filter TypeEvaluationSTR column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Statut" UniqueName="Statut" HeaderText=" Statut"
                                     FilterControlAltText="Filter Statut column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
-                                </telerik:GridBoundColumn>--%>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="DureeEnSeconde" UniqueName="DureeEnSeconde" HeaderText=" Duree En Seconde"
                                     FilterControlAltText="Filter DureeEnSeconde column" FilterControlWidth="95%" ShowFilterIcon="false"
                                     AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
@@ -257,8 +257,7 @@
                                                         Visualiser Formulaire
                                                     </asp:LinkButton>
                                                 </li>
-                                                <li class="divider"></li>
-                                                <li>
+                                                <li style="visibility:hidden">
                                                     <asp:LinkButton ID="LinkButton_PRINT" runat="server">  
                                                         <i class="fa fa-print text-primary"></i>
                                                         Imprimer Formulaire

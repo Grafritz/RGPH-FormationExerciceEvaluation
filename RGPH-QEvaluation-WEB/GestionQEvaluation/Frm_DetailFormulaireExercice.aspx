@@ -103,7 +103,7 @@
     <%--<telerik:RadScriptManager ID="RadScriptManager1"  runat="server"></telerik:RadScriptManager>--%>
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
-            <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+            <%--<telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
                     <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
@@ -123,7 +123,7 @@
                     <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
                     <telerik:AjaxUpdatedControl ControlID="PageHeader" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" />
@@ -137,15 +137,39 @@
                         <asp:Label ID="Label_SousTitre" runat="server" />
                     </small>
                     <span class="pull-right box-tools">
-                        <asp:LinkButton ID="LinkButtonPrecedent1" runat="server" ToolTip="Précédent" CssClass="text text-blue btn btn-info" Style="" data-toggle="tooltip" data-original-title="Précédent">
+                        <asp:LinkButton ID="LinkButtonPrecedent1" runat="server" ToolTip="Précédent" CssClass="text text-blue btn btn-info" data-placement="bottom" data-toggle="tooltip" data-original-title="Précédent">
                         <i class='fa  fa-arrow-circle-left fa-2x'></i>
                         </asp:LinkButton>&nbsp;
-                        <asp:LinkButton ID="LinkButtonSuivant1" runat="server" ToolTip="Suivant" CssClass="text text-blue btn btn-info" Style="" data-toggle="tooltip" data-original-title="Suivant">
+                        <asp:LinkButton ID="LinkButtonSuivant1" runat="server" ToolTip="Suivant" CssClass="text text-blue btn btn-info" data-placement="bottom" data-toggle="tooltip" data-original-title="Suivant">
                             <i class='fa fa-arrow-circle-right'></i>
                         </asp:LinkButton>&nbsp;
-                        <asp:LinkButton ID="LinkButtonPrint" runat="server" ToolTip="Imprimer" CssClass="text text-blue btn btn-success" Style="" data-toggle="tooltip" data-original-title="Suivant">
-                            <i class='fa fa-print'></i> Imprimer
-                        </asp:LinkButton>&nbsp;
+                        
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <i class='fa fa-print'></i>Exporter en PDF <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <asp:LinkButton ID="LinkButtonExportToPdf" runat="server">  
+                                        <i class="fa fa-print"></i>
+                                        Exporter Formulaire
+                                    </asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="LinkButton_PRINTIDCOREC" runat="server">  
+                                        <i class='fa fa-print'></i> 
+                                        Exporter Correctum
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <asp:LinkButton ID="LinkButtonPrintPreviews" runat="server" ToolTip="Imprimer" CssClass="text text-blue btn btn-success" data-placement="bottom" data-toggle="tooltip" data-original-title="Imprimer">
+                                        <i class='fa fa-print'></i> Exporter en Word, Excel
+                                    </asp:LinkButton>&nbsp;
+                                </li>
+                            </ul>
+                        </div>
+                        &nbsp;
                         <asp:LinkButton ID="Btn_Annuler2" CausesValidation="false" runat="server" CssClass="btn btn-danger">
                             <i class="fa  fa-reply-all" ></i> Fermer
                         </asp:LinkButton>
@@ -173,10 +197,11 @@
 
                     <div id="DIV_Content_FormulaireExercice" runat="server">
                         <div id="DIV_Panel" class="panel panel-default panel-body">
-                            <asp:Label ID="Label_LibelleExercice" runat="server"></asp:Label>
-                            <asp:Label ID="Label_Descriptions" runat="server"></asp:Label>
-                            <asp:Label ID="Label_Instructions" runat="server"></asp:Label>
-                            <asp:Label ID="Label_RappelExercice" runat="server"></asp:Label>
+                            <asp:Label ID="Label_IDExercice" runat="server" Visible="false" />
+                            <asp:Label ID="Label_LibelleExercice" runat="server" />
+                            <asp:Label ID="Label_Descriptions" runat="server" />
+                            <asp:Label ID="Label_Instructions" runat="server" />
+                            <asp:Label ID="Label_RappelExercice" runat="server" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -215,7 +240,7 @@
                                         AllowFiltering="false" HeaderText="Libelle Question" UniqueName="LibelleQuestion">
                                         <ItemTemplate>
                                             <asp:Label ID="LibelleQuestion" runat="server" Text='<%# Bind("LibelleQuestion") %>' />
-                                            <asp:Label ID="ScoreTotal" runat="server" Text='<%# Bind("ScoreTotalStr") %>' Style="color: red; font-weight: bold;" />
+                                            <asp:Label ID="ScoreTotal" runat="server" Text='<%# Bind("ScoreTotalStr") %>' Style='color: red; font-weight: bold;' />
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn Visible="true" ShowFilterIcon="false"

@@ -1,6 +1,4 @@
-REM Generate By [GENERIC 12] Application *******
-REM  Class Frm_FormulaireExercices
-
+﻿
 REM Date:4/4/2018 2:38:33 PM
 Imports Microsoft
 Imports System.Data
@@ -10,7 +8,7 @@ Imports BRAIN_DEVLOPMENT.DataAccessLayer
 Imports Telerik.Web.UI
 Imports RGPH_QUETIONNAIRE_EXERCICE_Library
 
-Partial Class Frm_FormulaireExercicesADD
+Partial Class GestionQEvaluation_Frm_FormulaireExercicesADD
     Inherits Cls_BasePage ' LA CLASSE DE LA PAGE HERITE DE CETTE CLASSE DANS LE CAS OU NOUS AVONS UNE APPLICATION WEB multilingue
 
 
@@ -185,7 +183,32 @@ Partial Class Frm_FormulaireExercicesADD
 
 #Region "Load DATA"
     Private Sub LOAD_ALL_DATA()
+        FillCombo_TypeEvaluation()
         LOAD_FORMULAIREEXERCICES()
+    End Sub
+
+    Private Sub FillCombo_TypeEvaluation()
+        Try
+            Dim objs1 As List(Of Cls_KeyValue) = Cls_Enumeration.Get_TypeEvaluation
+            With DDL_TypeEvaluation
+                .DataSource = objs1
+                .DataValueField = "FieldValue"
+                .DataTextField = "FieldName"
+                .DataBind()
+                '.Items.Insert(0, New ListItem(" - Choisir(" & objs1.Count & ") - ", 0))
+                '.SelectedIndex = -1
+                '.Items.Sort()
+                '.Items.Insert(0, New RadComboBoxItem(" - Choisir -", ""))
+                '.SelectedIndex = 0
+                '.EmptyMessage = "- Choisir -"
+            End With
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
     End Sub
 
     Private Sub LOAD_FORMULAIREEXERCICES()
@@ -198,12 +221,12 @@ Partial Class Frm_FormulaireExercicesADD
                     Btn_ADD_Questions.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionDisponible.aspx?IDFormulaire=" & obj.ID & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650)); return false;")
                     Btn_SaveInfo.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Edit, User_Connected.IdGroupeuser)
                     With obj
-                        txt_CodeFormulaireExercices_Hid.Text = .id
+                        txt_CodeFormulaireExercices_Hid.Text = .ID
                         txt_LibelleExercice.Text = .LibelleExercice
                         txt_Descriptions.Text = .Descriptions
                         txt_Instructions.Text = .Instructions
                         txt_RappelExercice.Text = .RappelExercice
-                        txt_TypeEvaluation.Text = .TypeEvaluation
+                        DDL_TypeEvaluation.SelectedIndex = DDL_TypeEvaluation.Items.IndexOf(DDL_TypeEvaluation.Items.FindByValue(.TypeEvaluation))
                         txt_Statut.Text = .Statut
                         txt_DureeEnSeconde.Text = .DureeEnSeconde
                     End With
@@ -233,7 +256,7 @@ Partial Class Frm_FormulaireExercicesADD
                 .Descriptions = txt_Descriptions.Text
                 .Instructions = txt_Instructions.Text
                 .RappelExercice = txt_RappelExercice.Text
-                .TypeEvaluation = TypeSafeConversion.NullSafeInteger(txt_TypeEvaluation.Text, 1)
+                .TypeEvaluation = TypeSafeConversion.NullSafeInteger(DDL_TypeEvaluation.SelectedValue)
                 .Statut = TypeSafeConversion.NullSafeInteger(txt_Statut.Text, 1)
                 .DureeEnSeconde = TypeSafeConversion.NullSafeInteger(txt_DureeEnSeconde.Text, 3600)
             End With
@@ -265,6 +288,33 @@ Partial Class Frm_FormulaireExercicesADD
     Protected Sub Btn_SaveInfo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Btn_SaveInfo.Click
         SAVE_FORMULAIREEXERCICES()
     End Sub
+
+    Private Sub LinkButton_EnregistreOrdre_Click(sender As Object, e As EventArgs) Handles LinkButton_EnregistreOrdre.Click
+        Try
+            Dim CodeFormulaireExercice = TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hid.Text)
+            For Each item As GridDataItem In rdgQuestions.Items
+                Dim ID = TypeSafeConversion.NullSafeLong(CType(item.FindControl("txt_ID_QuestionFormulaireExercice"), TextBox).Text)
+                Dim OrdreQuestion = TypeSafeConversion.NullSafeInteger(CType(item.FindControl("TextBox_OrdreQuestion"), TextBox).Text)
+
+                Dim obj As New Cls_QuestionFormulaireExercice(ID)
+                With obj
+                    '.CodeFormulaireExercice = CodeFormulaireExercice
+                    '.CodeQuestion = CodeQuestion
+                    .OrdreQuestion = OrdreQuestion
+
+                    .Save(User_Connected.Username)
+                End With
+            Next
+            BindGrid()
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
     Protected Sub Btn_Annuler_Click(sender As Object, e As EventArgs) Handles Btn_Annuler.Click, Btn_Annuler2.Click
         PAGE_MERE = TypeSafeConversion.NullSafeLong(Request.QueryString([Global].PAGE_MERE))
         If Request.QueryString([Global].ACTION) IsNot Nothing Then
@@ -408,6 +458,5 @@ Partial Class Frm_FormulaireExercicesADD
 #End Region
 
 #End Region
+
 End Class
-
-

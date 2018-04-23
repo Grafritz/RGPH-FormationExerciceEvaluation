@@ -1,4 +1,4 @@
-<%@ Page Title=" Formulaire Exercices" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_FormulaireExercicesADD.aspx.vb" Inherits="Frm_FormulaireExercicesADD" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_FormulaireExercicesADD.aspx.vb" Inherits="GestionQEvaluation_Frm_FormulaireExercicesADD" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
@@ -111,11 +111,11 @@
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="Btn_SaveInfo">
-           <UpdatedControls>
-               <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
-               <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
-           </UpdatedControls>
-       </telerik:AjaxSetting>
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Panel_Msg" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="Panel_First" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" />
@@ -177,9 +177,9 @@
                                         <div class="col-sm-12">
                                             <label>
                                                 Libelle Exercice
-                               <asp:RequiredFieldValidator ID="RFV_LibelleExercice" runat="server" ControlToValidate="txt_LibelleExercice"
-                                   ErrorMessage="Libelle Exercice Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                               <asp:RequiredFieldValidator ID="RFV_LibelleExercice" runat="server" ControlToValidate="txt_LibelleExercice"
+                                                   ErrorMessage="Libelle Exercice Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                   ValidationGroup="GPSave" CssClass="text-danger" />
                                             </label>
                                             <asp:TextBox ID="txt_LibelleExercice" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Libelle Exercice..."></asp:TextBox>
                                         </div>
@@ -188,9 +188,9 @@
                                         <div class="col-sm-12">
                                             <label>
                                                 Descriptions
-                               <%--<asp:RequiredFieldValidator ID="RFV_Descriptions" runat="server" ControlToValidate="txt_Descriptions"
-                                   ErrorMessage="Descriptions Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />--%>
+                                                <%--<asp:RequiredFieldValidator ID="RFV_Descriptions" runat="server" ControlToValidate="txt_Descriptions"
+                                                    ErrorMessage="Descriptions Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                    ValidationGroup="GPSave" CssClass="text-danger" />--%>
                                             </label>
                                             <asp:TextBox ID="txt_Descriptions" TextMode="MultiLine" Height="100px" CssClass="form-control" Width="100%" runat="server" placeholder="Descriptions..."></asp:TextBox>
                                         </div>
@@ -212,32 +212,24 @@
                                         </div>
 
                                     </div>
-                                    <div class="form-group" runat="server" visible="false" id="DIV_TypeEvaluation">
-                                        <label class="col-sm-3 control-label">
-                                            Type Evaluation
-                                        </label>
-                                        <div class="col-sm-6">
-                                            <asp:TextBox ID="txt_TypeEvaluation" CssClass="form-control" Width="100%" runat="server" placeholder="Type Evaluation..."></asp:TextBox>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" runat="server" visible="false" id="qwerRFV_Statut">
-                                        <div class="col-sm-6">
+                                    <div class="form-group" runat="server" id="DIV_TypeEvaluation">
+                                        <div class="col-sm-5">
                                             <label>
-                                                Statut
-                               <asp:RequiredFieldValidator ID="RFV_Statut" runat="server" ControlToValidate="txt_Statut"
-                                   ErrorMessage="Statut Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                                Type Evaluation
                                             </label>
-                                            <asp:TextBox ID="txt_Statut" CssClass="form-control" Width="100%" runat="server" placeholder="Statut..."></asp:TextBox>
+                                            <asp:DropDownList ID="DDL_TypeEvaluation" CssClass="form-control" Width="100%" runat="server">
+                                                <asp:ListItem Value="1" Text="Entraînement" />
+                                                <asp:ListItem Value="2" Text="Formative" />
+                                                <asp:ListItem Value="3" Text="Sommative" />
+                                                <asp:ListItem Value="4" Text="Observation" />
+                                            </asp:DropDownList>
                                         </div>
-                                    </div>
-                                    <div class="form-group" runat="server" visible="false" id="DIV_RFV_DureeEnSeconde">
                                         <div class="col-sm-4">
                                             <label>
                                                 Duree En Seconde
-                               <asp:RequiredFieldValidator ID="RFV_DureeEnSeconde" runat="server" ControlToValidate="txt_DureeEnSeconde"
-                                   ErrorMessage="Duree En Seconde Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
-                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                               <asp:RequiredFieldValidator ID="RFV_DureeEnSeconde" runat="server" ControlToValidate="txt_DureeEnSeconde"
+                                                   ErrorMessage="Duree En Seconde Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                   ValidationGroup="GPSave" CssClass="text-danger" />
                                             </label>
                                             <telerik:RadNumericTextBox ID="txt_DureeEnSeconde" runat="server" Skin="MetroTouch" Culture="en-US"
                                                 NumberFormat-DecimalDigits="1" ShowSpinButtons="false" Value="3600" Width="100%" EmptyMessage="0.00" DataType="System.Interger"
@@ -245,6 +237,18 @@
                                             </telerik:RadNumericTextBox>
                                         </div>
                                     </div>
+                                    <div class="form-group" runat="server" visible="false" id="qwerRFV_Statut">
+                                        <div class="col-sm-6">
+                                            <label>
+                                                Statut
+                                               <asp:RequiredFieldValidator ID="RFV_Statut" runat="server" ControlToValidate="txt_Statut"
+                                                   ErrorMessage="Statut Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                                   ValidationGroup="GPSave" CssClass="text-danger" />
+                                            </label>
+                                            <asp:TextBox ID="txt_Statut" CssClass="form-control" Width="100%" runat="server" placeholder="Statut..."></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
                                     <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
                                         <span id="span_SaveInfo" runat="server">
                                             <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
@@ -263,11 +267,14 @@
                             <div id="DIV_Content_Question" runat="server" class="tab-pane">
                                 <asp:Panel runat="server" ID="Panel1" Style="margin: 5px;">
                                     <asp:LinkButton ID="Btn_ADD_Questions" runat="server" CssClass="btn btn-primary" CausesValidation="false">
-                        <i class="fa fa-plus-circle" ></i>  Ajouter  Questions
+                                        <i class="fa fa-plus-circle" ></i>  Ajouter  Questions
                                     </asp:LinkButton>
                                     <span class="pull-right box-tools">
+                                        <asp:LinkButton ID="LinkButton_EnregistreOrdre" runat="server" CssClass="btn btn-danger" CausesValidation="false">
+                                        <i class="fa fa-save" ></i> Valider le changement
+                                        </asp:LinkButton>
                                         <asp:LinkButton ID="rbtnClearFilters" runat="server" CssClass="btn btn-sm btn-default" CausesValidation="false"> 
-                            <i class="fa fa-ban on fa-filter" ></i> Clear Filters
+                                            <i class="fa fa-ban on fa-filter" ></i> Clear Filters
                                         </asp:LinkButton>
                                     </span>
                                     <telerik:RadGrid ID="rdgQuestions" AllowPaging="True" AllowSorting="True" PageSize="50"
@@ -292,7 +299,7 @@
                                                 <telerik:GridTemplateColumn Visible="true" ShowFilterIcon="false"
                                                     AllowFiltering="false" HeaderText="Ordre" UniqueName="OrdreQuestion">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="TextBox_CodeQuestion" Visible="false" runat="server" Text='<%#Bind("ID") %>' />
+                                                        <asp:TextBox ID="txt_ID_QuestionFormulaireExercice" Visible="false" runat="server" Text='<%#Bind("ID") %>' />
                                                         <asp:TextBox ID="TextBox_OrdreQuestion" runat="server" Text='<%# Bind("OrdreQuestion") %>' CssClass="form-control" Width="50px"
                                                             Style="text-align: center; font-size: 20px;" />
                                                     </ItemTemplate>

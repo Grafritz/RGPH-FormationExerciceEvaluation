@@ -1,0 +1,11 @@
+
+Chemin Erreur : 
+04/23/2018 10:08:47
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_FormulaireExercicesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : The DELETE statement conflicted with the REFERENCE constraint "FK_Tbl_QuestionFormulaireExercice_Tbl_FormulaireExercices". The conflict occurred in database "RGPH_FormationExercice_db", table "dbo.Tbl_QuestionFormulaireExercice", column 'CodeFormulaireExercice'.
+The statement has been terminated.System.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_Tbl_QuestionFormulaireExercice_Tbl_FormulaireExercices". The conflict occurred in database "RGPH_FormationExercice_db", table "dbo.Tbl_QuestionFormulaireExercice", column 'CodeFormulaireExercice'.
+The statement has been terminated.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_FormulaireExercices.Delete() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_FormulaireExercices.vb:line 270
+   at Frm_FormulaireExercicesListing.rdgFormulaireExercices_ItemCommand(Object sender, GridCommandEventArgs e) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_FormulaireExercicesListing.aspx.vb:line 227
+ClientConnectionId:c4ab7f26-c734-4ecd-81f0-75a7efe04b98
+Error Number:547,State:0,Class:16
+__________________________
