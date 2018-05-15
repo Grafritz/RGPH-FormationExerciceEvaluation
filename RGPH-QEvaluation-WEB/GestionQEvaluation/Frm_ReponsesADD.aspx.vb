@@ -193,6 +193,7 @@ Partial Class GestionQEvaluation_Frm_ReponsesADD
                         DDL_CodeQuestion.Enabled = False
                         txt_LibelleReponse.Text = .LibelleReponse
                         CB_Iscorrect.Checked = .Iscorrect
+                        'txt_ScoreTotal.Text = .ScoreTotal
 
                         CheckIsSaveBonneReponse(.CodeQuestion)
                         'CB_estEnfant.Checked = .estEnfant
@@ -253,6 +254,7 @@ Partial Class GestionQEvaluation_Frm_ReponsesADD
                 .CodeQuestion = DDL_CodeQuestion.SelectedValue
                 .LibelleReponse = txt_LibelleReponse.Text
                 .Iscorrect = CB_Iscorrect.Checked
+                '.ScoreTotal = txt_ScoreTotal.Text
                 '.estEnfant = CB_estEnfant.Checked
                 '.avoirEnfant = CB_avoirEnfant.Checked
                 '.CodeParent = txt_CodeParent.Text

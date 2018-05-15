@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPages/DashboardCZMasterPage.master" AutoEventWireup="false" CodeFile="Frm_ReponsesADD.aspx.vb" Inherits="GestionQEvaluation_Frm_ReponsesADD" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:content id="Content1" contentplaceholderid="ContentPlaceHolder1" runat="Server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
             function ShowAddUpdateForm(strPage, tmpW, tmpH) {
@@ -103,9 +103,9 @@
                     </span>
                 </h3>
                 <!--<ol class="breadcrumb"> 
-    <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
-    <li class="active">Reponses</li>
-</ol> -->
+                    <li><a href="#"><i class="fa fa-dashboard"></i>Accueil</a></li>
+                    <li class="active">Reponses</li>
+                </ol> -->
             </section>
             <section class="content">
                 <Msg:msgBox ID="Dialogue" runat="server" />
@@ -147,16 +147,32 @@
                                 </label>
                                 <asp:TextBox ID="txt_LibelleReponse" TextMode="MultiLine" Height="100px" CssClass="form-control"
                                     Width="100%" runat="server" placeholder="Libelle Reponse..."></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%--<div class="col-sm-3">
+                                <label>
+                                    Score Total
+                                    <asp:RequiredFieldValidator ID="RFV_ScoreTotal" runat="server" ControlToValidate="txt_ScoreTotal"
+                                        ErrorMessage="Score Total Obligatoire !" SetFocusOnError="true" Display="Dynamic" Text="*"
+                                        ValidationGroup="GPSave" CssClass="text-danger" />
+                                </label>
+                                <telerik:RadNumericTextBox ID="txt_ScoreTotal" runat="server" Skin="MetroTouch" Culture="en-US" NumberFormat-DecimalDigits="2"
+                                    ShowSpinButtons="false" Value="0" Width="100%" EmptyMessage="0.00" DataType="System.Decimal"
+                                    >
+                                </telerik:RadNumericTextBox>
+                            </div>--%>
+                            <div class="col-sm-8">                                    
                                 <asp:CheckBox ID="CB_Iscorrect" runat="server" Text="Cette réponse est la bonne" />
                                 &nbsp;  &nbsp;
                                 <i class="text-danger">
                                     <asp:Literal ID="LiteralBonneReponse" runat="server" />
                                 </i>
-                                <br />
-                                    <label for="ctl00_ContentPlaceHolder1_CB_Iscorrect" class="text-danger">
-                                        <i>(NB:.Il ne peut y avoir deux réponses correcte)</i> </label>
                             </div>
                         </div>
+                        <br />
+                            <label for="ctl00_ContentPlaceHolder1_CB_Iscorrect" class="text-danger">
+                                <i>(NB:.Il ne peut y avoir deux réponses correcte)</i> </label>
                         <div id="DIV_SaveInfo" runat="server" style="margin: 5px 0px; text-align: left;">
                             <span id="span_SaveInfo" runat="server">
                                 <asp:LinkButton ID="Btn_SaveInfo" runat="server" CssClass="btn btn-primary" ValidationGroup="GPSave">
@@ -193,5 +209,5 @@
         </Windows>
     </telerik:RadWindowManager>
     <input id="txtWindowPage" type="hidden" />
-</asp:Content>
+</asp:content>
 

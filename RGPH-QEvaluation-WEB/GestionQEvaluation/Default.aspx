@@ -194,6 +194,17 @@
                             </div>
                         </div>
 
+                        <div class="butpro butstyle" runat="server" id="DIV_Module_ReponseSession2">
+                            <div class="sub">
+                                <h2>RÉPONSES 2</h2>
+                                <span>
+                                    <asp:Literal ID="Literal_ReponseSession2" runat="server" Text="Exporter" /></span>
+                            </div>
+                            <div class="stat">
+                                <asp:Literal ID="Literal_ReponseSessionq2" runat="server" Text="Exporter" />
+                            </div>
+                        </div>
+
                         <div class="butpro butstyle" runat="server" id="DIV_Module_JustificationReponseSession">
                             <div class="sub">
                                 <h2>JUSTIFICATION RÉPONSES</h2>

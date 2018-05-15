@@ -364,12 +364,16 @@ Partial Class GestionQuestionnaire_Default
             End If
 
             DIV_Module_ReponseSession.Visible = False
+            DIV_Module_ReponseSession2.Visible = False
             If _ReponseList.Count > 0 Then
                 onElementCheck = True
                 Me.Session([Global].DATA_REPONSES_SESSION) = _ReponseList
                 DIV_Module_ReponseSession.Visible = True
+                DIV_Module_ReponseSession2.Visible = True
                 DIV_Module_ReponseSession.Attributes.Add("onclick", "javascript:OpenWindow('ExportJsonData.aspx?" & [Global].ACTION & "=" & [Global].DATA_REPONSES_SESSION & "'); return false;")
+                DIV_Module_ReponseSession2.Attributes.Add("onclick", "javascript:OpenWindow('ExportJsonData.aspx?" & [Global].ACTION & "=" & [Global].DATA_REPONSES_SESSION_2 & "'); return false;")
                 Literal_ReponseSession.Text = "  [ " & _ReponseList.Count & " ]"
+                Literal_ReponseSession2.Text = "  [ " & _ReponseList.Count & " ]"
             End If
 
             DIV_Module_JustificationReponseSession.Visible = False

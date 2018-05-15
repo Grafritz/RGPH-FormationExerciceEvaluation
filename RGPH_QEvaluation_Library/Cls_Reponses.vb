@@ -14,10 +14,12 @@ Public Class Cls_Reponses
 #Region "Attribut"
     Private _id As Long
 
+    Private _CodeReponseManuel As Long
     Private _CodeQuestion As Long
     Private _Question As Cls_Questions
     Private _LibelleReponse As String
     Private _Iscorrect As Boolean
+    Private _ScoreTotal As Decimal
     Private _estEnfant As Boolean
     Private _avoirEnfant As Boolean
     Private _CodeParent As String
@@ -56,6 +58,17 @@ Public Class Cls_Reponses
     End Property
 
     <AttributLogData(True, 2)>
+    Public Property CodeReponseManuel As Long
+        Get
+            Return _CodeReponseManuel
+        End Get
+        Set(ByVal Value As Long)
+            If _CodeReponseManuel <> Value Then
+                _isdirty = True
+                _CodeReponseManuel = Value
+            End If
+        End Set
+    End Property
     Public Property CodeQuestion As Long
         Get
             Return _CodeQuestion
@@ -132,6 +145,23 @@ Public Class Cls_Reponses
         End Get
     End Property
 
+    Public Property ScoreTotal As Decimal
+        Get
+            Return _ScoreTotal
+        End Get
+        Set(ByVal Value As Decimal)
+            If _ScoreTotal <> Value Then
+                _isdirty = True
+                _ScoreTotal = Value
+            End If
+        End Set
+    End Property
+    Public ReadOnly Property ScoreTotalStr As String
+        Get
+            Return " [" & _ScoreTotal & " Pts]"
+        End Get
+    End Property
+
     <AttributLogData(True, 5)>
     Public Property estEnfant As Boolean
         Get
@@ -195,13 +225,13 @@ Public Class Cls_Reponses
 #Region " Db Access "
     Public Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
         _LogData = LogData(Me)
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_Reponses", _CodeQuestion, _LibelleReponse, _Iscorrect, _estEnfant, _avoirEnfant, _CodeParent)) ', usr))
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_Reponses", _CodeQuestion, _LibelleReponse, _Iscorrect, _ScoreTotal, _estEnfant, _avoirEnfant, _CodeParent)) ', usr))
         Return _id
     End Function
 
     Public Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
         _LogData = GetObjectString()
-        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses", _id, _CodeQuestion, _LibelleReponse, _Iscorrect, _estEnfant, _avoirEnfant, _CodeParent) ', usr)
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses", _id, _CodeQuestion, _LibelleReponse, _Iscorrect, _ScoreTotal, _estEnfant, _avoirEnfant, _CodeParent) ', usr)
     End Function
 
     Public Function Set_Iscorrect_ForOnly_ThisID() As Integer
@@ -210,9 +240,11 @@ Public Class Cls_Reponses
 
     Private Sub SetProperties(ByVal dr As DataRow)
         _id = TypeSafeConversion.NullSafeLong(dr("CodeReponse"))
+        _CodeReponseManuel = TypeSafeConversion.NullSafeLong(dr("CodeReponseManuel"))
         _CodeQuestion = TypeSafeConversion.NullSafeLong(dr("CodeQuestion"))
         _LibelleReponse = TypeSafeConversion.NullSafeString(dr("LibelleReponse"))
         _Iscorrect = TypeSafeConversion.NullSafeBoolean(dr("Iscorrect"))
+        _ScoreTotal = TypeSafeConversion.NullSafeDecimal(dr("ScoreTotal"))
         _estEnfant = TypeSafeConversion.NullSafeBoolean(dr("estEnfant"))
         _avoirEnfant = TypeSafeConversion.NullSafeBoolean(dr("avoirEnfant"))
         _CodeParent = TypeSafeConversion.NullSafeString(dr("CodeParent"))
@@ -220,10 +252,12 @@ Public Class Cls_Reponses
 
     Private Sub BlankProperties()
         _id = 0
+        _CodeReponseManuel = 0
         _CodeQuestion = 0
         '__CodeQuestion = Nothing
         _LibelleReponse = ""
         _Iscorrect = False
+        _ScoreTotal = 0
         _estEnfant = False
         _avoirEnfant = False
         _CodeParent = ""

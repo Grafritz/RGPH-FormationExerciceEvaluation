@@ -192,6 +192,33 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li id="LIAPP_MOBILE2" runat="server">
+                                    <asp:HyperLink ID="HyperLink22" runat="server"
+                                        NavigateUrl="~/GestionRapportSupervision/Frm_FormulaireExercicesListing.aspx"><i class="fa fa-gears"></i>
+                                    <span> App Mobile</span></asp:HyperLink>
+                                    <ul class="sub-menu">
+                                        <li runat="server" id="li_FormulaireCollecteListing2">
+                                            <asp:HyperLink ID="HyperLink32" runat="server" NavigateUrl="~/GestionRapportSupervision/Frm_FormulaireExercicesListing.aspx">
+                                                <i class="fa fa-folder" id="i22" runat="server"></i><span>Formulaire Exercice </span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li runat="server" id="li_QuestionsListing2">
+                                            <asp:HyperLink ID="HyperLink_QuestionsListing2" runat="server" NavigateUrl="~/GestionRapportSupervision/Frm_QuestionsListing.aspx">
+                                                <i class="fa fa-folder" id="i_QuestionsListing2" runat="server"></i><span>Questions </span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li runat="server" id="li_Questions_ReponsesListing2">
+                                            <asp:HyperLink ID="HyperLink_Questions_ReponsesListing2" runat="server" NavigateUrl="~/GestionRapportSupervision/Frm_ReponsesListing.aspx">
+                                                <i class="fa fa-folder" id="i_Questions_ReponsesListing2" runat="server"></i><span>Réponses </span>
+                                            </asp:HyperLink>
+                                        </li>
+                                        <li runat="server" id="li_JustificationReponsesListing2">
+                                            <asp:HyperLink ID="HyperLink_JustificationReponsesListing2" runat="server" NavigateUrl="~/GestionRapportSupervision/Frm_JustificationReponsesListing.aspx">
+                                                <i class="fa fa-folder" id="i_JustificationReponsesListing2" runat="server"></i><span>Justification Réponses </span>
+                                            </asp:HyperLink>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%--<li id="LI_PARAMETRES" runat="server">
                                     <asp:HyperLink ID="HyperLink1" runat="server"
                                         NavigateUrl="~/GestionQuestionnaire/Frm_TypeModuleListing.aspx"><i class="fa fa-gears"></i>

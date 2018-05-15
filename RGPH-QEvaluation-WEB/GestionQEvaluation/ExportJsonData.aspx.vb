@@ -51,6 +51,9 @@ Partial Class GestionQuestionnaire_ExportJsonData
                 Case [Global].DATA_REPONSES_SESSION
                     GetAll_DATA_REPONSES_SESSION()
 
+                Case [Global].DATA_REPONSES_SESSION_2
+                    GetAll_DATA_REPONSES_SESSION_2()
+
                 Case [Global].DATA_JUSTIFICATION_REPONSES_SESSION
                     GetAll_DATA_JUSTIFICATION_REPONSES_SESSION()
 
@@ -89,10 +92,10 @@ Partial Class GestionQuestionnaire_ExportJsonData
                 If .Count > 0 Then
                     For Each item As Cls_QuestionFormulaireExercice In objs
                         If Result.Equals("") Then
-                            Result = getStringJSON_Question_Formulaire(item)
+                            Result = getStringJSON_Question_Formulaire(item, objs.Count.ToString.Length)
                         Else
                             Result &= Chr(13)
-                            Result &= "," & getStringJSON_Question_Formulaire(item)
+                            Result &= "," & getStringJSON_Question_Formulaire(item, objs.Count.ToString.Length)
                         End If
                     Next
 
@@ -271,6 +274,54 @@ Partial Class GestionQuestionnaire_ExportJsonData
         End Try
     End Sub
 
+    Private Sub GetAll_DATA_REPONSES_SESSION_2()
+        Dim _reponseList As New List(Of Cls_Reponses)
+        Dim Result As String = ""
+        Dim ValJson As String = ""
+
+        Try
+            If Session([Global].DATA_REPONSES_SESSION) IsNot Nothing Then
+                _reponseList = CType(Session([Global].DATA_REPONSES_SESSION), List(Of Cls_Reponses))
+            End If
+            'FileName: data_reponses.json
+            With _reponseList
+                If .Count > 0 Then
+                    For Each item As Cls_Reponses In _reponseList
+                        If Result.Equals("") Then
+                            Result = getStringJSON_Reponse_2(item)
+                        Else
+                            Result &= Chr(13)
+                            Result &= "," & getStringJSON_Reponse_2(item)
+                        End If
+                    Next
+
+                    ValJson &= "["
+                    ValJson &= Chr(13)
+                    ValJson &= Result
+                    ValJson &= Chr(13)
+                    ValJson &= "]"
+
+                    Response.Buffer = True
+                    Response.Charset = ""
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                    Response.ContentType = "application/octet-stream"
+                    Response.AddHeader("content-disposition", "attachment;filename=data_reponses.json")
+
+                    Response.Write(ValJson)
+
+                    Response.Flush()
+                    Response.End()
+                End If
+            End With
+        Catch ex As Threading.ThreadAbortException
+        Catch ex As Rezo509Exception
+            MessageToShow(ex.Message)
+        Catch ex As Exception
+            MessageToShow(ex.Message)
+            [Global].WriteError(ex, User_Connected)
+        End Try
+    End Sub
+
     Private Sub GetAll_DATA_JUSTIFICATION_REPONSES_SESSION()
         Dim _reponseList As New List(Of Cls_JustificationReponses)
         Dim Result As String = ""
@@ -320,14 +371,55 @@ Partial Class GestionQuestionnaire_ExportJsonData
     End Sub
 #End Region
 
-    Private Function getStringJSON_Question_Formulaire(item As Cls_QuestionFormulaireExercice) As String
+    Private Function getStringJSON_Question_Formulaire(item As Cls_QuestionFormulaireExercice, lenghtQuest As Long) As String
         Dim Result As String = "{"
         Result &= Chr(13)
         Result &= """codeFormulaireExercice"":" & item.CodeFormulaireExercice & ""
         Result &= Chr(13)
         Result &= ",""codeQuestion"":" & item.CodeQuestion & ""
         Result &= Chr(13)
-        Result &= ",""ordreQuestion"":""" & item.OrdreQuestion & """"
+
+        Dim nbrZero = ""
+        Dim OrdreQuestion = item.OrdreQuestion
+        'lenghtQuest = 4
+
+        If lenghtQuest = 1 Then
+            nbrZero = ""
+        ElseIf lenghtQuest = 2 Then
+            nbrZero = "0"
+        ElseIf lenghtQuest = 3 Then
+            nbrZero = "00"
+        ElseIf lenghtQuest = 4 Then
+            nbrZero = "000"
+        ElseIf lenghtQuest = 5 Then
+            nbrZero = "0000"
+        ElseIf lenghtQuest = 6 Then
+            nbrZero = "00000"
+        ElseIf lenghtQuest = 7 Then
+            nbrZero = "000000"
+        ElseIf lenghtQuest = 8 Then
+            nbrZero = "0000000"
+        ElseIf lenghtQuest = 9 Then
+            nbrZero = "00000000"
+        ElseIf lenghtQuest = 10 Then
+            nbrZero = "000000000"
+        End If
+
+        Dim OQ = ""
+        If OrdreQuestion <= 9 Then
+            OQ = nbrZero & OrdreQuestion
+
+        ElseIf OrdreQuestion <= 99 Then
+            OQ = nbrZero.Remove(0, 1) & OrdreQuestion
+
+        ElseIf OrdreQuestion <= 999 Then
+            OQ = nbrZero.Remove(0, 2) & OrdreQuestion
+
+        ElseIf OrdreQuestion <= 9999 Then
+            OQ = nbrZero.Remove(0, 3) & OrdreQuestion
+        End If
+
+        Result &= ",""ordreQuestion"":""" & OQ & """"
         Result &= Chr(13)
         Result &= ",""estDebutQuestion"":" & IIf(item.EstDebutQuestion, "true", "false") & ""
         Result &= Chr(13)
@@ -402,6 +494,32 @@ Partial Class GestionQuestionnaire_ExportJsonData
         Result &= ",""libelleReponse"":""" & item.LibelleReponse.Replace("""", "\""") & """"
         Result &= Chr(13)
         Result &= ",""isCorrect"":" & IIf(item.Iscorrect, "true", "false") & ""
+        Result &= Chr(13)
+        Result &= ",""estEnfant"":" & IIf(item.estEnfant, "true", "false") & ""
+        Result &= Chr(13)
+        Result &= ",""avoirEnfant"":" & IIf(item.avoirEnfant, "true", "false") & ""
+        Result &= Chr(13)
+        Result &= ",""codeParent"":""" & item.CodeParent.Replace("""", "\""") & """"
+        Result &= Chr(13)
+        Result &= "}"
+
+        Return Result
+    End Function
+
+    Private Function getStringJSON_Reponse_2(item As Cls_Reponses) As String
+        Dim Result As String = "{"
+        Result &= Chr(13)
+        Result &= """codeQuestion"":""" & item.CodeQuestion & """"
+        Result &= Chr(13)
+        Result &= ",""codeReponse"":""" & item.CodeReponse & """"
+        Result &= Chr(13)
+        Result &= ",""codeReponseManuel"":" & item.CodeReponseManuel & ""
+        Result &= Chr(13)
+        Result &= ",""libelleReponse"":""" & item.LibelleReponse.Replace("""", "\""") & """"
+        Result &= Chr(13)
+        Result &= ",""isCorrect"":" & IIf(item.Iscorrect, "true", "false") & ""
+        Result &= Chr(13)
+        Result &= ",""scoreTotal"":" & item.ScoreTotal & ""
         Result &= Chr(13)
         Result &= ",""estEnfant"":" & IIf(item.estEnfant, "true", "false") & ""
         Result &= Chr(13)
