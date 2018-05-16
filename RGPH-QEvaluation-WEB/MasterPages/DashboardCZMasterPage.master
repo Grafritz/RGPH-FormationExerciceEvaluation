@@ -195,7 +195,7 @@
                                 <li id="LIAPP_MOBILE2" runat="server">
                                     <asp:HyperLink ID="HyperLink22" runat="server"
                                         NavigateUrl="~/GestionRapportSupervision/Frm_FormulaireExercicesListing.aspx"><i class="fa fa-gears"></i>
-                                    <span> App Mobile</span></asp:HyperLink>
+                                    <span> Module Q. Sup</span></asp:HyperLink>
                                     <ul class="sub-menu">
                                         <li runat="server" id="li_FormulaireCollecteListing2">
                                             <asp:HyperLink ID="HyperLink32" runat="server" NavigateUrl="~/GestionRapportSupervision/Frm_FormulaireExercicesListing.aspx">

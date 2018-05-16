@@ -225,13 +225,13 @@ Public Class Cls_Reponses
 #Region " Db Access "
     Public Function Insert(ByVal usr As String) As Integer Implements IGeneral.Insert
         _LogData = LogData(Me)
-        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_Reponses", _CodeQuestion, _LibelleReponse, _Iscorrect, _ScoreTotal, _estEnfant, _avoirEnfant, _CodeParent)) ', usr))
+        _id = Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Insert_Reponses", _CodeQuestion, _LibelleReponse, _Iscorrect, _estEnfant, _avoirEnfant, _CodeParent)) ', usr))
         Return _id
     End Function
 
     Public Function Update(ByVal usr As String) As Integer Implements IGeneral.Update
         _LogData = GetObjectString()
-        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses", _id, _CodeQuestion, _LibelleReponse, _Iscorrect, _ScoreTotal, _estEnfant, _avoirEnfant, _CodeParent) ', usr)
+        Return SqlHelper.ExecuteScalar(SqlHelperParameterCache.BuildConfigDB(), "SP_Update_Reponses", _id, _CodeQuestion, _LibelleReponse, _Iscorrect, _estEnfant, _avoirEnfant, _CodeParent) ', usr)
     End Function
 
     Public Function Set_Iscorrect_ForOnly_ThisID() As Integer

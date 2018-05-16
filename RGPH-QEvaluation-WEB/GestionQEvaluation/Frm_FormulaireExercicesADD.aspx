@@ -300,8 +300,13 @@
                                                     AllowFiltering="false" HeaderText="Ordre" UniqueName="OrdreQuestion">
                                                     <ItemTemplate>
                                                         <asp:TextBox ID="txt_ID_QuestionFormulaireExercice" Visible="false" runat="server" Text='<%#Bind("ID") %>' />
-                                                        <asp:TextBox ID="TextBox_OrdreQuestion" runat="server" Text='<%# Bind("OrdreQuestion") %>' CssClass="form-control" Width="50px"
-                                                            Style="text-align: center; font-size: 20px;" />
+                                                        <%--<asp:TextBox ID="TextBox_OrdreQuestion" runat="server" Text='<%# Bind("OrdreQuestion") %>' CssClass="form-control" Width="50px"
+                                                            Style="text-align: center; font-size: 20px;" />--%>
+                                                        <telerik:RadNumericTextBox ID="rtxt_OrdreQuestion" runat="server" Skin="MetroTouch" Culture="en-US" NumberFormat-DecimalDigits="0"
+                                                            ShowSpinButtons="false" Value="0"  EmptyMessage="0" DataType="System.Integer"
+                                                            MinValue="0" Text='<%# Bind("OrdreQuestion") %>' CssClass="form-control" Width="50px"
+                                                            Style="text-align: center; font-size: 20px;">
+                                                        </telerik:RadNumericTextBox>
                                                     </ItemTemplate>
                                                     <HeaderStyle HorizontalAlign="Center" />
                                                     <ItemStyle HorizontalAlign="Center" Width="16px" />
@@ -319,6 +324,12 @@
                                                     <HeaderStyle HorizontalAlign="Center" Width="16px" Wrap="false" />
                                                     <ItemStyle HorizontalAlign="Center" Width="16px" />
                                                 </telerik:GridBoundColumn>
+                                                <telerik:GridButtonColumn ButtonType="ImageButton" CommandArgument="ID" CommandName="editer"
+                                                    DataTextField="ID" ImageUrl="~/images/_edit.png"
+                                                    HeaderText="" UniqueName="editer">
+                                                    <HeaderStyle HorizontalAlign="Center" Width="16px" />
+                                                    <ItemStyle HorizontalAlign="Center" Width="16px" />
+                                                </telerik:GridButtonColumn>
                                                 <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="delete" DataTextField="ID"
                                                     ImageUrl="~/images/delete.png"
                                                     UniqueName="delete" HeaderText="" ConfirmDialogType="RadWindow" ConfirmText="Voulez-vous vraiment supprimer cette information ?"
