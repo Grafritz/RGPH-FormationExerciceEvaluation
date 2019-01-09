@@ -332,7 +332,7 @@ Partial Class GestionQEvaluation_Frm_QuestionDisponible
                     count += 1
                 End If
             Next
-            Literal_CountQuestionSelected.Text = IIf(count <= 0, " Sélectionner Questions", " [" & count & "] Questions Sélectionner")
+            Literal_CountQuestionSelected.Text = IIf(count <= 0, " Sélectionner Questions", " Ajouter [" & count & "] Questions Sélectionnée(s)")
         Catch ex As Threading.ThreadAbortException
         Catch ex As Rezo509Exception
             MessageToShow(ex.Message)

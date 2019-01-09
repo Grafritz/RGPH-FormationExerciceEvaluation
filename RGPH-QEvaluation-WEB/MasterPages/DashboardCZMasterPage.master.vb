@@ -86,6 +86,7 @@ Partial Class MasterPage_DashboardCZMasterPage
                 LabelPrenomParticipant.Text = "Hi, " & User_Connected.Prenom
                 LabelPrenomParticipant2.Text = "" & User_Connected.NOMCOMPLET
 
+                LIAPP_MOBILE2.Visible = Cls_Privilege.VerifyRightOnObject("Gestion-Questionnaire-Rapport-Supervision", User_Connected.IdGroupeuser)
 
                 'Dim check As Boolean = False
                 'check = Cls_Privilege.VerifyRightOnObject(MyInstitutions, User_Connected.ID_Group)

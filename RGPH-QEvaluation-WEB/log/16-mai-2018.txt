@@ -1,0 +1,52 @@
+
+Chemin Erreur : 
+05/16/2018 09:03:00
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionRapportSupervision/Frm_ReponsesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 364
+   at Frm_ReponsesListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionRapportSupervision\Frm_ReponsesListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:03:04
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionRapportSupervision/Frm_ReponsesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 364
+   at Frm_ReponsesListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionRapportSupervision\Frm_ReponsesListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:03:07
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionRapportSupervision/Frm_ReponsesListing.aspx. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAll() in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 364
+   at Frm_ReponsesListing.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionRapportSupervision\Frm_ReponsesListing.aspx.vb:line 180
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:08:57
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=6&ACTION=HideMenuHeader&rwndrnd=0.4641523277454169. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAllBy_CodeQuestion(Int64 _codequestion) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 383
+   at GestionQEvaluation_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 252
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:09:20
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=6&ACTION=HideMenuHeader&rwndrnd=0.4641523277454169. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAllBy_CodeQuestion(Int64 _codequestion) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 383
+   at GestionQEvaluation_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 252
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:22:22
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_QuestionsADD.aspx?ID=6&ACTION=HideMenuHeader&rwndrnd=0.00561213176447628. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Column 'CodeReponseManuel' does not belong to table Table.System.ArgumentException: Column 'CodeReponseManuel' does not belong to table Table.
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.SearchAllBy_CodeQuestion(Int64 _codequestion) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 383
+   at GestionQEvaluation_Frm_QuestionsADD.BindGrid(Boolean _refresh) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_QuestionsADD.aspx.vb:line 252
+__________________________
+
+Chemin Erreur : 
+05/16/2018 09:49:34
+Erreur dans: http://localhost/RGPH-QEvaluation/GestionQEvaluation/Frm_ReponsesADD.aspx?IDQuestion=10144&ACTION=HideMenuHeader&rwndrnd=0.7848979078946433. Message Erreur:[duverseau.jeanfritz@gmail.com ] : Parameter count does not match Parameter Value count.System.ArgumentException: Parameter count does not match Parameter Value count.
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.AssignParameterValues(SqlParameter[] commandParameters, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 39
+   at BRAIN_DEVLOPMENT.DataAccessLayer.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\ClassLibraryPRINCIPAL\ClassLibraryPRINCIPAL\DataAccesLayer\SQLHelper.vb:line 232
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.Insert(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 228
+   at RGPH_QUETIONNAIRE_EXERCICE_Library.Cls_Reponses.Save(String usr) in C:\_Travaux\IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH_QEvaluation_Library\Cls_Reponses.vb:line 328
+   at GestionQEvaluation_Frm_ReponsesADD.SAVE_REPONSES(Boolean isClose) in P:\_Travaux_IHSI\ProjetWEB\RGPH-FormationExerciceEvaluation\RGPH-QEvaluation-WEB\GestionQEvaluation\Frm_ReponsesADD.aspx.vb:line 262
+__________________________

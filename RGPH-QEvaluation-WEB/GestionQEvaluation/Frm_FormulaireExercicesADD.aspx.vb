@@ -294,7 +294,7 @@ Partial Class GestionQEvaluation_Frm_FormulaireExercicesADD
             Dim CodeFormulaireExercice = TypeSafeConversion.NullSafeLong(txt_CodeFormulaireExercices_Hid.Text)
             For Each item As GridDataItem In rdgQuestions.Items
                 Dim ID = TypeSafeConversion.NullSafeLong(CType(item.FindControl("txt_ID_QuestionFormulaireExercice"), TextBox).Text)
-                Dim OrdreQuestion = TypeSafeConversion.NullSafeInteger(CType(item.FindControl("TextBox_OrdreQuestion"), TextBox).Text)
+                Dim OrdreQuestion = TypeSafeConversion.NullSafeInteger(CType(item.FindControl("rtxt_OrdreQuestion"), RadNumericTextBox).Text)
 
                 Dim obj As New Cls_QuestionFormulaireExercice(ID)
                 With obj
@@ -431,12 +431,15 @@ Partial Class GestionQEvaluation_Frm_FormulaireExercicesADD
                 Dim item As GridDataItem = gridDataItem
                 CType(item.FindControl("lbOrder"), Label).Text = rdgQuestions.PageSize * rdgQuestions.CurrentPageIndex + (item.RowIndex / 2)
 
+                Dim ID As Long = CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long)
+                Dim CodeQuestion As Long = CType(DataBinder.Eval(e.Item.DataItem, "CodeQuestion"), Long)
+
                 Dim imagedelete As ImageButton = CType(item("delete").Controls(0), ImageButton)
-                'Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
+                Dim imageediter As ImageButton = CType(item("editer").Controls(0), ImageButton)
                 imagedelete.ToolTip = "Effacer"
-                'imageediter.ToolTip = "Editer"
+                imageediter.ToolTip = "Editer"
                 imagedelete.CommandArgument = CType(DataBinder.Eval(e.Item.DataItem, "ID"), String)
-                'imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateForm('Frm_ReponsesADD.aspx?ID=" & CType(DataBinder.Eval(e.Item.DataItem, "ID"), Long) & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
+                imageediter.Attributes.Add("onclick", "javascript:void(ShowAddUpdateFormMaximized('Frm_QuestionsADD.aspx?ID=" & CodeQuestion & "&" & [Global].ACTION & "=" & [Global].HideMenuHeader & "',900,650));")
                 REM Privilege
                 'imageediter.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Save, User_Connected.IdGroupeuser)
                 'imagedelete.Visible = Cls_Privilege.VerifyRightOnObject(Btn_Delete, User_Connected.IdGroupeuser)
